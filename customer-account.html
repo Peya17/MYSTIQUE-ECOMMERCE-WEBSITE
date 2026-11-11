@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Account - Mystic Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/inventoryandaccount.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="panel">
+    <p class="brand">Mystic Collections</p>
+
+    <div class="hero">
+      <p class="eyebrow">My Account</p>
+      <h1>Welcome back.</h1>
+      <p class="hero-sub">Your orders, vouchers and rewards are waiting, Maria.</p>
+    </div>
+
+    <nav class="nav" aria-label="Account sections">
+      <a href="#orders">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span><strong>Order History</strong><small>Track every order</small></span>
+      </a>
+      <a href="#vouchers">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+        <span><strong>Vouchers</strong><small>Savings ready to use</small></span>
+      </a>
+      <a href="#invite">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <span><strong>Invite Friends</strong><small>Give PHP 100, get PHP 100</small></span>
+      </a>
+      <a href="#profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span><strong>Edit Profile</strong><small>Details and linked accounts</small></span>
+      </a>
+      <a href="#payment">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+        <span><strong>Payment Method</strong><small>Card, GCash and cash</small></span>
+      </a>
+      <a href="#general">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+        <span><strong>General</strong><small>Help, terms and privacy</small></span>
+      </a>
+    </nav>
+
+  </aside>
+
+  <div class="content">
+    <main class="wrap">
+
+      <section id="orders">
+        <div class="section-head">
+          <h2>Order History</h2>
+          <p class="lede">Everything you've ordered, and where it stands.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Order No.</th><th>Date</th><th class="num">Total</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#1045</td><td>Nov 5, 2026</td><td class="num">PHP 1,250</td><td><span class="pill delivered">Delivered</span></td></tr>
+              <tr><td>#1038</td><td>Oct 28, 2026</td><td class="num">PHP 780</td><td><span class="pill pending">Pending</span></td></tr>
+              <tr><td>#1021</td><td>Oct 12, 2026</td><td class="num">PHP 2,100</td><td><span class="pill cancelled">Cancelled</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="vouchers">
+        <div class="section-head">
+          <h2>Vouchers</h2>
+          <p class="lede">Savings ready to use at checkout.</p>
+        </div>
+        <div class="vouchers">
+          <div class="voucher">
+            <div class="voucher-main">
+              <h3>PHP 100 off</h3>
+              <p class="muted">Minimum spend PHP 1,000</p>
+            </div>
+            <div class="voucher-side">
+              <span>Valid until</span>
+              <strong>Dec 31, 2026</strong>
+            </div>
+          </div>
+          <div class="voucher">
+            <div class="voucher-main">
+              <h3>Free delivery</h3>
+              <p class="muted">No minimum spend</p>
+            </div>
+            <div class="voucher-side">
+              <span>Valid until</span>
+              <strong>Nov 30, 2026</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="invite">
+        <div class="section-head">
+          <h2>Invite Friends</h2>
+          <p class="lede">Share your code. You and your friend each get a PHP 100 voucher after their first order.</p>
+        </div>
+        <div class="invite-card">
+          <p class="label">Your invite code</p>
+          <div class="code">MARIA-2026</div>
+          <button type="button">Copy code</button>
+        </div>
+      </section>
+
+      <section id="profile">
+        <div class="section-head">
+          <h2>Edit Profile</h2>
+          <p class="lede">Keep your details up to date.</p>
+        </div>
+        <form class="form">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" value="Maria Santos">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" value="maria@example.com">
+          </div>
+          <div class="field">
+            <label for="number">Phone number</label>
+            <input type="text" id="number" value="0917 123 4567">
+          </div>
+
+          <h3 class="divider">Connected accounts</h3>
+          <ul class="accounts">
+            <li class="account">
+              <span class="mark" aria-hidden="true">G</span>
+              <span class="account-text"><strong>Google</strong><small>maria@example.com</small></span>
+              <span class="pill delivered">Connected</span>
+            </li>
+            <li class="account">
+              <span class="mark" aria-hidden="true">f</span>
+              <span class="account-text"><strong>Facebook</strong><small>Not connected</small></span>
+              <span class="pill neutral">Not connected</span>
+            </li>
+          </ul>
+
+          <button type="submit">Save changes</button>
+        </form>
+      </section>
+
+      <section id="payment">
+        <div class="section-head">
+          <h2>Payment Method</h2>
+          <p class="lede">Choose how you'd like to pay.</p>
+        </div>
+        <ul class="list">
+          <li class="item">
+            <span class="item-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span>
+            <span class="item-text"><strong>Visa ending in 4821</strong><small>Card</small></span>
+          </li>
+          <li class="item">
+            <span class="item-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg></span>
+            <span class="item-text"><strong>GCash: 0917 123 4567</strong><small>E-wallet</small></span>
+          </li>
+          <li class="item">
+            <span class="item-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></span>
+            <span class="item-text"><strong>Cash on delivery</strong><small>Pay when your order arrives</small></span>
+          </li>
+        </ul>
+        <button type="button" class="outline add">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          Add payment method
+        </button>
+      </section>
+
+      <section id="general">
+        <div class="section-head">
+          <h2>General</h2>
+          <p class="lede">Help, terms and policies.</p>
+        </div>
+        <ul class="links">
+          <li><a href="#">Help Center <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+          <li><a href="#">Terms and Conditions <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+          <li><a href="#">Privacy Policy <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></li>
+        </ul>
+      </section>
+
+      <div class="end">
+        <button type="button" class="outline">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+          Log out
+        </button>
+      </div>
+
+    </main>
+
+    <footer class="foot wrap">&copy; 2026 Mystic Collections</footer>
+  </div>
+
+</div>
+
+</body>
+</html>

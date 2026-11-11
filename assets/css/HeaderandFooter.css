@@ -1,0 +1,229 @@
+/* Base Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fcfcfc;
+}
+
+/* 1. Announcement Bar Format */
+.announcement-bar {
+    background-color: #351D30;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: center;
+}
+
+/* Inner block to layout text and arrow side-by-side */
+.announcement-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between text and arrow */
+}
+
+/* 'Go to' button */
+.goto-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+/* Slide effect on hover ctto google hehe */
+.goto-btn:hover {
+    transform: translateX(3px); 
+}
+
+/* 2. Main Header & Navbar Format */
+.navbar-header {
+    background-color: #FAF7F3;
+    border-bottom: 1px solid rgba(53, 29, 48, 0.08);
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    height: 80px;
+}
+
+/* 3. Brand Logo (Cormorant Garamond) */
+.navbar-logo a {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #351D30;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    text-transform: lowercase;
+}
+
+/* 4. Menu Links (Inter) */
+.navbar-links {
+    display: flex;
+    list-style: none;
+    gap: 28px;
+}
+
+.navbar-links a {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #351D30;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.navbar-links a:hover {
+    opacity: 0.7;
+}
+
+/* 5. Icon Tools Section */
+.navbar-tools {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.tool-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+/* Scale effect on hover, ctto geeksforgeeks */
+.tool-btn:hover {
+    transform: scale(1.05);
+}
+
+.tool-btn svg path {
+    transition: stroke 0.2s ease;
+}
+
+/* idk what this does, ctto w3schools */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    .navbar-links {
+        display: none;
+    }
+    .navbar-logo a {
+        font-size: 26px;
+    }
+}
+
+/* 6. Footer */
+.site-footer {
+    background-color: #351D30;
+    color: #FFFFFF;
+    padding: 60px 40px;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1440px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+/* Base column layouts */
+.footer-column {
+    flex: 1; /* Distributes width equally */
+}
+
+/* Headings Styling */
+.footer-column h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+}
+
+/* Brand/Logo Column Specifics */
+.footer-logo {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-transform: lowercase;
+}
+
+/* Opening Hours */
+.hours-col p {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8); /* Slightly dimmed text for visual hierarchy */
+}
+
+.hours-col p span {
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+/* Contact Info */
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Format and Hover Effects on Contact Info */
+.footer-links a {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+/* Fallback for mobile */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+    .footer-links {
+        align-items: center;
+    }
+}
+

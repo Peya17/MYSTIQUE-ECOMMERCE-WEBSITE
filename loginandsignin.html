@@ -2,29 +2,771 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Login and Sign In</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/loginandsignin.css">
 </head>
 <body>
-    <!--Sign In-->>
-    <dialog id="signin">
+    <!-- SIGN IN -->
+    <dialog id="dlg-signin">
         <div id="popup">
             <aside class="right">
                 <span class="logo">mystique</span>
-
-                <h1>Welcome to back to Mystique</h1>
-                <p>Your shades, your style and your favorites are all waiting.</p>
-
-                <ul class="perks">
+                <h1>Welcome back to Mystique</h1>
+                <p>
+                    Your shades, your style and your favorites are all waiting.
+                </p>
+                <ul class="left">
                     <li>
-                        <svg viewBox="0 0 24 24">
-                            <path id="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"></path>
-                        </svg>
+                        <img src="/assets/images/Website icons/1.png" alt="heart icon">
+                        <div>
+                            <span>Save your favorite styles.</span>
+                            Just order in one tap.
+                        </div>
+                    </li>
+                    <li>
+                        <img src="/assets/images/Website icons/2.png" alt="track icon">
+                        <div>
+                            <span>Track your orders.</span>
+                            Get real-time updates on your deliveries.
+                        </div>
                     </li>
                 </ul>
             </aside>
+
+            <div class="first-column">
+                <!--close btn-->
+                <button class="x" type="button" data-close aria-label="Close">
+                    <img src="/assets/images/Website icons/3.png" alt="close icon">
+                </button>
+
+                <!--main view-->
+                <div class="view" data-view="main">
+                    <h2 id="sign-in" tabindex="-1">Sign In</h2>
+                    <p class="subheading">
+                        Sign in to your account to continue.
+                    </p>
+
+                    <form novalidate data-form="signin">
+                        <!--email-->
+                        <div class="input-email field">
+                            <label for="si-email">Email</label>
+                            <input
+                                type="email"
+                                id="si-email"
+                                name="email"
+                                autocomplete="email"
+                                placeholder="you@example.com"
+                                required
+                            >
+                            <div class="msg">
+                                Enter a valid email address, like you@example.com.
+                            </div>
+                        </div>
+
+                        <!--pass-->
+                        <div class="input-pass field">
+                            <label for="si-pass">Password</label>
+                            <div class="inp">
+                                <input
+                                    type="password"
+                                    id="si-pass"
+                                    name="password"
+                                    autocomplete="current-password"
+                                    placeholder="Enter your password"
+                                    required
+                                >
+                                <button
+                                    type="button"
+                                    class="password-input eye"
+                                    data-eye="si-pass"
+                                    aria-label="Show Password"
+                                >
+                                    Show Password
+                                </button>
+                            </div>
+                            <div class="msg">
+                                Enter your password.
+                            </div>
+                        </div>
+
+                        <!--forgot pass-->
+                        <div class="between">
+                            <label for="check" style="margin:0">
+                                <input
+                                    type="checkbox"
+                                    name="checked"
+                                    id="check"
+                                    checked
+                                >
+                                Keep me signed in
+                            </label>
+                            <button
+                                type="button"
+                                class="forgot-pass"
+                                data-swap="dlg-forgot"
+                            >
+                                Forgot password?
+                            </button>
+                        </div>
+
+                        <!--sign in-->
+                        <button type="submit">
+                            Sign In
+                        </button>
+
+                        <!--socials-->
+                        <div class="choice">or continue with</div>
+                        <div class="socials">
+                            <button type="button" class="google">
+                                <img src="/assets/images/Website icons/4.png" alt="google icon">
+                                Google
+                            </button>
+                            <button type="button" class="facebook">
+                                <img src="/assets/images/Website icons/5.png" alt="facebook icon">
+                                Facebook
+                            </button>
+                            <button type="button" class="apple">
+                                <img src="/assets/images/Website icons/6.png" alt="apple icon">
+                                Apple
+                            </button>
+                        </div>
+
+                        <!--create acc-->
+                        <p class="foot">
+                            New to Mystique?
+                            <button
+                                type="button"
+                                class="create-account"
+                                data-swap="dlg-signup"
+                            >
+                                Create an account
+                            </button>
+                        </p>
+                    </form>
+                </div>
+
+                <!--success-->
+                <div class="view" data-view="done" hidden>
+                    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                    <h2 tabindex="-1">Signed in</h2>
+                    <p class="subheading">
+                        Welcome back to Mystique. Your saved styles and favorites are waiting for you.
+                    </p>
+                    <button type="button" class="continue">
+                        Continue
+                    </button>
+                </div>
+            </div>
         </div>
     </dialog>
+
+    <!--forgot pass-->
+    <dialog id="dlg-forgot">
+        <div id="popup">
+            <div class="first-column">
+                <button class="x" type="button" data-close aria-label="Close">
+                    <img src="/assets/images/Website icons/3.png" alt="close icon">
+                </button>
+
+                <div class="view" data-view="main">
+                    <h2 tabindex="-1">Forgot Password?</h2>
+                    <p class="subheading">
+                        Enter your email address to reset your password.
+                    </p>
+                    <form novalidate data-form="forgot">
+                        <div class="input-email field">
+                            <label for="fp-email">Email</label>
+                            <input
+                                type="email"
+                                id="fp-email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+                            <div class="msg">
+                                Enter a valid email address.
+                            </div>
+                        </div>
+                        <button type="submit">
+                            Reset Password
+                        </button>
+                        <p class="foot">
+                            <button type="button" class="create-account" data-swap="dlg-signin">
+                                Back to sign in
+                            </button>
+                        </p>
+                    </form>
+                </div>
+
+                <div class="view" data-view="done" hidden>
+                    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                    <h2 tabindex="-1">Request Submitted</h2>
+                    <p class="subheading">
+                        Your password reset request has been submitted.
+                    </p>
+
+                    <button type="button" class="continue" data-close>
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!--signup-->
+    <dialog id="dlg-signup">
+        <div id="popup">
+            <aside class="right">
+                <span class="logo">mystique</span>
+                <h1>A world of possibility.</h1>
+                <p>
+                    Join for member perks, personal picks and a welcome gift.
+                </p>
+                <ul class="left">
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7S9 7 8 5s1-3 2-3 2 2 2 5zm0 0s3 0 4-2-1-3-2-3-2 2-2 5z"/></svg>
+                        <div>
+                            <span>A gift every birthday</span>
+                            Tell us when and we’ll send something small.
+                        </div>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"/></svg>
+                        <div>
+                            <span>Saved shades and favorites</span>
+                            Match, reorder and wishlist.
+                        </div>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5z"/></svg>
+                        <div>
+                            <span>Free shipping over $40</span>
+                            Plus easy returns within 30 days.
+                        </div>
+                    </li>
+                </ul>
+            </aside>
+
+            <div class="first-column">
+                <button class="x" type="button" data-close aria-label="Close">
+                    <img src="/assets/images/Website icons/3.png" alt="close icon">
+                </button>
+
+                <div class="view" data-view="main">
+                    <h2 tabindex="-1">Create Account</h2>
+                    <p class="subheading">
+                        Create your Mystique account and discover your style.
+                    </p>
+
+                    <form novalidate data-form="signup">
+                        <div class="row">
+                            <!--first name-->
+                            <div class="field">
+                                <label for="su-first">First Name</label>
+                                <input
+                                    type="text"
+                                    id="su-first"
+                                    name="first-name"
+                                    autocomplete="given-name"
+                                    placeholder="Enter your first name"
+                                    required
+                                >
+                                <div class="msg">
+                                    Enter your first name.
+                                </div>
+                            </div>
+
+                            <!--last name-->
+                            <div class="field">
+                                <label for="su-last">Last Name</label>
+                                <input
+                                    type="text"
+                                    id="su-last"
+                                    name="last-name"
+                                    autocomplete="family-name"
+                                    placeholder="Enter your last name"
+                                    required
+                                >
+                                <div class="msg">
+                                    Enter your last name.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--email-->
+                        <div class="field">
+                            <label for="su-email">Email</label>
+                            <input
+                                type="email"
+                                id="su-email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+                            <div class="msg">
+                                Enter a valid email address.
+                            </div>
+                        </div>
+
+                        <!--phone-->
+                        <div class="field">
+                            <label for="su-phone">Mobile Number <span class="opt">(optional)</span></label>
+                            <input
+                                type="tel"
+                                id="su-phone"
+                                name="phone"
+                                autocomplete="tel"
+                                placeholder="+63 900 000 0000"
+                            >
+                            <p class="hint">For delivery updates only. No marketing texts.</p>
+                        </div>
+
+                        <!--pass-->
+                        <div class="field">
+                            <label for="su-pass">Password</label>
+                            <div class="inp">
+                                <input
+                                    type="password"
+                                    id="su-pass"
+                                    name="password"
+                                    autocomplete="new-password"
+                                    placeholder="Create a password"
+                                    minlength="8"
+                                    required
+                                >
+                                <button
+                                    type="button"
+                                    class="eye"
+                                    data-eye="su-pass"
+                                    aria-label="Show password"
+                                >
+                                    Show
+                                </button>
+                            </div>
+                            <div class="msg">
+                                Create a strong password.
+                            </div>
+                        </div>
+
+                        <!--pass strength-->
+                        <div class="meter">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <p id="strength-label">Enter a password</p>
+
+                        <!--pass requirements-->
+                        <ul class="rules">
+                            <li data-r="len">At least 8 characters</li>
+                            <li data-r="case">Uppercase and lowercase letters</li>
+                            <li data-r="num">At least one number</li>
+                            <li data-r="sym">At least one special character</li>
+                        </ul>
+
+                        <!--confirm pass-->
+                        <div class="field">
+                            <label for="su-confirm">Confirm Password</label>
+                            <input
+                                type="password"
+                                id="su-confirm"
+                                name="confirm-password"
+                                autocomplete="new-password"
+                                placeholder="Confirm your password"
+                                required
+                            >
+                            <div class="msg">
+                                Passwords do not match.
+                            </div>
+                        </div>
+
+                        <!--birthday + interests-->
+                        <div class="box">
+                            <div class="field" style="margin-bottom:14px">
+                                <label for="su-bday">Birthday <span class="opt">(optional)</span></label>
+                                <input type="date" id="su-bday" name="birthday">
+                                <p class="hint">We’ll send a gift in your birthday month. Your year is never shown.</p>
+                            </div>
+                            <div class="lbl" id="int-l">What are you shopping for?</div>
+                            <div class="chips" role="group" aria-labelledby="int-l">
+                                <label class="chip"><input type="checkbox" name="interest" value="lips"><span>Lips</span></label>
+                                <label class="chip"><input type="checkbox" name="interest" value="eyes"><span>Eyes</span></label>
+                                <label class="chip"><input type="checkbox" name="interest" value="face"><span>Face</span></label>
+                                <label class="chip"><input type="checkbox" name="interest" value="skincare"><span>Skincare</span></label>
+                                <label class="chip"><input type="checkbox" name="interest" value="gifts"><span>Gifts</span></label>
+                            </div>
+                        </div>
+
+                        <!--newsletter-->
+                        <div class="field">
+                            <label for="su-news">
+                                <input type="checkbox" id="su-news" name="newsletter">
+                                Send me new arrivals, tutorials and member-only offers. Unsubscribe anytime.
+                            </label>
+                        </div>
+
+                        <!--terms and conditions-->
+                        <div class="field">
+                            <label for="su-terms">
+                                <input
+                                    type="checkbox"
+                                    id="su-terms"
+                                    name="terms"
+                                >
+                                I agree to the Terms and Conditions.
+                            </label>
+                            <div class="msg">
+                                You must agree to the Terms and Conditions.
+                            </div>
+                        </div>
+
+                        <button type="submit">
+                            Create Account
+                        </button>
+
+                        <p class="foot">
+                            Already a member?
+                            <button type="button" class="create-account" data-swap="dlg-signin">
+                                Sign in
+                            </button>
+                        </p>
+                    </form>
+                </div>
+
+                <!--signup confirm-->
+                <div class="view" data-view="done" hidden>
+                    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                    <h2 tabindex="-1">Account Created</h2>
+                    <p class="subheading">
+                        Welcome to Mystique! Your account registration has been completed.
+                    </p>
+
+                    <button type="button" class="continue" data-close>
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+
+    <!--jscript-->
+    <script>
+        (function () {
+            var $ = function (s, r) {
+                return (r || document).querySelector(s);
+            };
+
+            var $$ = function (s, r) {
+                return Array.prototype.slice.call(
+                    (r || document).querySelectorAll(s)
+                );
+            };
+
+
+            //reset
+            function reset(d) {
+
+                $$('.view', d).forEach(function (v) {
+                    v.hidden = v.dataset.view !== 'main';
+                });
+
+                $$('form', d).forEach(function (f) {
+                    f.reset();
+                });
+
+                $$('.bad', d).forEach(function (b) {
+                    b.classList.remove('bad');
+                });
+
+                $$('.rules li', d).forEach(function (l) {
+                    l.classList.remove('ok');
+                });
+
+                $$('.meter span', d).forEach(function (s) {
+                    s.style.background = '';
+                });
+                var sl = $('#strength-label', d);
+                if (sl) {
+                    sl.textContent = 'Enter a password';
+                }
+                $$('.eye', d).forEach(function (b) {
+                    var input = document.getElementById(b.dataset.eye);
+                    if (input) {
+                        input.type = 'password';
+                    }
+                    b.textContent = b.classList.contains('password-input')
+                        ? 'Show Password'
+                        : 'Show';
+                });
+            }
+
+
+            //open dialog
+            function openD(id) {
+                var d = document.getElementById(id);
+                if (!d) {
+                    return;
+                }
+                reset(d);
+                if (!d.open) {
+                    d.showModal();
+                }
+                d.scrollTop = 0;
+                var fc = $('.first-column', d);
+                if (fc) {
+                    fc.scrollTop = 0;
+                }
+            }
+
+            //open btn
+            $$('[data-open]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    openD(b.dataset.open);
+                });
+            });
+
+            //switch
+            $$('[data-swap]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var current = b.closest('dialog');
+                    current.close();
+                    openD(b.dataset.swap);
+                });
+            });
+
+            //close btn and continue btn: go back to sign in
+            $$('[data-close]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var current = b.closest('dialog');
+                    if (current) {
+                        current.close();
+                    }
+                    openD('dlg-signin');
+                });
+            });
+
+            //prevent close with Esc
+            $$('dialog').forEach(function (d) {
+                d.addEventListener('cancel', function (e) {
+                    e.preventDefault();
+                });
+            });
+
+            //show pass
+            $$('.eye').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var i = document.getElementById(b.dataset.eye);
+                    if (!i) {
+                        return;
+                    }
+                    var h = i.type === 'password';
+                    i.type = h ? 'text' : 'password';
+                    b.textContent = h
+                        ? (b.classList.contains('password-input') ? 'Hide Password' : 'Hide')
+                        : (b.classList.contains('password-input') ? 'Show Password' : 'Show');
+
+                    b.setAttribute(
+                        'aria-label',
+                        h ? 'Hide password' : 'Show password'
+                    );
+                });
+            });
+
+            //initial dialog
+            openD(
+                location.hash === '#signup'
+                    ? 'dlg-signup'
+                    : location.hash === '#forgot'
+                        ? 'dlg-forgot'
+                        : 'dlg-signin'
+            );
+
+            //email valid
+            var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+            //pass rules
+            function rules(p) {
+                return {
+                    len: p.length >= 8,
+                    case: /[a-z]/.test(p) && /[A-Z]/.test(p),
+                    num: /\d/.test(p),
+                    sym: /[^A-Za-z0-9]/.test(p)
+                };
+            }
+
+            //signup pass
+            var pass = $('#su-pass');
+            if (pass) {
+                pass.addEventListener('input', function () {
+                    var r = rules(pass.value);
+                    var n = 0;
+                    $$('.rules li').forEach(function (li) {
+
+                        var ok = r[li.dataset.r];
+
+                        li.classList.toggle('ok', ok);
+
+                        if (ok) {
+                            n++;
+                        }
+                    });
+                    var cols = [
+                        '',
+                        '#B5505C',
+                        '#D39A52',
+                        '#7FAE8C',
+                        '#4F7A5E'
+                    ];
+                    var names = [
+                        'Enter a password',
+                        'Weak',
+                        'Fair',
+                        'Good',
+                        'Strong'
+                    ];
+                    $$('.meter span').forEach(function (s, i) {
+                        s.style.background = i < n ? cols[n] : '';
+                    });
+                    $('#strength-label').textContent = names[n];
+                    if (pass.closest('.field').classList.contains('bad')) {
+                        flag(pass, n < 4);
+                    }
+                });
+            }
+
+            //input error flag
+            function flag(el, bad) {
+                var f = el.closest('.field');
+                if (!f) {
+                    return;
+                }
+                f.classList.toggle('bad', bad);
+                el.setAttribute('aria-invalid', bad);
+            }
+            $$('input').forEach(function (i) {
+                i.addEventListener('input', function () {
+                    var f = i.closest('.field');
+                    if (f && f.classList.contains('bad') && i !== pass) {
+                        flag(i, false);
+                    }
+                });
+            });
+
+            //form valid
+            $$('form').forEach(function (f) {
+                f.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    var k = f.dataset.form;
+                    var bad = false;
+                    var first = null;
+                    var d = f.closest('dialog');
+
+                    //check input
+                    function chk(el, ok) {
+                        if (!el) {
+                            return;
+                        }
+                        flag(el, !ok);
+                        if (!ok) {
+                            bad = true;
+                            first = first || el;
+                        }
+                    }
+
+                    //sign in
+                    if (k === 'signin') {
+                        chk(
+                            $('#si-email', f),
+                            emailRx.test($('#si-email', f).value.trim())
+                        );
+                        chk(
+                            $('#si-pass', f),
+                            $('#si-pass', f).value.length > 0
+                        );
+                    }
+
+                    //forgot pass
+                    if (k === 'forgot') {
+                        chk(
+                            $('#fp-email', f),
+                            emailRx.test($('#fp-email', f).value.trim())
+                        );
+                    }
+
+                    //signup
+                    if (k === 'signup') {
+                        chk(
+                            $('#su-first', f),
+                            $('#su-first', f).value.trim() !== ''
+                        );
+                        chk(
+                            $('#su-last', f),
+                            $('#su-last', f).value.trim() !== ''
+                        );
+                        chk(
+                            $('#su-email', f),
+                            emailRx.test($('#su-email', f).value.trim())
+                        );
+
+                        var r = rules(pass.value);
+                        chk(
+                            pass,
+                            r.len && r.case && r.num && r.sym
+                        );
+                        chk(
+                            $('#su-confirm', f),
+                            $('#su-confirm', f).value === pass.value &&
+                            pass.value !== ''
+                        );
+                        chk(
+                            $('#su-terms', f),
+                            $('#su-terms', f).checked
+                        );
+                    }
+
+                    //stops at invalid submit
+                    if (bad) {
+                        first.focus();
+                        return;
+                    }
+
+                    //loading spinner
+                    var b = $('button[type=submit]', f);
+                    var t = b.textContent;
+                    b.disabled = true;
+                    b.innerHTML = '<span class="spin"></span>';
+                    setTimeout(function () {
+                        b.disabled = false;
+                        b.textContent = t;
+                        $$('.view', d).forEach(function (v) {
+                            v.hidden = v.dataset.view !== 'done';
+                        });
+                        var h = $('[data-view=done] h2', d);
+                        h.focus();
+                        var fc = $('.first-column', d);
+                        if (fc) {
+                            fc.scrollTop = 0;
+                        }
+                    }, 900);
+                });
+            });
+
+            //continue btn on the sign in success screen (the others use data-close)
+            $$('.continue:not([data-close])').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var d = b.closest('dialog');
+                    if (d) {
+                        d.close();
+                    }
+                    openD('dlg-signin');
+                });
+            });
+        })();
+    </script>
 </body>
 </html>

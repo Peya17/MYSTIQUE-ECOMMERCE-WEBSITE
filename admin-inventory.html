@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inventory - Mystic Collections Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/inventoryandaccount.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="panel">
+    <p class="brand">Mystic Collections <span class="tag">Admin</span></p>
+
+    <div class="hero">
+      <p class="eyebrow">Inventory</p>
+      <h1>Stock, under control.</h1>
+      <p class="hero-sub">Check levels, update quantities and catch low stock before it sells out.</p>
+    </div>
+
+    <nav class="nav" aria-label="Inventory sections">
+      <a href="#stock">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span><strong>Stock Levels</strong><small>See what's on the shelf</small></span>
+      </a>
+      <a href="#update">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>
+        <span><strong>Update Stock</strong><small>Add, remove or set a quantity</small></span>
+      </a>
+      <a href="#alerts">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span><strong>Low Stock Alerts</strong><small>Items that need restocking</small></span>
+      </a>
+      <a href="#auto">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+        <span><strong>Automatic Updates</strong><small>Deducted when orders complete</small></span>
+      </a>
+    </nav>
+
+  </aside>
+
+  <div class="content">
+    <main class="wrap">
+
+      <section id="stock">
+        <div class="section-head">
+          <h2>Stock Levels</h2>
+          <p class="lede">Every product and how much is on the shelf.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><span class="stat-num">5</span><span class="stat-label">Products</span></div>
+          <div class="stat stat-low"><span class="stat-num">2</span><span class="stat-label">Low stock</span></div>
+          <div class="stat stat-out"><span class="stat-num">1</span><span class="stat-label">Out of stock</span></div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Product</th><th>SKU</th><th class="num">In stock</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Amethyst Pendant</td><td>AP-001</td><td class="num">120</td><td><span class="pill delivered">In stock</span></td></tr>
+              <tr><td>Moon Tarot Deck</td><td>TD-014</td><td class="num">45</td><td><span class="pill delivered">In stock</span></td></tr>
+              <tr><td>Rose Quartz Bracelet</td><td>RB-007</td><td class="num">8</td><td><span class="pill pending">Low stock</span></td></tr>
+              <tr><td>Sage Incense Set</td><td>SI-022</td><td class="num">3</td><td><span class="pill pending">Low stock</span></td></tr>
+              <tr><td>Crystal Candle</td><td>CC-009</td><td class="num">0</td><td><span class="pill cancelled">Out of stock</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="update">
+        <div class="section-head">
+          <h2>Update Stock Quantity</h2>
+          <p class="lede">Add stock, remove it, or set an exact quantity.</p>
+        </div>
+        <form class="form">
+          <div class="field">
+            <label for="product">Product</label>
+            <select id="product">
+              <option>Amethyst Pendant</option>
+              <option>Moon Tarot Deck</option>
+              <option>Rose Quartz Bracelet</option>
+              <option>Sage Incense Set</option>
+              <option>Crystal Candle</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="action">Action</label>
+              <select id="action">
+                <option>Add stock</option>
+                <option>Remove stock</option>
+                <option>Set exact quantity</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" value="10">
+            </div>
+          </div>
+          <button type="submit">Update stock</button>
+        </form>
+      </section>
+
+      <section id="alerts">
+        <div class="section-head">
+          <h2>Low Stock Alerts</h2>
+          <p class="lede">Alerts show when a product has 10 items or fewer.</p>
+        </div>
+        <div class="alerts">
+          <div class="alert alert-out">
+            <span class="alert-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></span>
+            <div><strong>Crystal Candle (CC-009)</strong><span class="alert-msg">Out of stock. Restock as soon as possible.</span></div>
+          </div>
+          <div class="alert alert-low">
+            <span class="alert-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+            <div><strong>Sage Incense Set (SI-022)</strong><span class="alert-msg">Only 3 left.</span></div>
+          </div>
+          <div class="alert alert-low">
+            <span class="alert-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+            <div><strong>Rose Quartz Bracelet (RB-007)</strong><span class="alert-msg">Only 8 left.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="auto">
+        <div class="section-head">
+          <h2>Automatic Stock Updates</h2>
+          <p class="lede">When an order is marked as completed, the quantity ordered is subtracted from stock right away.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Order No.</th><th>Product</th><th class="num">Qty sold</th><th class="num">Before</th><th class="num">After</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#1045</td><td>Rose Quartz Bracelet</td><td class="num">2</td><td class="num">10</td><td class="num strong-num">8</td></tr>
+              <tr><td>#1044</td><td>Sage Incense Set</td><td class="num">1</td><td class="num">4</td><td class="num strong-num">3</td></tr>
+              <tr><td>#1043</td><td>Amethyst Pendant</td><td class="num">5</td><td class="num">125</td><td class="num strong-num">120</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="foot wrap">&copy; 2026 Mystic Collections. Admin panel.</footer>
+  </div>
+
+</div>
+
+</body>
+</html>

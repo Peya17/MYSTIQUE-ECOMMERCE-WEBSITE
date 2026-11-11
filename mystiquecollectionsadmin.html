@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MystiqueCollections Admin</title>
+  <!--fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/mystiquecollectionsadmin.css">
+</head>
+<body>
+
+  <!-- hidden radios: one per screen. The labels in the page select them. -->
+  <input type="radio" name="view" id="tab-dashboard" class="toggle" checked>
+  <input type="radio" name="view" id="tab-sales" class="toggle">
+  <input type="radio" name="view" id="tab-transaction" class="toggle">
+  <input type="radio" name="view" id="tab-customers" class="toggle">
+  <input type="radio" name="view" id="tab-customer" class="toggle">
+
+  <!-- hidden checkbox: phone menu -->
+  <input type="checkbox" id="menu-toggle" class="toggle">
+
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14.0002 17.9993V8.00033M14.0002 17.9993H15.0002M14.0002 17.9993H8.99977M14.0002 8.00033V6.00053C14.0002 5.47015 13.7894 4.9615 13.4143 4.58646C13.0392 4.21142 12.5305 4.00073 12 4.00073H3.99937C3.46889 4.00073 2.96014 4.21142 2.58504 4.58646C2.19994 4.9615 1.99921 5.47015 1.99921 6.00053V16.9994C1.99921 17.2646 2.10457 17.519 2.29212 17.7065C2.47967 17.894 2.73405 17.9993 2.99929 17.9993H4.99945M14.0002 8.00033H17.5204C17.6703 8.00055 17.8183 8.03444 17.9533 8.09952C18.0883 8.1646 18.207 8.25919 18.3005 8.3763L21.7808 12.7259C21.9228 12.9029 22.0004 13.1229 22.0008 13.3498V16.9994C22.0008 17.2646 21.8954 17.519 21.7079 17.7065C21.5203 17.894 21.266 17.9993 21.0007 17.9993H19.0006M4.99945 17.9993C4.99945 19.1038 5.89495 19.9991 6.99961 19.9991C8.10426 19.9991 8.99977 19.1038 8.99977 17.9993M4.99945 17.9993C4.99945 16.8949 5.89495 15.9995 6.99961 15.9995C8.10426 15.9995 8.99977 16.8949 8.99977 17.9993M15.0002 17.9993C15.0002 19.1038 15.8957 19.9991 17.0004 19.9991C18.1051 19.9991 19.0006 19.1038 19.0006 17.9993M15.0002 17.9993C15.0002 16.8949 15.8957 15.9995 17.0004 15.9995C18.1051 15.9995 19.0006 16.8949 19.0006 17.9993"/></symbol>
+    <symbol id="i-rabbit" viewBox="0 0 24 24"><path d="M13.0001 15.9996C13.5796 15.9988 14.1469 16.1659 14.6335 16.4806C15.1201 16.7953 15.5051 17.2442 15.7421 17.7731C15.9007 18.1271 15.9884 18.5069 16.0023 18.8911M16.0023 18.8911C16.0092 19.0807 15.9981 19.2714 15.9686 19.4606C15.8796 20.0332 15.6266 20.5677 15.2403 20.9997M16.0023 18.8911C16.0297 18.135 16.3421 17.4156 16.8791 16.8787C17.4417 16.316 18.2049 16 19.0006 16H20.0006C20.5311 16 21.0399 15.7892 21.415 15.4142C21.7901 15.0391 22.0008 14.5304 22.0008 13.9999V12.9999C22.0008 11.2329 21.2266 9.63783 20.0006 8.53726M16.0023 18.8911C16.001 18.9274 16.0003 18.9637 16.0003 19M18.0005 11.9995H18.0105M18.0005 21.0001H9.99985C8.9389 21.0001 7.9214 20.5786 7.17119 19.8285C6.42099 19.0783 5.99953 18.0609 5.99953 17C5.99953 16.9423 6.00024 16.8847 6.00166 16.8272M6.00166 16.8272C6.04589 15.0333 6.77786 13.3221 8.04994 12.0501C9.3628 10.7374 11.1434 9.99984 13.0001 9.99984H13.2001L9.59981 6.39977C9.41595 6.21591 9.2701 5.99764 9.17059 5.75743C9.07108 5.51721 9.01987 5.25975 9.01987 4.99974C9.01987 4.47462 9.22848 3.97102 9.59981 3.59971C9.97115 3.2284 10.4748 3.0198 10.9999 3.0198C11.26 3.0198 11.5174 3.07101 11.7577 3.17051C11.9979 3.27001 12.2162 3.41585 12.4 3.59971L15.8003 6.99978H16.0003M6.00166 16.8272C5.46623 17.017 4.88786 17.0509 4.33382 16.9248C3.77641 16.798 3.26684 16.5146 2.86508 16.1079C2.46333 15.7013 2.18612 15.1883 2.06609 14.6294C1.94606 14.0706 1.9882 13.489 2.18756 12.9533C2.38691 12.4176 2.73518 11.9499 3.19137 11.6054C3.64755 11.261 4.19267 11.054 4.76254 11.0088C5.33241 10.9637 5.90331 11.0823 6.40805 11.3507C6.91278 11.619 7.33033 12.026 7.61155 12.5237M6.00166 16.8272C6.00491 16.8261 6.00817 16.8249 6.01142 16.8238M16.0003 6.99978C17.5334 6.99978 18.9371 7.58245 20.0006 8.53726M16.0003 6.99978V3.99931C16.0003 3.46886 16.2111 2.96015 16.5862 2.58507C16.9613 2.20999 17.47 1.99927 18.0005 1.99927C18.531 1.99927 19.0397 2.20999 19.4148 2.58507C19.7899 2.96015 20.0006 3.46886 20.0006 3.99931V8.53726M20.0006 8.53726V8.5394"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M20.0007 2.00122V4.00114M20.0007 4.00114V6.00106M20.0007 4.00114H22.0008M20.0007 4.00114H18.0005M11.0169 2.81563C11.0598 2.58624 11.1815 2.37906 11.361 2.22997C11.5406 2.08088 11.7666 1.99927 12 1.99927C12.2334 1.99927 12.4594 2.08088 12.639 2.22997C12.8185 2.37906 12.9402 2.58624 12.9831 2.81563L14.0342 8.37341C14.1088 8.76854 14.3009 9.132 14.5852 9.41634C14.8696 9.70068 15.2331 9.89271 15.6283 9.96735L21.1867 11.0183C21.4162 11.0612 21.6234 11.1829 21.7725 11.3624C21.9216 11.5419 22.0032 11.7679 22.0032 12.0013C22.0032 12.2346 21.9216 12.4606 21.7725 12.6401C21.6234 12.8197 21.4162 12.9414 21.1867 12.9842L15.6283 14.0352C15.2331 14.1098 14.8696 14.3019 14.5852 14.5862C14.3009 14.8705 14.1088 15.234 14.0342 15.6291L12.9831 21.1869C12.9402 21.4163 12.8185 21.6235 12.639 21.7726C12.4594 21.9217 12.2334 22.0033 12 22.0033C11.7666 22.0033 11.5406 21.9217 11.361 21.7726C11.1815 21.6235 11.0598 21.4163 11.0169 21.1869L9.96583 15.6291C9.89118 15.234 9.69913 14.8705 9.41476 14.5862C9.13038 14.3019 8.76688 14.1098 8.3717 14.0352L2.81326 12.9842C2.58384 12.9414 2.37664 12.8197 2.22753 12.6401C2.07842 12.4606 1.9968 12.2346 1.9968 12.0013C1.9968 11.7679 2.07842 11.5419 2.22753 11.3624C2.37664 11.1829 2.58384 11.0612 2.81326 11.0183L8.3717 9.96735C8.76688 9.89271 9.13038 9.70068 9.41476 9.41634C9.69913 9.132 9.89118 8.76854 9.96583 8.37341L11.0169 2.81563ZM5.99956 20.0005C5.99956 21.105 5.10406 22.0004 3.9994 22.0004C2.89474 22.0004 1.99924 21.105 1.99924 20.0005C1.99924 18.896 2.89474 18.0006 3.9994 18.0006C5.10406 18.0006 5.99956 18.896 5.99956 20.0005Z"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 20 20"><path d="M13.3333 8.33322C13.3333 9.21734 12.9821 10.0653 12.357 10.6904C11.7319 11.3156 10.8841 11.6668 10 11.6668C9.11594 11.6668 8.2681 11.3156 7.64298 10.6904C7.01786 10.0653 6.66667 9.21734 6.66667 8.33322M2.58545 5.0281H2.58563M2.58563 5.0281H17.4138M2.58563 5.0281C2.64191 4.85934 2.72521 4.69958 2.83333 4.55541L4.5 2.33274C4.65525 2.12573 4.85655 1.95771 5.08798 1.84198C5.3194 1.72626 5.57459 1.66602 5.83333 1.66602H14.1667C14.4254 1.66602 14.6806 1.72626 14.912 1.84198C15.1434 1.95771 15.3448 2.12573 15.5 2.33274L17.1667 4.55541C17.383 4.84393 17.5 5.19485 17.5 5.55549V16.6672C17.5 17.1093 17.3244 17.5332 17.0118 17.8458C16.6993 18.1584 16.2754 18.334 15.8333 18.334H4.16667C3.72464 18.334 3.30072 18.1584 2.98816 17.8458C2.67559 17.5332 2.5 17.1093 2.5 16.6672V5.55549C2.5 5.37506 2.52928 5.19707 2.58563 5.0281Z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 15 17"><path d="M7.416 9.08333C9.71696 9.08333 11.5822 7.21785 11.5822 4.91667C11.5822 2.61548 9.71696 0.75 7.416 0.75C5.11504 0.75 3.24975 2.61548 3.24975 4.91667C3.24975 7.21785 5.11504 9.08333 7.416 9.08333ZM7.416 9.08333C9.18393 9.08333 10.8795 9.78571 12.1296 11.036C13.3797 12.2862 14.082 13.9819 14.082 15.75M7.416 9.08333C5.64807 9.08333 3.95254 9.78571 2.70243 11.036C1.45231 12.2862 0.75 13.9819 0.75 15.75"/></symbol>
+    <symbol id="i-arrow-ur" viewBox="0 0 9 9"><path d="M8.2488 8.2488V0.75H0.75M8.2488 0.75L0.75 8.2488"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 13 12"><path d="M0.75 6.0006H11.2512M6.0006 11.2512L11.2512 6.0006L6.0006 0.75"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3zM9 8h6M9 12h6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-3"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17v-6a6 6 0 0112 0v6l2 2H4l2-2zM10 21h4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9.5 10a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM21 20v-2a4 4 0 00-3-3.9M15 3.1a3.5 3.5 0 010 6.8"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 0M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></symbol>
+  </svg>
+
+  <header class="topbar">
+    <label for="menu-toggle" class="icon-btn menu-btn"><svg class="icon"><use href="#i-menu"/></svg></label>
+    <label for="tab-dashboard" class="brand">MystiqueCollections</label>
+    <span class="page-title">
+      <span class="title-dashboard">Dashboard</span>
+      <span class="title-sales">Sales Reports</span>
+      <span class="title-customers">Customers</span>
+    </span>
+
+    <div class="top-right">
+      <div class="dropdown">
+        <input type="checkbox" id="notif-toggle" class="toggle">
+        <label for="notif-toggle" class="icon-btn">
+          <svg class="icon"><use href="#i-bell"/></svg>
+          <span class="badge">2</span>
+        </label>
+        <div class="panel">
+          <h4>Notifications</h4>
+          <div class="note">
+            <svg class="icon-small"><use href="#i-bag"/></svg>
+            <div>2 new orders need payment verification<small>10 min ago</small></div>
+          </div>
+          <div class="note">
+            <svg class="icon-small"><use href="#i-layers"/></svg>
+            <div>Rose Quartz Bracelet is low on stock (3 left)<small>1 hr ago</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <input type="checkbox" id="profile-toggle" class="toggle">
+        <label for="profile-toggle" class="profile-btn">
+          <span class="avatar"><svg class="icon-small"><use href="#i-person"/></svg></span>
+          <span class="who">Administrator</span>
+        </label>
+        <div class="panel small-panel">
+          <span class="row"><svg class="icon-small"><use href="#i-person"/></svg>My account</span>
+          <span class="row"><svg class="icon-small"><use href="#i-settings"/></svg>Settings</span>
+          <a class="row" href="logout.php"><svg class="icon-small"><use href="#i-logout"/></svg>Log out</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <label class="nav" for="tab-dashboard"><svg class="icon"><use href="#i-grid"/></svg>Dashboard</label>
+    <a class="nav" href="products.html"><svg class="icon"><use href="#i-box"/></svg>Products</a>
+    <a class="nav" href="admin-inventory.html"><svg class="icon"><use href="#i-layers"/></svg>Inventory Management</a>
+    <a class="nav" href="orders.html"><svg class="icon"><use href="#i-receipt"/></svg>Orders</a>
+    <label class="nav" for="tab-sales"><svg class="icon"><use href="#i-chart"/></svg>Sales Reports</label>
+    <label class="nav" for="tab-customers"><svg class="icon"><use href="#i-users"/></svg>Customers</label>
+  </nav>
+  <label for="menu-toggle" class="scrim"></label>
+
+  <main>
+    <section class="view" id="dashboard">
+      <h1 class="welcome">Welcome back</h1>
+      <p class="subtext">Here is how the shop is doing today.</p>
+      <section class="cards cards-four">
+        <div class="card dark wide">
+          <div class="card-top">
+            <span class="card-label">Total Sales</span>
+            <svg class="icon"><use href="#i-sparkle"/></svg>
+          </div>
+          <div class="card-number">₱150,36.00</div>
+          <div class="card-note">From orders with confirmed payment</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Total Orders</span>
+            <svg class="icon"><use href="#i-bag"/></svg>
+          </div>
+          <div class="card-number">89</div>
+          <div class="card-note">All orders recorded</div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <span class="card-label">Total Products</span>
+            <svg class="icon"><use href="#i-rabbit"/></svg>
+          </div>
+          <div class="card-number">50</div>
+          <div class="card-note">Active in the catalog</div>
+        </div>
+        <div class="card wide">
+          <div class="card-top">
+            <span class="card-label">Pending Orders</span>
+            <svg class="icon"><use href="#i-truck"/></svg>
+          </div>
+          <div class="card-number">9</div>
+          <div class="card-note">Waiting for payment check or processing</div>
+          <a class="card-link" href="orders.html?status=Pending">Review pending orders <svg class="icon-small"><use href="#i-arrow-r"/></svg></a>
+        </div>
+      </section>
+      <section class="box">
+        <div class="box-head">
+          <h2>Recent Orders</h2>
+          <a class="view-all" href="orders.html">View all orders <svg class="icon-small"><use href="#i-arrow-r"/></svg></a>
+        </div>
+        <div class="table-wrap">
+          <table class="stack">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Order Date</th>
+                <th>Total Amount</th>
+                <th>Payment Method</th>
+                <th>Order Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Order ID" class="bold">MC-1005</td>
+                <td data-label="Customer">Karen J. Barrientos</td>
+                <td data-label="Date">Nov 3, 2026</td>
+                <td data-label="Total">₱920.00</td>
+                <td data-label="Payment">Cash on Delivery</td>
+                <td data-label="Status"><span class="pill packed">Packed</span></td>
+                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1005">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
+              </tr>
+              <tr>
+                <td data-label="Order ID" class="bold">MC-1004</td>
+                <td data-label="Customer">Sophea Labuson</td>
+                <td data-label="Date">Nov 2, 2026</td>
+                <td data-label="Total">₱2,575.00</td>
+                <td data-label="Payment">GCash</td>
+                <td data-label="Status"><span class="pill paid">Paid</span></td>
+                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1004">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
+              </tr>
+              <tr>
+                <td data-label="Order ID" class="bold">MC-1003</td>
+                <td data-label="Customer">Ruel Rabi Catolos</td>
+                <td data-label="Date">Nov 1, 2026</td>
+                <td data-label="Total">₱1,480.00</td>
+                <td data-label="Payment">GCash</td>
+                <td data-label="Status"><span class="pill shipped">Shipped</span></td>
+                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1003">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
+              </tr>
+              <tr>
+                <td data-label="Order ID" class="bold">MC-1002</td>
+                <td data-label="Customer">Nica M. Germo</td>
+                <td data-label="Date">Oct 31, 2026</td>
+                <td data-label="Total">₱4,120.00</td>
+                <td data-label="Payment">Bank Transfer</td>
+                <td data-label="Status"><span class="pill delivered">Delivered</span></td>
+                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1002">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
+              </tr>
+              <tr>
+                <td data-label="Order ID" class="bold">MC-1001</td>
+                <td data-label="Customer">Michael Estrella</td>
+                <td data-label="Date">Oct 30, 2026</td>
+                <td data-label="Total">₱760.00</td>
+                <td data-label="Payment">Cash on Delivery</td>
+                <td data-label="Status"><span class="pill cancelled">Cancelled</span></td>
+                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1001">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section class="view" id="sales">
+      <h1 class="welcome">Sales History</h1>
+      <p class="subtext">Orders with confirmed payment (Paid, Packed, Shipped and Delivered).</p>
+      <form class="filter" method="get">
+        <div><label for="from">From</label><input type="date" id="from" name="from" value="2026-10-27"></div>
+        <div><label for="to">To</label><input type="date" id="to" name="to" value="2026-11-02"></div>
+        <button type="submit" class="btn">Filter sales</button>
+        <button type="reset" class="clear">Clear</button>
+      </form>
+      <div class="cards cards-three">
+        <div class="card dark">
+          <span class="card-label">Total Sales</span>
+          <span class="card-number">₱14,100.00</span>
+          <span class="card-note">Oct 1 to Nov 1 2026</span>
+        </div>
+        <div class="card">
+          <span class="card-label">Transactions</span>
+          <span class="card-number">16</span>
+          <span class="card-note">Paid orders in this date range</span>
+        </div>
+        <div class="card">
+          <span class="card-label">Average Sale</span>
+          <span class="card-number">₱4,126.00</span>
+          <span class="card-note">Total sales divided by transactions</span>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-head"><h2>Transactions</h2><span>Newest first</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Payment Method</th>
+                <th>Status</th>
+                <th class="num">Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bold">MC-1005</td>
+                <td>Nov 2, 2026</td>
+                <td>Karen J. Barrientos</td>
+                <td>Cash on Delivery</td>
+                <td><span class="pill packed">Packed</span></td>
+                <td class="num">₱920.00</td>
+                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">MC-1004</td>
+                <td>Nov 2, 2026</td>
+                <td>Sophea Labuson</td>
+                <td>GCash</td>
+                <td><span class="pill paid">Paid</span></td>
+                <td class="num">₱2,575.00</td>
+                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">MC-1003</td>
+                <td>Nov 1, 2026</td>
+                <td>Ruel Rabi Catolos</td>
+                <td>GCash</td>
+                <td><span class="pill shipped">Shipped</span></td>
+                <td class="num">₱1,480.00</td>
+                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">MC-1002</td>
+                <td>Oct 31, 2026</td>
+                <td>Nica M. Germo</td>
+                <td>Bank Transfer</td>
+                <td><span class="pill delivered">Delivered</span></td>
+                <td class="num">₱4,120.00</td>
+                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">MC-1001</td>
+                <td>Oct 28, 2026</td>
+                <td>Michael Estrella</td>
+                <td>GCash</td>
+                <td><span class="pill delivered">Delivered</span></td>
+                <td class="num">₱1,350.00</td>
+                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">MC-1000</td>
+                <td>Oct 27, 2026</td>
+                <td>Angela Reyes</td>
+                <td>Bank Transfer</td>
+                <td><span class="pill delivered">Delivered</span></td>
+                <td class="num">₱2,200.00</td>
+                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="transaction">
+      <label class="back" for="tab-sales"><svg class="icon-small"><use href="#i-arrow-r"/></svg>Back to sales history</label>
+      <h1 class="welcome">Transaction MC-1005</h1>
+      <p class="subtext">Full details of this sale.</p>
+      <div class="box">
+        <div class="box-head"><h2>Order Information</h2><span class="pill paid">Paid</span></div>
+        <div class="info">
+          <div><span>Order ID</span><b>MC-1005</b></div>
+          <div><span>Order Date</span><b>Nov 2, 2026</b></div>
+          <div><span>Customer</span><label class="link" for="tab-customer">Karen J. Barrientos</label></div>
+          <div><span>Payment Method</span><b>Cash on Delivery</b></div>
+          <div><span>Payment Status</span><b>Verified by admin</b></div>
+          <div><span>Delivery Address</span><b>Pasay City, Metro Manila</b></div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-head"><h2>Items Ordered</h2></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th class="num">Price</th>
+                <th class="num">Qty</th>
+                <th class="num">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rose Quartz Bracelet</td>
+                <td class="num">₱650.00</td>
+                <td class="num">2</td>
+                <td class="num">₱1,300.00</td>
+              </tr>
+              <tr>
+                <td>Silver Moon Necklace</td>
+                <td class="num">₱1,150.00</td>
+                <td class="num">1</td>
+                <td class="num">₱1,150.00</td>
+              </tr>
+              <tr>
+                <td>Caroline Bag</td>
+                <td class="num">5,000.00</td>
+                <td class="num">1</td>
+                <td class="num">5,000.00</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="num">Items subtotal</td>
+                <td class="num">₱7,450.00</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="num">Shipping fee</td>
+                <td class="num">₱250.00</td>
+              </tr>
+              <tr class="total">
+                <td colspan="3" class="num">Total amount</td>
+                <td class="num">₱7,700.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="customers">
+      <h1 class="welcome">Customers</h1>
+      <p class="subtext">Everyone who has an account in the shop.</p>
+      <div class="box">
+        <div class="box-head"><h2>Customer List</h2><span>5 customers</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th class="num">Orders</th>
+                <th class="num">Total Spent</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bold">C-001</td>
+                <td>Karen J. Barrientos</td>
+                <td>krnbrrnts02@gmail.com</td>
+                <td>0916 696 5075</td>
+                <td class="num">3</td>
+                <td class="num">₱7,700.00</td>
+                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">C-002</td>
+                <td>Sophea Labuson</td>
+                <td>sophealabuson@gmail.com</td>
+                <td>0917 000 0002</td>
+                <td class="num">4</td>
+                <td class="num">₱6,240.00</td>
+                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">C-003</td>
+                <td>Ruel Rabi Catolos</td>
+                <td>ruelcatolos@gmail.com</td>
+                <td>0917 000 0003</td>
+                <td class="num">2</td>
+                <td class="num">₱5,440.50</td>
+                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">C-004</td>
+                <td>Nica M. Germo</td>
+                <td>nicagermo@gmail.com</td>
+                <td>0917 000 0004</td>
+                <td class="num">1</td>
+                <td class="num">₱920.00</td>
+                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+              <tr>
+                <td class="bold">C-005</td>
+                <td>Michael Estrella</td>
+                <td>michaelestrella@gmail.com</td>
+                <td>0917 000 0005</td>
+                <td class="num">5</td>
+                <td class="num">₱9,830.00</td>
+                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="customer">
+      <label class="back" for="tab-customers"><svg class="icon-small"><use href="#i-arrow-r"/></svg>Back to customer list</label>
+      <h1 class="welcome">Karen J. Barrientos</h1>
+      <p class="subtext">Customer C-001</p>
+      <div class="box">
+        <div class="box-head"><h2>Customer Details</h2></div>
+        <div class="info">
+          <div><span>Full Name</span><b>Karen J. Barrientos</b></div>
+          <div><span>Email</span><b>krnbrrnts02@gmail.com</b></div>
+          <div><span>Phone</span><b>0916 696 5075</b></div>
+          <div><span>Address</span><b>Pasay City, Metro Manila</b></div>
+          <div><span>Member Since</span><b>Jan 1, 2026</b></div>
+        </div>
+      </div>
+      <div class="cards cards-two">
+        <div class="card"><span class="card-label">Total Orders</span><span class="card-number">3</span></div>
+        <div class="card"><span class="card-label">Total Spent</span><span class="card-number">₱7,700.00</span></div>
+      </div>
+      <div class="box">
+        <div class="box-head"><h2>Order History</h2><span>Newest first</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Payment Method</th>
+                <th>Status</th>
+                <th class="num">Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bold">MC-1005</td>
+                <td>Nov 2, 2026</td>
+                <td>GCash</td>
+                <td><span class="pill paid">Paid</span></td>
+                <td class="num">₱7,700.00</td>
+                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

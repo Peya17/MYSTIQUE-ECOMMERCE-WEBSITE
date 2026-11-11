@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mystique – Checkout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/index.css">
+
+</head>
+<body>
+<header class="top-bar">
+  <a class="logo" href="#">mystique</a>
+  <span class="secure-note">
+    <svg viewBox="0 0 24 24">
+        <rect x="5" y="11" width="14" height="9" rx="1.5"/>
+        <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+    </svg>Secure checkout</span>
+</header>
+
+<main class="checkout">
+  <a class="back-link" href="#">← Continue shopping</a>
+  <ol class="steps" aria-label="Checkout progress">
+    <li class="done">
+        <span class="dot">✓</span>
+        Cart
+    </li>
+    <li class="current" id="progress-delivery">
+        <span class="dot">2</span>
+        Delivery
+    </li>
+    <li id="progress-payment">
+        <span class="dot">3</span>
+        Payment
+    </li>
+    <li id="progress-review">
+        <span class="dot">4</span>
+        Review
+    </li>
+    <li id="progress-confirmation">
+        <span class="dot">5</span>
+        Confirmation
+    </li>
+  </ol>
+
+  <div class="checkout-layout" id="checkout-layout">
+    <div class="checkout-main">
+
+      <!--delivery-->
+      <section class="card" id="delivery-step">
+        <h1 tabindex="-1">Delivery details</h1>
+        <p class="subheading">Tell us where to send your order.</p>
+        <form id="delivery-form" novalidate>
+          <div class="field">
+            <label for="full-name">Full name</label>
+            <input type="text" id="full-name" autocomplete="name" placeholder="Maria Santos">
+            <div class="error-message">Please enter your full name.</div>
+          </div>
+          <div class="two-columns">
+            <div class="field">
+                <label for="email-address">Email address</label>
+                <input type="email" id="email-address" autocomplete="email" placeholder="you@example.com">
+                <div class="error-message">Enter a valid email address, like you@example.com.</div>
+            </div>
+            
+            <div class="field">
+                <label for="contact-number">Contact number</label>
+                <input type="tel" id="contact-number" autocomplete="tel" placeholder="09XX XXX XXXX">
+                <div class="error-message">Enter a mobile number with at least 10 digits.</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="street-address">Complete delivery address</label>
+            <input type="text" id="street-address" autocomplete="street-address" placeholder="House no., street, barangay">
+            <div class="error-message">Please enter your complete address.</div>
+        </div>
+          
+          <div class="three-columns">
+            <div class="field">
+                <label for="city">City / Municipality</label>
+                <input type="text" id="city" autocomplete="address-level2" placeholder="Quezon City">
+                <div class="error-message">Enter your city or municipality.</div>
+            </div>
+            
+            <div class="field">
+                <label for="province">Province</label>
+                <input type="text" id="province" autocomplete="address-level1" placeholder="Metro Manila">
+                <div class="error-message">Enter your province.</div>
+            </div>
+
+            <div class="field">
+                <label for="zip-code">ZIP code</label>
+                <input type="text" id="zip-code" inputmode="numeric" autocomplete="postal-code" placeholder="1100" maxlength="4">
+                <div class="error-message">Use a 4-digit ZIP code.</div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="delivery-notes">Delivery instructions 
+                <span class="optional">(optional)</span>
+            </label>
+            <textarea id="delivery-notes" placeholder="Landmarks, gate code, best time to deliver"></textarea>
+        </div>
+          <button class="main-button" type="submit">Continue to payment</button>
+        </form>
+      </section>
+
+      <!--payment-->
+      <section class="card" id="payment-step" hidden>
+        <h1 tabindex="-1">Payment</h1>
+        <p class="subheading">Choose how you’d like to pay. Your details stay private.</p>
+        <form id="payment-form" novalidate>
+          <div class="payment-options" role="radiogroup" aria-label="Payment method">
+            <label class="payment-option">
+                <input type="radio" name="payment-method" value="gcash" checked>
+                <span class="radio-dot"></span>
+                <span class="payment-icon icon-gcash">G</span>
+                <span>
+                    <span class="payment-name">GCash</span>
+                    <span class="payment-note">Pay using your GCash wallet.</span>
+                </span>
+            </label>
+            <label class="payment-option">
+                <input type="radio" name="payment-method" value="maya">
+                <span class="radio-dot"></span>
+                <span class="payment-icon icon-maya">m</span>
+                <span>
+                    <span class="payment-name">Maya</span>
+                    <span class="payment-note">Pay using your Maya account.</span>
+                </span>
+            </label>
+            <label class="payment-option">
+                <input type="radio" name="payment-method" value="card">
+                <span class="radio-dot"></span>
+                <span class="payment-icon icon-card">▭</span>
+                <span>
+                    <span class="payment-name">Credit / Debit Card</span>
+                    <span class="payment-note">Visa and Mastercard.</span>
+                </span>
+            </label>
+            <label class="payment-option">
+                <input type="radio" name="payment-method" value="bank">
+                <span class="radio-dot"></span>
+                <span class="payment-icon icon-bank">B</span>
+                <span>
+                    <span class="payment-name">Bank Transfer</span>
+                    <span class="payment-note">Direct payment through supported banks.</span>
+                </span>
+            </label>
+          </div>
+
+          <!--manual verification-->
+          <div class="verification-panel" id="verification-panel">
+            <div class="panel-heading">
+                <h3>Payment verification</h3>
+                <span class="status-pill">Awaiting payment confirmation</span>
+            </div>
+            <p class="step-title">Step 1. Complete your payment</p>
+            <p class="step-help">Send the exact amount to the account below.</p>
+            <div class="payment-details">
+              <div class="detail-row">
+                <span id="method-title">GCash payment details</span>
+                <strong></strong>
+              </div>
+              <div class="detail-row">
+                <span>Account name</span>
+                <strong>Mystique Beauty Co.</strong>
+            </div>
+              <div class="detail-row">
+                <span id="number-label">GCash number</span>
+                <strong id="account-number">09XX XXX XXXX</strong>
+            </div>
+              <div class="detail-row amount">
+                <span>Amount due</span>
+                <strong id="amount-due">₱0.00</strong>
+            </div>
+            </div>
+            <button type="button" class="copy-button" id="copy-button">Copy GCash number</button>
+
+            <p class="step-title">Step 2. Upload your payment receipt</p>
+            <p class="step-help">Upload a screenshot or photo of your successful transaction as proof of payment.</p>
+            <label class="upload-box" id="upload-box">
+              <input type="file" id="receipt-file" accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 17a4 4 0 0 1-.5-7.970A5.500 5.500 0 0 1 17 8.500 3.500 3.500 0 0 1 17 17M12 12v8M9 14.500l3-3 3 3"/></svg>
+              <span class="upload-title">Upload payment receipt</span>
+              <span class="upload-rules">PNG, JPG, JPEG or PDF · Maximum 5 MB</span>
+              <span class="text-button" aria-hidden="true">Choose a file</span>
+            </label>
+            <div class="error-message" id="receipt-error">Upload a PNG, JPG, JPEG or PDF file that’s 5 MB or smaller.</div>
+            <div class="file-chosen" id="file-chosen" hidden>
+                <span id="file-name"></span>
+                <button type="button" class="text-button" id="remove-file">Remove</button>
+            </div>
+
+            <div class="divider"></div>
+            <p class="step-title">Step 3. Transaction information</p>
+            <div class="field" style="margin-top:12px">
+                <label for="reference-number">Transaction reference number</label><input type="text" id="reference-number" placeholder="Enter reference number" autocomplete="off"><div class="error-message">Enter the reference number from your receipt.</div></div>
+            <div class="field">
+                <label for="payment-date">Date of payment</label>
+                <input type="date" id="payment-date">
+                <div class="error-message">Choose the date you paid.</div>
+            </div>
+            <div class="safety-note">
+                <span>🔒</span>
+                <span>Never share your card PIN, CVV, password or OTP with us. We’ll never ask for them.</span></div>
+          </div>
+
+          <div class="info-panel" id="card-panel" hidden>
+            <div class="panel-heading"><h3>Pay by card</h3></div>
+            <p class="step-help" style="margin:0">After you place your order, you’ll be taken to our secure payment partner to enter your card details. Your payment is confirmed automatically, so there’s no receipt to upload.</p>
+          </div>
+          <div class="info-panel" id="cod-panel" hidden>
+            <div class="panel-heading"><h3>Cash on delivery</h3></div>
+            <p class="step-help" style="margin:0">Please prepare the exact amount of <strong id="cod-amount"></strong> for our courier. COD is available in selected areas, and we’ll confirm yours by text.</p>
+          </div>
+
+          <div class="button-row"><button type="button" class="side-button" id="back-to-delivery">Back</button><button class="main-button" type="submit" id="place-order">Review order</button></div>
+        </form>
+      </section>
+
+      <!-- STEP 3: REVIEW -->
+      <section class="card" id="review-step" hidden>
+        <h1 tabindex="-1">Review your order</h1>
+        <p class="subheading">Check everything below, then submit your order.</p>
+        <div class="review-block"><div class="review-heading"><h3>Delivery</h3><button type="button" class="text-button" data-edit="delivery">Edit</button></div><div id="review-delivery"></div></div>
+        <div class="review-block"><div class="review-heading"><h3>Payment</h3><button type="button" class="text-button" data-edit="payment">Edit</button></div><div id="review-payment"></div></div>
+        <label class="terms-check"><input type="checkbox" id="order-terms"><span>I confirm my details are correct and I agree to the Terms of Use and Return Policy.</span></label>
+        <div class="error-message" id="terms-error">Please tick the box to submit your order.</div>
+        <div class="button-row"><button type="button" class="side-button" id="back-to-payment">Back</button><button type="button" class="main-button" id="submit-order">Submit order</button></div>
+      </section>
+
+      <!-- STEP 4: CONFIRMATION -->
+      <section class="card confirmation" id="confirmation-step" hidden>
+        <div class="success-circle"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.500 4.500L19 7.500"/></svg></div>
+        <h1 tabindex="-1">Order successfully placed!</h1>
+        <p class="subheading">Thank you for shopping with us. Your order has been received.</p>
+        <div class="order-details">
+          <div class="detail-row"><span>Order number</span><strong id="order-number"></strong></div>
+          <div class="detail-row"><span>Payment method</span><strong id="confirm-method"></strong></div>
+          <div class="detail-row"><span>Payment status</span><strong><span class="status-pill" id="confirm-status"></span></strong></div>
+          <div class="detail-row"><span>Total</span><strong id="confirm-total"></strong></div>
+          <div class="detail-row"><span>Delivering to</span><strong id="confirm-address"></strong></div>
+          <div class="detail-row"><span>Confirmation sent to</span><strong id="confirm-email"></strong></div>
+        </div>
+        <h3 style="font-size:24px;margin:26px 0 2px;text-align:left">Items in your order</h3><div class="confirm-items" id="confirm-items"></div>
+        <p class="step-help" id="confirm-message" style="margin-top:18px">We will notify you once your payment has been verified.</p>
+        <div class="confirmation-buttons"><a class="main-button" href="#">Track my order</a><button type="button" class="side-button" id="print-order">Print order</button></div>
+      </section>
+    </div>
+
+    <aside class="order-summary" id="order-summary" aria-label="Order summary">
+      <h2>Order summary</h2>
+      <div id="order-items"></div>
+      <div class="totals">
+        <div class="totals-row"><span>Subtotal</span><span id="subtotal"></span></div>
+        <div class="totals-row"><span>Shipping fee</span><span id="shipping-fee"></span></div>
+        <div class="totals-row grand-total"><span>Total</span><span id="total"></span></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script src="/assets/js/index.js" defer></script>
+</body>
+</html>
