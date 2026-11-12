@@ -1,0 +1,470 @@
+/* Base Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #fcfcfc;
+    color: #351D30;
+    font-family: "Inter", sans-serif;
+}
+
+/* 1. Announcement Bar Format */
+.announcement-bar {
+    background-color: #351D30;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: center;
+}
+
+.announcement-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.goto-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.goto-btn:hover {
+    transform: scale(1.05);
+}
+
+/* 2. Main Header & Navbar Format */
+.navbar-header {
+    background-color: #FAF7F3;
+    border-bottom: 1px solid rgba(53, 29, 48, 0.08);
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    height: 80px;
+}
+
+.navbar-logo a {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #351D30;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    text-transform: lowercase;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.navbar-logo a:hover {
+    transform: scale(1.05);
+}
+
+.navbar-links {
+    display: flex;
+    list-style: none;
+    gap: 28px;
+}
+
+.navbar-links a {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #351D30;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.navbar-links a:hover {
+    transform: scale(1.05);
+    opacity: 0.75;
+}
+
+/* Icon Tools Section */
+.navbar-tools {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.tool-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.tool-btn:hover {
+    transform: scale(1.05);
+}
+
+.tool-btn svg path {
+    transition: stroke 0.2s ease;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background-color: #351D30;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 600;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Shared Typography */
+.section-eyebrow {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(53, 29, 48, 0.65);
+    margin-bottom: 8px;
+}
+
+h1, h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    color: #351D30;
+}
+
+/* 3. Small About Us Section */
+.about-section {
+    background-color: #FAF7F3;
+    padding: 64px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(53, 29, 48, 0.06);
+}
+
+.about-container {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.about-container h1 {
+    font-size: 40px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+
+.about-container p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(53, 29, 48, 0.8);
+}
+
+/* 4. Products Section */
+.products-section {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 64px 40px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.section-header h2 {
+    font-size: 34px;
+}
+
+.category-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid rgba(53, 29, 48, 0.2);
+    color: #351D30;
+    padding: 8px 18px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background-color: #351D30;
+    color: #FFFFFF;
+    border-color: #351D30;
+    transform: scale(1.05);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+.product-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(53, 29, 48, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.product-img-wrapper {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background-color: #FAF7F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border-bottom: 1px solid rgba(53, 29, 48, 0.06);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.product-img-wrapper:hover {
+    transform: scale(1.05);
+}
+
+.placeholder-box {
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(53, 29, 48, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px;
+    color: rgba(53, 29, 48, 0.65);
+    font-size: 12px;
+    gap: 6px;
+}
+
+.placeholder-box span.file-hint {
+    font-size: 10px;
+    color: rgba(53, 29, 48, 0.45);
+}
+
+.product-info {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.product-cat {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(53, 29, 48, 0.55);
+}
+
+.product-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 4px 0 6px;
+}
+
+.product-price {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.preview-btn {
+    width: 100%;
+    background-color: #FAF7F3;
+    border: 1px solid rgba(53, 29, 48, 0.25);
+    color: #351D30;
+    padding: 9px;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.preview-btn:hover {
+    background-color: #f0ebe4;
+    transform: scale(1.05);
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #351D30;
+    color: #351D30;
+    padding: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #351D30;
+    color: #FFFFFF;
+    transform: scale(1.05);
+}
+
+/* 5. Footer */
+.site-footer {
+    background-color: #351D30;
+    color: #FFFFFF;
+    padding: 60px 40px;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1440px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.footer-column {
+    flex: 1;
+}
+
+.footer-column h3 {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+}
+
+.footer-logo {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-transform: lowercase;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+.hours-col p {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hours-col p span {
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #FFFFFF;
+    transform: scale(1.05);
+}
+
+/* Mobile Responsive Rules */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    .navbar-links {
+        display: none;
+    }
+    .navbar-logo a {
+        font-size: 26px;
+    }
+    .about-section,
+    .products-section {
+        padding: 40px 20px;
+    }
+    .about-container h1 {
+        font-size: 30px;
+    }
+    .footer-container {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+    .footer-links {
+        align-items: center;
+    }
+}
