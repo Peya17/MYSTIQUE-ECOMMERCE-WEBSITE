@@ -3,248 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Our World – Mystique</title>
-
-    <!-- Fonts -->
+    <title>Our World</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="/assets/css/HeaderandFooter.css">
     <link rel="stylesheet" href="/assets/css/ourworld.css">
+    <link rel="stylesheet" href="/assets/css/ourworld-animations.css">
 </head>
-<body>
 
-    <!-- ANNOUNCEMENT BAR -->
-    <div class="announcement">
-        <a href="#">
-            Your first ritual, on us. Enjoy 15% off your first order with code MYSTIQUE15.
-            <span aria-hidden="true">→</span>
+<!--data-own-chrome tells general.js not to add its own header and footer on this page-->
+<body data-page="ourworld" data-own-chrome>
+
+  <!--page glow-->
+  <div class="page-glow page-glow-one" aria-hidden="true"></div>
+  <div class="page-glow page-glow-two" aria-hidden="true"></div>
+
+  <!--navbar-->
+  <header class="navbar" id="navbar">
+    <p class="navbar-discount">A little welcome gift — enjoy 10% off your first order with MYSTIQUE10</p>
+
+    <div class="navbar-main">
+      <a href="Main page.html" class="navbar-logo">mystique</a> <!--goes back to the top-->
+
+      <!--mobile hamburger-->
+      <button class="navbar-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="navbar-links" id="navLinks" aria-label="Main">
+        <a href="#">New Arrivals</a>
+        <a href="#">Makeup</a>
+        <a href="#">Skincare</a>
+        <a href="#">Bestsellers</a>
+        <a href="#top" aria-current="page">Our World</a>
+      </nav>
+
+      <!--icons: search, wishlist, profile and bag (same as the main page)-->
+      <div class="navbar-tools">
+        <button type="button" class="tool-btn" aria-label="Search" data-action="soon" data-msg="Search is coming soon">
+          <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+            <path d="M15.7501 15.7501L12.1335 12.1335M14.0833 7.41667C14.0833 11.0986 11.0986 14.0833 7.41667 14.0833C3.73477 14.0833 0.75 11.0986 0.75 7.41667C0.75 3.73477 3.73477 0.75 7.41667 0.75C11.0986 0.75 14.0833 3.73477 14.0833 7.41667Z" stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+          </svg>
+        </button>
+
+        <a href="wishlist.html" class="tool-btn" aria-label="Wishlist">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 20.5s-8-4.9-8-11A4.6 4.6 0 0 1 12 6.6a4.6 4.6 0 0 1 8 2.9c0 6.1-8 11-8 11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span class="cart-badge" data-wish-count hidden>0</span>
         </a>
+
+        <button type="button" class="tool-btn" aria-label="Profile" data-action="soon" data-msg="Accounts are coming soon">
+          <svg width="15" height="17" viewBox="0 0 15 17" fill="none" aria-hidden="true">
+            <path d="M7.416 9.08333C9.71696 9.08333 11.5822 7.21785 11.5822 4.91667C11.5822 2.61548 9.71696 0.75 7.416 0.75C5.11504 0.75 3.24975 2.61548 3.24975 4.91667C3.24975 7.21785 5.11504 9.08333 7.416 9.08333ZM7.416 9.08333C9.18393 9.08333 10.8795 9.78571 12.1296 11.036C13.3797 12.2862 14.082 13.9819 14.082 15.75M7.416 9.08333C5.64807 9.08333 3.95254 9.78571 2.70243 11.036C1.45231 12.2862 0.75 13.9819 0.75 15.75" stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+          </svg>
+        </button>
+
+        <a href="cart.html" class="tool-btn" aria-label="Shopping Bag">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M13.3333 8.33322C13.3333 9.21734 12.9821 10.0653 12.357 10.6904C11.7319 11.3156 10.8841 11.6668 10 11.6668C9.11594 11.6668 8.2681 11.3156 7.64298 10.6904C7.01786 10.0653 6.66667 9.21734 6.66667 8.33322M2.58545 5.0281H2.58563M2.58563 5.0281H17.4138M2.58563 5.0281C2.64191 4.85934 2.72521 4.69958 2.83333 4.55541L4.5 2.33274C4.65525 2.12573 4.85655 1.95771 5.08798 1.84198C5.3194 1.72626 5.57459 1.66602 5.83333 1.66602H14.1667C14.4254 1.66602 14.6806 1.72626 14.912 1.84198C15.1434 1.95771 15.3448 2.12573 15.5 2.33274L17.1667 4.55541C17.383 4.84393 17.5 5.19485 17.5 5.55549V16.6672C17.5 17.1093 17.3244 17.5332 17.0118 17.8458C16.6993 18.1584 16.2754 18.334 15.8333 18.334H4.16667C3.72464 18.334 3.30072 18.1584 2.98816 17.8458C2.67559 17.5332 2.5 17.1093 2.5 16.6672V5.55549C2.5 5.37506 2.52928 5.19707 2.58563 5.0281Z" stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+          </svg>
+          <span class="cart-badge" data-cart-count>0</span>
+        </a>
+      </div>
     </div>
+  </header>
 
+  <main id="top">
+    <!--hero-->
+    <section class="slab" id="hero">
+      <div class="slab-inner hero">
+        <div class="glass card-lift hero-card" data-animate="left">
+          <p class="eyebrow eyebrow-wide">Our World</p>
+          <h1 class="hero-title">Beauty beyond<br>the ordinary</h1>
+          <p class="hero-text">A place for your story, your self-expression, and the everyday rituals that make you, you.</p>
+        </div>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="wrap">
-            <a class="logo" href="#">mystique</a>
+        <figure class="photo card-lift hero-photo" data-animate="right" data-delay="150">
+          <img src="assets/images/images/our-philosophy.jpg" alt="Woman gently touching her cheek as she applies skincare">
+        </figure>
+      </div>
+    </section>
 
-            <nav aria-label="Main">
-                <ul class="nav-links">
-                    <li><a href="#">New arrivals</a></li>
-                    <li><a href="#">Makeup</a></li>
-                    <li><a href="#">Skincare</a></li>
-                    <li><a href="#">Bestsellers</a></li>
-                    <!-- aria-current marks the page the visitor is on -->
-                    <li><a href="#" aria-current="page">Our world</a></li>
-                </ul>
+    <!--story-->
+    <section class="slab slab-soft" id="story">
+      <div class="slab-inner story">
+        <div class="story-intro">
+          <div data-animate="left">
+            <p class="eyebrow">01 / Our Story</p>
+            <h2 class="heading heading-lg">Every brand has a story.</h2>
+          </div>
+
+          <figure class="photo card-lift story-photo" data-animate="up" data-delay="200">
+            <img src="assets/images/images/the-experience.jpg" alt="Skincare bottles, tubes and jars in soft sunlight">
+          </figure>
+        </div>
+
+        <div class="glass card-lift story-card" data-animate="right" data-delay="100">
+          <p>Ours begins with a simple belief: beauty should feel personal.</p>
+          <p>Mystique Collections brings together thoughtful beauty essentials for the moments you make your own. From a favorite shade to a quiet evening ritual, we celebrate the confidence in being yourself.</p>
+          <p>We’re here for every version of you — not to change your story, but to be a little part of it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!--philo-->
+    <section class="slab" id="philosophy">
+      <div class="slab-inner philosophy">
+        <header class="philosophy-header" data-animate="up">
+          <p class="eyebrow">02 / Our Philosophy</p>
+          <h2 class="heading heading-md">The principles behind everything we do</h2>
+        </header>
+
+        <div class="philosophy-grid">
+          <article class="glass card-lift value" data-animate="up">
+            <span class="value-number">01</span>
+            <h3 class="value-title">Confidence</h3>
+            <p class="value-text">Beauty that helps you feel comfortable in your own skin.</p>
+          </article>
+
+          <article class="glass card-lift value" data-animate="up" data-delay="120">
+            <span class="value-number">02</span>
+            <h3 class="value-title">Self-expression</h3>
+            <p class="value-text">A little freedom to explore and make every look your own.</p>
+          </article>
+
+          <article class="glass card-lift value" data-animate="up" data-delay="240">
+            <span class="value-number">03</span>
+            <h3 class="value-title">Quality</h3>
+            <p class="value-text">Essentials chosen with care, for rituals worth repeating.</p>
+          </article>
+
+          <article class="glass card-lift value" data-animate="up" data-delay="360">
+            <span class="value-number">04</span>
+            <h3 class="value-title">Meaning</h3>
+            <p class="value-text">Thoughtful details that bring joy to the everyday.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!--promise-->
+    <section class="slab slab-soft" id="promise">
+      <div class="slab-inner promise">
+        <figure class="photo card-lift promise-photo" data-animate="left">
+          <img src="assets/images/images/our-promise.jpg" alt="Stack of gift boxes tied with pink satin ribbon">
+        </figure>
+
+        <div class="glass card-lift promise-card" data-animate="right" data-delay="150">
+          <p class="eyebrow">03 / Our Promise</p>
+          <h2 class="heading heading-md">What you can expect from us</h2>
+
+          <ul class="checklist">
+            <li><span class="checklist-mark" aria-hidden="true">✓</span>
+                <span class="checklist-text">Carefully selected products</span>
+            </li>
+            <li><span class="checklist-mark" aria-hidden="true">✓</span>
+                <span class="checklist-text">Reliable and convenient shopping</span>
+            </li>
+            <li><span class="checklist-mark" aria-hidden="true">✓</span>
+                <span class="checklist-text">Secure payment processes</span>
+            </li>
+            <li><span class="checklist-mark" aria-hidden="true">✓</span>
+                <span class="checklist-text">Thoughtful packaging</span>
+            </li>
+            <li><span class="checklist-mark" aria-hidden="true">✓</span>
+                <span class="checklist-text">Customer-focused service</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!--experience-->
+    <section class="slab" id="experience">
+      <div class="slab-inner experience">
+        <div class="glass card-lift experience-card" data-animate="left">
+          <p class="eyebrow eyebrow-plum">04 / The Experience</p>
+          <h2 class="heading heading-lg">Easy, enjoyable and memorable.</h2>
+          <p class="experience-text">Discover a new favorite. Find your shade. Make it part of your ritual. From browsing to unboxing, we keep the little details thoughtful so you can spend more time enjoying what feels like you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!--community-->
+    <section class="slab slab-soft" id="community">
+      <div class="slab-inner community">
+        <div class="glass card-lift community-card" data-animate="right">
+          <p class="eyebrow">05 / Join Our Community</p>
+          <h2 class="heading heading-lg">Your story. Your style. Your world.</h2>
+          <p class="community-text">Share your rituals, discover new inspiration, and be part of our world.</p>
+
+          <div class="community-actions">
+            <a href="#" class="button">Discover Your Glow &nbsp;→</a>
+
+            <nav class="socials" aria-label="Social media">
+              <a href="#">Instagram</a>
+              <a href="#">Facebook</a>
+              <a href="#">TikTok</a>
             </nav>
-
-            <div class="nav-icons">
-                <a href="#" aria-label="Search">
-                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-                </a>
-                <a href="#" aria-label="My account">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>
-                </a>
-                <a href="#" aria-label="Cart, 0 items">
-                    <svg viewBox="0 0 24 24"><path d="M5 7h14l-1 13H6zM9 7V6a3 3 0 0 1 6 0v1"/></svg>
-                    <span>(0)</span>
-                </a>
-            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
+  </main>
 
-    <main>
+  <!--footer-->
+  <footer class="footer">
+    <img class="footer-bg" src="assets/images/images/our-story.jpg" alt="">
+    <div class="footer-overlay"></div>
 
-        <!-- WELCOME -->
-        <section class="hero">
-            <div class="wrap">
-                <div>
-                    <p class="eyebrow">Welcome to our world</p>
-                    <h1>Beauty beyond the ordinary.</h1>
-                    <p class="lead">
-                        A space for self-expression, confidence, and the little things that make every day special.
-                    </p>
-                    <a class="button" href="#our-story">
-                        Start with our story <span aria-hidden="true">↓</span>
-                    </a>
-                </div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-logo">mystique</p>
+        <p class="footer-tagline">Your little world of beauty.</p>
+      </div>
 
-                <div class="photo photo-hero" role="img" aria-label="A woman touching her lips, wearing soft rosy makeup"></div>
-            </div>
-        </section>
+      <div class="footer-info">
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#">Shop</a>
+          <a href="#top">Our World</a>
+          <a href="#">My Account</a>
+        </nav>
 
+        <address class="footer-contact">
+          <a href="mailto:hello@mystiquecollections.ph">hello@mystiquecollections.ph</a>
+          <span>Taguig City, Philippines</span>
+          <span>Opening hours: Monday–Saturday, 9:00 AM–6:00 PM</span>
+        </address>
+      </div>
 
-        <!-- 01 OUR STORY -->
-        <section class="chapter" id="our-story">
-            <div class="wrap chapter-grid">
-                <div class="chapter-text reveal">
-                    <div class="number">01</div>
-                    <p class="eyebrow">Our story</p>
-                    <h2>Every brand has a story.</h2>
-                    <p>
-                        Ours begins with the belief that beauty is personal. We created a space where
-                        individuality is celebrated, confidence is encouraged, and everyday essentials
-                        become part of your story.
-                    </p>
-                </div>
+      <p class="footer-legal">
+        © 2026 Mystique Collections &nbsp;·&nbsp; <a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Terms &amp; Conditions</a>
+      </p>
+    </div>
+  </footer>
 
-                <div class="photo photo-story has-image reveal">
-                    <img src="/assets/images/images/our-story.jpg" alt="Frosted green skincare bottles, a dropper and jars on a wooden shelf" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-
-        <!-- 02 OUR PHILOSOPHY -->
-        <section class="chapter" id="our-philosophy">
-            <div class="wrap chapter-grid reverse">
-                <div class="chapter-text reveal">
-                    <div class="number">02</div>
-                    <p class="eyebrow">Our philosophy</p>
-                    <h2>The principles behind everything we do.</h2>
-
-                    <div class="values">
-                        <div class="value">
-                            <h3>Confidence</h3>
-                            <p>Encouraging everyone to embrace their individuality.</p>
-                        </div>
-                        <div class="value">
-                            <h3>Self-expression</h3>
-                            <p>Celebrating personal style and creativity.</p>
-                        </div>
-                        <div class="value">
-                            <h3>Quality</h3>
-                            <p>Giving importance to thoughtful product selection.</p>
-                        </div>
-                        <div class="value">
-                            <h3>Meaning</h3>
-                            <p>Making everyday purchases feel special.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="photo photo-philosophy has-image reveal">
-                    <img src="/assets/images/images/our-philosophy.jpg" alt="A woman gently touching her cheeks with her eyes closed" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-
-        <!-- 03 OUR PROMISE -->
-        <section class="chapter" id="our-promise">
-            <div class="wrap chapter-grid">
-                <div class="chapter-text reveal">
-                    <div class="number">03</div>
-                    <p class="eyebrow">Our promise</p>
-                    <h2>What you can expect from us.</h2>
-
-                    <ul class="promises">
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-                            Carefully selected products
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-                            Reliable and convenient shopping
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-                            Secure payment processes
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-                            Thoughtful packaging
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-                            Customer-focused service
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="photo photo-promise has-image reveal">
-                    <img src="/assets/images/images/our-promise.jpg" alt="Three white gift boxes tied with blush satin ribbon" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-
-        <!-- 04 THE EXPERIENCE -->
-        <section class="chapter" id="the-experience">
-            <div class="wrap chapter-grid reverse">
-                <div class="chapter-text reveal">
-                    <div class="number">04</div>
-                    <p class="eyebrow">The experience</p>
-                    <h2>Easy, enjoyable and memorable.</h2>
-                    <p>
-                        From browsing to checkout and receiving your order, we want every step to feel
-                        easy, enjoyable, and memorable.
-                    </p>
-                </div>
-
-                <div class="photo photo-experience has-image reveal">
-                    <img src="/assets/images/images/the-experience.jpg" alt="Wooden brushes, soap, a candle and linen scrunchies on a cream backdrop" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-
-        <!-- 05 JOIN OUR COMMUNITY -->
-        <section class="chapter" id="our-community">
-            <div class="wrap chapter-grid">
-                <div class="chapter-text reveal">
-                    <div class="number">05</div>
-                    <p class="eyebrow">Join our community</p>
-                    <h2>Come say hello.</h2>
-                    <p>
-                        Follow along on social media to connect with us and the people who love Mystique.
-                    </p>
-                    <p class="quote">
-                        More than just shopping, it’s about being part of a community that celebrates
-                        beauty, individuality, and confidence.
-                    </p>
-
-                    <div class="socials">
-                        <a href="#">Instagram</a>
-                        <a href="#">TikTok</a>
-                        <a href="#">Facebook</a>
-                        <a href="#">Pinterest</a>
-                    </div>
-                </div>
-
-                <div class="photo photo-community has-image reveal">
-                    <img src="/assets/images/images/our-community.jpg" alt="Friends chatting together at a gathering" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-
-        <!-- CLOSING BANNER -->
-        <section class="closing">
-            <div class="wrap">
-                <div class="closing-card reveal">
-                    <h2>Your story. Your style. Your world.</h2>
-                    <p>We’re glad you’re here. Make yourself at home.</p>
-                    <a class="button" href="#">
-                        Discover more about us <span aria-hidden="true">→</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="wrap">
-            <span>© 2026 Mystique. All rights reserved.</span>
-            <span>Beauty beyond the ordinary.</span>
-        </div>
-    </footer>
-
-    <script src="ourworld.js" defer></script>
+  <!--scripts-->
+  <script src="/assets/js/ourworld.js" defer></script>
+  <script src="/assets/js/general.js"></script>
 </body>
 </html>

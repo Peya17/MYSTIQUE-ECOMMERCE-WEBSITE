@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mystique | Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="assets/css/shop.css">
+</head>
+<body data-page="shop">
+
+    <main class="container">
+        <div class="page-head">
+            <span class="section-eyebrow">The Collection</span>
+            <h1 class="page-title">Find your little luxuries.</h1>
+        </div>
+
+        <section class="section anchor" id="new-arrivals">
+            <h2 class="section-title mb-24">New Arrivals</h2>
+
+            <div class="shop-toolbar">
+                <div class="tabs" role="tablist">
+                    <button type="button" class="tab-btn" data-tab="all">All Bags</button>
+                    <button type="button" class="tab-btn" data-tab="emy">Emy Line</button>
+                    <button type="button" class="tab-btn" data-tab="seffy">Seffy Line</button>
+                </div>
+                <button type="button" class="btn btn-ghost filter-toggle" id="filterBtn" aria-expanded="false" aria-controls="filterSlide">
+                    Filter <span class="filter-count" id="filterCount" hidden>0</span>
+                </button>
+            </div>
+
+            <!-- Filter panel (opens under the tabs) -->
+            <div class="filter-slide" id="filterSlide" inert>
+                <div>
+                    <div class="filter-panel panel">
+                        <fieldset class="filter-group">
+                            <legend>Price</legend>
+                            <div class="chips" id="priceChips"></div>
+                        </fieldset>
+                        <fieldset class="filter-group">
+                            <legend>Color</legend>
+                            <div class="chips" id="colorChips"></div>
+                        </fieldset>
+                        <button type="button" class="filter-clear" id="filterClear">Clear all</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-4" id="newGrid"></div>
+            <p class="filter-empty" id="newEmpty" hidden>Nothing matches these filters yet.</p>
+        </section>
+
+        <section class="section anchor" id="bestsellers">
+            <h2 class="section-title mb-28">Bestsellers</h2>
+            <div class="grid-3" id="bestGrid"></div>
+            <p class="filter-empty" id="bestEmpty" hidden>Nothing matches these filters yet.</p>
+        </section>
+    </main>
+
+    <script src="assets/js/general.js"></script>
+    <script src="assets/js/shop.js"></script>
+</body>
+</html>

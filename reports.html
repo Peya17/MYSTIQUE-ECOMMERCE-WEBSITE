@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sales Reports · Mystique Collections Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="orders-payments.html">Orders &amp; Payments</a>
+      <a href="settings.html">Settings</a>
+      <a href="reports.html" aria-current="page">Reports</a>
+    </nav>
+    <div class="sidebar-foot">
+      <span class="who">Administrator<br>Karen Barrientos</span>
+    </div>
+  </aside>
+
+  <main class="main" style="padding-top:1.75rem">
+    <div class="topbar">
+      <span>Mystique Collections / Admin</span>
+      <span class="right"><a class="link" href="inventory.html">3 alerts</a><a class="link" href="settings.html">Karen ⌄</a></span>
+    </div>
+
+    <header class="reports-head">
+      <div>
+        <p class="crumb">Reporting / Sales Analytics</p>
+        <h1 class="page-title">Sales Reports &amp; Insights</h1>
+        <p class="page-sub" style="font-size:1rem;margin-top:0.75rem">Monthly sales, customer trends, and performance at a glance.</p>
+      </div>
+      <div class="date-filter">Nov 1 – Nov 17, 2026 &nbsp;⌄</div>
+    </header>
+
+    <section class="kpis compact" aria-label="Key figures">
+      <div class="card kpi"><div class="label" style="font-size:0.8125rem">Total Sales</div><div class="value">₱150,360</div><div class="note">↑ 12.5% vs previous period</div></div>
+      <div class="card kpi"><div class="label" style="font-size:0.8125rem">Total Orders</div><div class="value">89</div><div class="note">7 pending orders</div></div>
+      <div class="card kpi"><div class="label" style="font-size:0.8125rem">Total Products</div><div class="value">5</div><div class="note">176 units across all products</div></div>
+      <div class="card kpi"><div class="label" style="font-size:0.8125rem">Total Customers</div><div class="value">16</div><div class="note">↑ 6.7% vs previous period</div></div>
+    </section>
+
+    <section class="rep-grid">
+      <div class="card card-pad" style="min-height:21.25rem">
+        <div class="sales-head">
+          <h2 class="card-title">Sales Overview</h2>
+          <div class="segs" role="group" aria-label="Period">
+            <button class="seg" type="button">Daily</button>
+            <button class="seg on" type="button" aria-pressed="true">Weekly</button>
+            <button class="seg" type="button">Monthly</button>
+          </div>
+        </div>
+        <div class="plot" role="img" aria-label="Weekly sales by day, peaking on Friday">
+          <span class="yl" style="top:0">₱30,000</span><i class="gl" style="top:0"></i>
+          <span class="yl" style="top:4.0625rem">₱20,000</span><i class="gl" style="top:4.0625rem"></i>
+          <span class="yl" style="top:8.125rem">₱10,000</span><i class="gl" style="top:8.125rem"></i>
+          <span class="yl" style="top:12.1875rem">₱0</span><i class="gl" style="top:12.1875rem"></i>
+          <div class="bars">
+            <i style="height:5rem"></i><i style="height:7.5rem"></i><i style="height:8.5625rem"></i><i style="height:10rem"></i><i style="height:11.6875rem"></i><i style="height:11.4375rem"></i><i class="dark" style="height:8.5rem"></i>
+          </div>
+          <div class="xl"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+        </div>
+      </div>
+
+      <div class="card card-pad" style="min-height:21.25rem">
+        <h2 class="card-title">Order Status</h2>
+        <div class="status-list">
+          <p class="tot">89 orders</p>
+          <div class="status-row"><span>Paid</span><span class="track"><i style="width:7.875rem"></i></span><b>42</b></div>
+          <div class="status-row"><span>Packed</span><span class="track"><i style="width:3rem;background:#7b4461"></i></span><b>16</b></div>
+          <div class="status-row"><span>Shipped</span><span class="track"><i style="width:2.625rem;background:#a56a89"></i></span><b>14</b></div>
+          <div class="status-row"><span>Delivered</span><span class="track"><i style="width:1.875rem;background:#c999b0"></i></span><b>10</b></div>
+          <div class="status-row"><span>Pending</span><span class="track"><i style="width:1.3125rem;background:#e2c7d3"></i></span><b>7</b></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec-head">
+      <h2>Recent Orders</h2>
+      <a class="link" href="orders-payments.html">View all orders &nbsp;→</a>
+    </div>
+    <section class="card table-card" aria-label="Recent orders">
+      <div class="grid-head" style="--cols:1.3fr 2fr 1.1fr 1.5fr 1.5fr 1.4fr"><span>Order</span><span>Customer</span><span>Date</span><span>Total</span><span>Status</span><span></span></div>
+      <div class="grid-row" style="--cols:1.3fr 2fr 1.1fr 1.5fr 1.5fr 1.4fr"><span>MC-1089</span><span>Karen Barrientos</span><span>Nov 17</span><span>₱2,850.00</span><span class="st-pending">Pending</span><a class="link" href="orders-payments.html">Details →</a></div>
+      <div class="grid-row" style="--cols:1.3fr 2fr 1.1fr 1.5fr 1.5fr 1.4fr"><span>MC-1088</span><span>Sofia Reyes</span><span>Nov 17</span><span>₱1,540.00</span><span class="st-paid">Paid</span><a class="link" href="orders-payments.html">Details →</a></div>
+      <div class="grid-row" style="--cols:1.3fr 2fr 1.1fr 1.5fr 1.5fr 1.4fr"><span>MC-1087</span><span>Mika Santos</span><span>Nov 16</span><span>₱1,899.00</span><span class="st-packed">Packed</span><a class="link" href="orders-payments.html">Details →</a></div>
+      <div class="grid-row" style="--cols:1.3fr 2fr 1.1fr 1.5fr 1.5fr 1.4fr"><span>MC-1086</span><span>Andrea Cruz</span><span>Nov 16</span><span>₱1,270.00</span><span>Shipped</span><a class="link" href="orders-payments.html">Details →</a></div>
+    </section>
+
+    <section class="two-eq">
+      <div class="card card-pad" style="min-height:18.75rem">
+        <h2 class="card-title" style="font-size:1.875rem">Best-Selling Products</h2>
+        <div class="plain-row" style="padding-top:2.5rem"><span>Amethyst Pendant</span><span>32 sold</span></div>
+        <div class="plain-row" style="padding-top:2.625rem"><span>Moon Tarot Deck</span><span>26 sold</span></div>
+        <div class="plain-row" style="padding-top:2.625rem"><span>Rose Quartz Bracelet</span><span>21 sold</span></div>
+      </div>
+      <div id="inventory-alerts" class="card card-pad alerts" style="min-height:18.75rem">
+        <h2 class="card-title" style="font-size:1.875rem">Inventory Alerts</h2>
+        <p style="margin-top:2.125rem">2 products low on stock<br>1 product out of stock<br>Low-stock threshold: ≤10 units</p>
+        <a class="btn" href="inventory.html">Review inventory &nbsp;→</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update Stock · Mystique Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html" aria-current="page">Inventory</a>
+      <a href="orders-payments.html">Orders &amp; Payments</a>
+      <a href="settings.html">Settings</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-head"><h1 class="page-title">Update Stock</h1><p class="page-sub">Add stock, remove it, or set an exact quantity.</p></header>
+    <nav class="subnav" aria-label="Inventory sections"><a href="inventory.html">Stock Levels</a><a href="inventory-update.html" aria-current="page">Update Stock</a><a href="inventory-alerts.html">Low Stock Alerts</a><a href="inventory-auto.html">Automatic Updates</a></nav>
+
+    <section class="card form-card">
+      <h2 class="card-title">Update Stock Quantity</h2>
+      <form class="form">
+        <div><label for="product">Product</label>
+          <select id="product"><option>Amethyst Pendant</option><option>Moon Tarot Deck</option><option>Rose Quartz Bracelet</option><option>Sage Incense Set</option><option>Crystal Candle</option></select></div>
+        <div class="row">
+          <div><label for="action">Action</label>
+            <select id="action"><option>Add stock</option><option>Remove stock</option><option>Set exact quantity</option></select></div>
+          <div><label for="quantity">Quantity</label><input type="number" id="quantity" value="10"></div>
+        </div>
+        <button class="btn" type="button">Update stock &nbsp;→</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,284 @@
+/* =========================================================
+   MYSTIQUE — product details page (load after general.css)
+   Matches Figma "03 Product Details". Scoped to <body data-page="product">
+   so nothing else on the site changes. Falls back to fixed colors if a
+   general.css variable is missing.
+   ========================================================= */
+
+body[data-page="product"] {
+    --pd-ink: var(--ink, #351D30);
+    --pd-soft: var(--ink-soft, #7C6D73);
+    --pd-plum: var(--plum, #6B3A55);
+    --pd-panel: var(--surface, #F1E1E8);
+}
+
+body[data-page="product"] #productRoot {
+    padding-top: 22px;
+    padding-bottom: 80px;
+}
+
+/* breadcrumb */
+body[data-page="product"] .crumbs {
+    margin: 0 0 20px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pd-soft);
+}
+
+body[data-page="product"] .crumbs a {
+    color: inherit;
+    text-decoration: none;
+}
+
+body[data-page="product"] .crumbs a:hover {
+    text-decoration: underline;
+}
+
+/* two columns: photo + details left, panel right */
+body[data-page="product"] .pd {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+}
+
+/* photo */
+body[data-page="product"] .pd-photo {
+    aspect-ratio: 1.02 / 1;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: var(--raised-sm, 0 10px 24px rgba(53, 29, 48, 0.12));
+}
+
+body[data-page="product"] .pd-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+body[data-page="product"] .pd-photo img.contain {
+    object-fit: contain;
+}
+
+/* thumbnails only appear when a product has extra photos */
+body[data-page="product"] .thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+body[data-page="product"] .thumbs:empty {
+    display: none;
+}
+
+body[data-page="product"] .thumb {
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    overflow: hidden;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    background: none;
+    cursor: pointer;
+}
+
+body[data-page="product"] .thumb.active {
+    border-color: var(--pd-plum);
+}
+
+body[data-page="product"] .thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* under the photo */
+body[data-page="product"] .pd-tagline {
+    margin: 22px 0 24px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 17px;
+    font-style: normal;
+    color: #8A6577;
+}
+
+body[data-page="product"] .pd-details h3 {
+    margin: 0 0 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pd-ink);
+}
+
+body[data-page="product"] .pd-details p {
+    max-width: 380px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--pd-soft);
+}
+
+/* details panel */
+body[data-page="product"] .pd-panel {
+    padding: 30px 32px 28px;
+    border: 1px solid var(--edge, rgba(255, 255, 255, 0.7));
+    border-radius: 22px;
+    background: var(--pd-panel);
+    box-shadow: var(--raised, 0 16px 34px rgba(53, 29, 48, 0.14));
+}
+
+body[data-page="product"] .pd-panel h1 {
+    margin: 0 0 8px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(34px, 4vw, 44px);
+    font-weight: 500;
+    line-height: 1.05;
+    color: var(--pd-ink);
+}
+
+body[data-page="product"] .pd-panel .rating {
+    margin: 0 0 18px;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--pd-soft);
+}
+
+body[data-page="product"] .pd-price {
+    margin: 0 0 14px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--pd-ink);
+}
+
+body[data-page="product"] .pd-desc {
+    max-width: 380px;
+    margin: 0 0 26px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--pd-soft);
+}
+
+body[data-page="product"] .pd-panel .label {
+    margin: 0 0 10px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pd-ink);
+}
+
+/* shade swatches */
+body[data-page="product"] .pd-panel .swatches {
+    display: flex;
+    gap: 12px;
+    margin: 0 0 26px;
+}
+
+body[data-page="product"] .pd-panel .swatch {
+    display: block;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+body[data-page="product"] .pd-panel .swatch:hover {
+    transform: scale(1.08);
+}
+
+body[data-page="product"] .pd-panel .swatch.active {
+    box-shadow: 0 0 0 2px var(--pd-panel), 0 0 0 3.5px var(--pd-ink);
+}
+
+/* quantity */
+body[data-page="product"] .qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 26px;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    font-size: 12px;
+    color: var(--pd-ink);
+}
+
+body[data-page="product"] .qty button {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--pd-ink);
+    cursor: pointer;
+}
+
+/* add to bag + wishlist */
+body[data-page="product"] .pd-actions {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    margin: 0 0 18px;
+}
+
+body[data-page="product"] .pd-actions .btn-primary {
+    flex: 1;
+    height: 42px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--pd-plum);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+body[data-page="product"] .pd-actions .wish-square {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid rgba(100, 54, 79, 0.15);
+    border-radius: 8px;
+    background: #F8ECF1;
+    color: #B08A9A;
+}
+
+body[data-page="product"] .pd-actions .wish-square.on {
+    color: var(--pd-plum);
+}
+
+body[data-page="product"] .pd-actions .wish-square.on svg path {
+    fill: currentColor;
+}
+
+body[data-page="product"] .perks {
+    margin: 0;
+    font-size: 11px;
+    color: var(--pd-soft);
+}
+
+/* tablet and mobile: stack the columns */
+@media (max-width: 860px) {
+    body[data-page="product"] .pd {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    body[data-page="product"] .pd-panel {
+        padding: 24px 22px;
+    }
+}

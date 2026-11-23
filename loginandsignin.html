@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Login and Sign In</title>
     <link rel="stylesheet" href="assets/css/loginandsignin.css">
+    <link rel="stylesheet" href="assets/css/loginandsigninadditional.css">
 </head>
 <body>
-    <!-- SIGN IN -->
-    <dialog id="dlg-signin">
+    <!--signin -->
+    <dialog id="dlg-signin"> 
         <div id="popup">
             <aside class="right">
                 <span class="logo">mystique</span>
@@ -59,15 +60,15 @@
                                 placeholder="you@example.com"
                                 required
                             >
-                            <div class="msg">
-                                Enter a valid email address, like you@example.com.
+                            <div class="msg"> <!--error msg-->
+                                Enter a valid email address.
                             </div>
                         </div>
 
                         <!--pass-->
                         <div class="input-pass field">
                             <label for="si-pass">Password</label>
-                            <div class="inp">
+                            <div class="inp"> <!--verify dialog-->
                                 <input
                                     type="password"
                                     id="si-pass"
@@ -85,7 +86,7 @@
                                     Show Password
                                 </button>
                             </div>
-                            <div class="msg">
+                            <div class="msg"> <!--error msg-->
                                 Enter your password.
                             </div>
                         </div>
@@ -185,7 +186,7 @@
                                 autocomplete="email"
                                 required
                             >
-                            <div class="msg">
+                            <div class="msg"> <!--error msg-->
                                 Enter a valid email address.
                             </div>
                         </div>
@@ -200,6 +201,7 @@
                     </form>
                 </div>
 
+                <!--pass reset-->
                 <div class="view" data-view="done" hidden>
                     <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
                     <h2 tabindex="-1">Request Submitted</h2>
@@ -242,8 +244,8 @@
                     <li>
                         <svg viewBox="0 0 24 24"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5z"/></svg>
                         <div>
-                            <span>Free shipping over $40</span>
-                            Plus easy returns within 30 days.
+                            <span>Buy now with <b>10%</b> welcome vouchers!</span>
+                            Plus easy returns within 7 days.
                         </div>
                     </li>
                 </ul>
@@ -273,7 +275,7 @@
                                     placeholder="Enter your first name"
                                     required
                                 >
-                                <div class="msg">
+                                <div class="msg"> <!--msg-->
                                     Enter your first name.
                                 </div>
                             </div>
@@ -295,6 +297,24 @@
                             </div>
                         </div>
 
+                        <!--username-->
+                        <div class="field">
+                            <label for="su-user">Username</label>
+                            <input
+                                type="text"
+                                id="su-user"
+                                name="username"
+                                autocomplete="username"
+                                placeholder="Choose a username"
+                                maxlength="20"
+                                required
+                            >
+                            <p class="hint" id="user-status" aria-live="polite"></p>
+                            <div class="msg">
+                                Use 3–20 letters, numbers, dots or underscores.
+                            </div>
+                        </div>
+
                         <!--email-->
                         <div class="field">
                             <label for="su-email">Email</label>
@@ -306,7 +326,7 @@
                                 autocomplete="email"
                                 required
                             >
-                            <div class="msg">
+                            <div class="msg"> <!--error msg-->
                                 Enter a valid email address.
                             </div>
                         </div>
@@ -384,7 +404,7 @@
                             </div>
                         </div>
 
-                        <!--birthday + interests-->
+                        <!--bdate-->
                         <div class="box">
                             <div class="field" style="margin-bottom:14px">
                                 <label for="su-bday">Birthday <span class="opt">(optional)</span></label>
@@ -393,15 +413,30 @@
                             </div>
                             <div class="lbl" id="int-l">What are you shopping for?</div>
                             <div class="chips" role="group" aria-labelledby="int-l">
-                                <label class="chip"><input type="checkbox" name="interest" value="lips"><span>Lips</span></label>
-                                <label class="chip"><input type="checkbox" name="interest" value="eyes"><span>Eyes</span></label>
-                                <label class="chip"><input type="checkbox" name="interest" value="face"><span>Face</span></label>
-                                <label class="chip"><input type="checkbox" name="interest" value="skincare"><span>Skincare</span></label>
-                                <label class="chip"><input type="checkbox" name="interest" value="gifts"><span>Gifts</span></label>
+                                <label class="chip">
+                                    <input type="checkbox" name="interest" value="lips">
+                                    <span>Lips</span>
+                                </label>
+                                <label class="chip">
+                                    <input type="checkbox" name="interest" value="eyes">
+                                    <span>Eyes</span>
+                                </label>
+                                <label class="chip">
+                                    <input type="checkbox" name="interest" value="face">
+                                    <span>Face</span>
+                                </label>
+                                <label class="chip">
+                                    <input type="checkbox" name="interest" value="skincare">
+                                    <span>Skincare</span>
+                                </label>
+                                <label class="chip">
+                                    <input type="checkbox" name="interest" value="gifts">
+                                    <span>Gifts</span>
+                                </label>
                             </div>
                         </div>
 
-                        <!--newsletter-->
+                        <!--news-->
                         <div class="field">
                             <label for="su-news">
                                 <input type="checkbox" id="su-news" name="newsletter">
@@ -428,6 +463,7 @@
                             Create Account
                         </button>
 
+                        <!--remember acc-->
                         <p class="foot">
                             Already a member?
                             <button type="button" class="create-account" data-swap="dlg-signin">
@@ -454,319 +490,182 @@
     </dialog>
 
 
+    <!--verification code-->
+    <dialog id="dlg-verify">
+        <div id="popup">
+            <div class="first-column">
+                <button class="x" type="button" data-close aria-label="Close">
+                    <img src="/assets/images/Website icons/3.png" alt="close icon">
+                </button>
+
+                <div class="view" data-view="main">
+                    <h2 id="vf-title" tabindex="-1">Verify Your Email</h2>
+                    <p class="subheading">
+                        We sent a 6-digit code to <strong id="vf-email"></strong>. It expires in 10 minutes.
+                    </p>
+
+                    <!--code-->
+                    <form novalidate data-form="verify">
+                        <div class="field">
+                            <label for="vf-code">Verification Code</label>
+                            <input
+                                type="text"
+                                id="vf-code"
+                                class="code-input"
+                                name="code"
+                                inputmode="numeric"
+                                autocomplete="one-time-code"
+                                maxlength="6"
+                                placeholder="000000"
+                                required
+                            >
+                            <div class="msg">
+                                Enter the 6-digit code from your email.
+                            </div>
+                        </div>
+
+                        <button type="submit">
+                            Verify Code
+                        </button>
+
+                        <p class="foot">
+                            <span id="vf-timer"></span>
+                            <button type="button" class="create-account" id="vf-resend" disabled>
+                                Resend code
+                            </button>
+                        </p>
+                        <p class="foot" style="margin-top:12px">
+                            <button type="button" class="create-account" data-swap="dlg-signin">
+                                Back to sign in
+                            </button>
+                        </p>
+                    </form>
+                </div>
+
+                <!--confirm verify-->
+                <div class="view" data-view="done" hidden>
+                    <div class="seal">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12.5l4.5 4.5L19 7.5"/>
+                        </svg>
+                    </div>
+                    <h2 tabindex="-1">Email Verified</h2>
+                    <p class="subheading">
+                        Your email has been verified. You can now sign in to your Mystique account.
+                    </p>
+                    <button type="button" class="continue" data-close>
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!--reset pass-->
+    <dialog id="dlg-reset">
+        <div id="popup">
+            <div class="first-column">
+                <button class="x" type="button" data-close aria-label="Close">
+                    <img src="/assets/images/Website icons/3.png" alt="close icon">
+                </button>
+
+                <div class="view" data-view="main">
+                    <h2 tabindex="-1">Create New Password</h2>
+                    <p class="subheading">
+                        Code verified. Choose a new password for <strong id="rs-email"></strong>.
+                    </p>
+
+                    <form novalidate data-form="reset">
+                        <div class="field">
+                            <label for="rs-pass">New Password</label>
+                            <div class="inp">
+                                <input
+                                    type="password"
+                                    id="rs-pass"
+                                    name="password"
+                                    autocomplete="new-password"
+                                    placeholder="Create a new password"
+                                    required
+                                >
+                                <button type="button" class="eye" data-eye="rs-pass" aria-label="Show password">
+                                    Show
+                                </button>
+                            </div>
+                            <div class="msg">
+                                Create a strong password.
+                            </div>
+                        </div>
+
+                        <div class="pw-meter">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <p id="rs-strength">Enter a password</p>
+
+                        <ul class="pw-rules">
+                            <li data-r="len">At least 8 characters</li>
+                            <li data-r="case">Uppercase and lowercase letters</li>
+                            <li data-r="num">At least one number</li>
+                            <li data-r="sym">At least one special character</li>
+                        </ul>
+
+                        <div class="field">
+                            <label for="rs-confirm">Confirm New Password</label>
+                            <input
+                                type="password"
+                                id="rs-confirm"
+                                name="confirm-password"
+                                autocomplete="new-password"
+                                placeholder="Confirm your new password"
+                                required
+                            >
+                            <div class="msg">
+                                Passwords do not match.
+                            </div>
+                        </div>
+
+                        <button type="submit">
+                            Reset Password
+                        </button>
+                    </form>
+                </div>
+
+                <!--confirm reset pass-->
+                <div class="view" data-view="done" hidden>
+                    <div class="seal">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                    <h2 tabindex="-1">Password Changed</h2>
+                    <p class="subheading">
+                        Your password was updated successfully. Sign in with your new password.
+                    </p>
+                    <button type="button" class="continue" data-close>
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!--toasts n popup demo-->
+    <div id="toast-region" popover="manual" role="status" aria-live="polite"></div>
+
+    <div id="mail-popup" popover="manual" role="status" hidden>
+        <div class="mail-head">
+            <span class="mail-ic" aria-hidden="true">✉</span>
+            <b>Mystique Mail</b>
+            <span class="mail-demo">Demo inbox</span>
+        </div>
+        <!--if no email-->
+        <p class="mail-subject"></p>
+        <p class="mail-to"></p>
+        <div class="mail-code" aria-label="Verification code"></div>
+        <p class="mail-note">No email server is connected yet, so the code shows up here instead.</p>
+    </div>
+
     <!--jscript-->
-    <script>
-        (function () {
-            var $ = function (s, r) {
-                return (r || document).querySelector(s);
-            };
-
-            var $$ = function (s, r) {
-                return Array.prototype.slice.call(
-                    (r || document).querySelectorAll(s)
-                );
-            };
-
-
-            //reset
-            function reset(d) {
-
-                $$('.view', d).forEach(function (v) {
-                    v.hidden = v.dataset.view !== 'main';
-                });
-
-                $$('form', d).forEach(function (f) {
-                    f.reset();
-                });
-
-                $$('.bad', d).forEach(function (b) {
-                    b.classList.remove('bad');
-                });
-
-                $$('.rules li', d).forEach(function (l) {
-                    l.classList.remove('ok');
-                });
-
-                $$('.meter span', d).forEach(function (s) {
-                    s.style.background = '';
-                });
-                var sl = $('#strength-label', d);
-                if (sl) {
-                    sl.textContent = 'Enter a password';
-                }
-                $$('.eye', d).forEach(function (b) {
-                    var input = document.getElementById(b.dataset.eye);
-                    if (input) {
-                        input.type = 'password';
-                    }
-                    b.textContent = b.classList.contains('password-input')
-                        ? 'Show Password'
-                        : 'Show';
-                });
-            }
-
-
-            //open dialog
-            function openD(id) {
-                var d = document.getElementById(id);
-                if (!d) {
-                    return;
-                }
-                reset(d);
-                if (!d.open) {
-                    d.showModal();
-                }
-                d.scrollTop = 0;
-                var fc = $('.first-column', d);
-                if (fc) {
-                    fc.scrollTop = 0;
-                }
-            }
-
-            //open btn
-            $$('[data-open]').forEach(function (b) {
-                b.addEventListener('click', function () {
-                    openD(b.dataset.open);
-                });
-            });
-
-            //switch
-            $$('[data-swap]').forEach(function (b) {
-                b.addEventListener('click', function () {
-                    var current = b.closest('dialog');
-                    current.close();
-                    openD(b.dataset.swap);
-                });
-            });
-
-            //close btn and continue btn: go back to sign in
-            $$('[data-close]').forEach(function (b) {
-                b.addEventListener('click', function () {
-                    var current = b.closest('dialog');
-                    if (current) {
-                        current.close();
-                    }
-                    openD('dlg-signin');
-                });
-            });
-
-            //prevent close with Esc
-            $$('dialog').forEach(function (d) {
-                d.addEventListener('cancel', function (e) {
-                    e.preventDefault();
-                });
-            });
-
-            //show pass
-            $$('.eye').forEach(function (b) {
-                b.addEventListener('click', function () {
-                    var i = document.getElementById(b.dataset.eye);
-                    if (!i) {
-                        return;
-                    }
-                    var h = i.type === 'password';
-                    i.type = h ? 'text' : 'password';
-                    b.textContent = h
-                        ? (b.classList.contains('password-input') ? 'Hide Password' : 'Hide')
-                        : (b.classList.contains('password-input') ? 'Show Password' : 'Show');
-
-                    b.setAttribute(
-                        'aria-label',
-                        h ? 'Hide password' : 'Show password'
-                    );
-                });
-            });
-
-            //initial dialog
-            openD(
-                location.hash === '#signup'
-                    ? 'dlg-signup'
-                    : location.hash === '#forgot'
-                        ? 'dlg-forgot'
-                        : 'dlg-signin'
-            );
-
-            //email valid
-            var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-            //pass rules
-            function rules(p) {
-                return {
-                    len: p.length >= 8,
-                    case: /[a-z]/.test(p) && /[A-Z]/.test(p),
-                    num: /\d/.test(p),
-                    sym: /[^A-Za-z0-9]/.test(p)
-                };
-            }
-
-            //signup pass
-            var pass = $('#su-pass');
-            if (pass) {
-                pass.addEventListener('input', function () {
-                    var r = rules(pass.value);
-                    var n = 0;
-                    $$('.rules li').forEach(function (li) {
-
-                        var ok = r[li.dataset.r];
-
-                        li.classList.toggle('ok', ok);
-
-                        if (ok) {
-                            n++;
-                        }
-                    });
-                    var cols = [
-                        '',
-                        '#B5505C',
-                        '#D39A52',
-                        '#7FAE8C',
-                        '#4F7A5E'
-                    ];
-                    var names = [
-                        'Enter a password',
-                        'Weak',
-                        'Fair',
-                        'Good',
-                        'Strong'
-                    ];
-                    $$('.meter span').forEach(function (s, i) {
-                        s.style.background = i < n ? cols[n] : '';
-                    });
-                    $('#strength-label').textContent = names[n];
-                    if (pass.closest('.field').classList.contains('bad')) {
-                        flag(pass, n < 4);
-                    }
-                });
-            }
-
-            //input error flag
-            function flag(el, bad) {
-                var f = el.closest('.field');
-                if (!f) {
-                    return;
-                }
-                f.classList.toggle('bad', bad);
-                el.setAttribute('aria-invalid', bad);
-            }
-            $$('input').forEach(function (i) {
-                i.addEventListener('input', function () {
-                    var f = i.closest('.field');
-                    if (f && f.classList.contains('bad') && i !== pass) {
-                        flag(i, false);
-                    }
-                });
-            });
-
-            //form valid
-            $$('form').forEach(function (f) {
-                f.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    var k = f.dataset.form;
-                    var bad = false;
-                    var first = null;
-                    var d = f.closest('dialog');
-
-                    //check input
-                    function chk(el, ok) {
-                        if (!el) {
-                            return;
-                        }
-                        flag(el, !ok);
-                        if (!ok) {
-                            bad = true;
-                            first = first || el;
-                        }
-                    }
-
-                    //sign in
-                    if (k === 'signin') {
-                        chk(
-                            $('#si-email', f),
-                            emailRx.test($('#si-email', f).value.trim())
-                        );
-                        chk(
-                            $('#si-pass', f),
-                            $('#si-pass', f).value.length > 0
-                        );
-                    }
-
-                    //forgot pass
-                    if (k === 'forgot') {
-                        chk(
-                            $('#fp-email', f),
-                            emailRx.test($('#fp-email', f).value.trim())
-                        );
-                    }
-
-                    //signup
-                    if (k === 'signup') {
-                        chk(
-                            $('#su-first', f),
-                            $('#su-first', f).value.trim() !== ''
-                        );
-                        chk(
-                            $('#su-last', f),
-                            $('#su-last', f).value.trim() !== ''
-                        );
-                        chk(
-                            $('#su-email', f),
-                            emailRx.test($('#su-email', f).value.trim())
-                        );
-
-                        var r = rules(pass.value);
-                        chk(
-                            pass,
-                            r.len && r.case && r.num && r.sym
-                        );
-                        chk(
-                            $('#su-confirm', f),
-                            $('#su-confirm', f).value === pass.value &&
-                            pass.value !== ''
-                        );
-                        chk(
-                            $('#su-terms', f),
-                            $('#su-terms', f).checked
-                        );
-                    }
-
-                    //stops at invalid submit
-                    if (bad) {
-                        first.focus();
-                        return;
-                    }
-
-                    //loading spinner
-                    var b = $('button[type=submit]', f);
-                    var t = b.textContent;
-                    b.disabled = true;
-                    b.innerHTML = '<span class="spin"></span>';
-                    setTimeout(function () {
-                        b.disabled = false;
-                        b.textContent = t;
-                        $$('.view', d).forEach(function (v) {
-                            v.hidden = v.dataset.view !== 'done';
-                        });
-                        var h = $('[data-view=done] h2', d);
-                        h.focus();
-                        var fc = $('.first-column', d);
-                        if (fc) {
-                            fc.scrollTop = 0;
-                        }
-                    }, 900);
-                });
-            });
-
-            //continue btn on the sign in success screen (the others use data-close)
-            $$('.continue:not([data-close])').forEach(function (b) {
-                b.addEventListener('click', function () {
-                    var d = b.closest('dialog');
-                    if (d) {
-                        d.close();
-                    }
-                    openD('dlg-signin');
-                });
-            });
-        })();
-    </script>
+    <script src="assets/js/loginandsignin.js"></script>
 </body>
 </html>

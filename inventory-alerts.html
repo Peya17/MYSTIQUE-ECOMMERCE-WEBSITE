@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Low Stock Alerts · Mystique Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html" aria-current="page">Inventory</a>
+      <a href="orders-payments.html">Orders &amp; Payments</a>
+      <a href="settings.html">Settings</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-head"><h1 class="page-title">Low Stock Alerts</h1><p class="page-sub">Alerts show when a product has 10 items or fewer.</p></header>
+    <nav class="subnav" aria-label="Inventory sections"><a href="inventory.html">Stock Levels</a><a href="inventory-update.html">Update Stock</a><a href="inventory-alerts.html" aria-current="page">Low Stock Alerts</a><a href="inventory-auto.html">Automatic Updates</a></nav>
+
+    <section class="alerts-list" style="max-width:47.5rem">
+      <div class="alert out"><span class="dot">!</span><div><strong>Crystal Candle (CC-009)</strong><span class="msg">Out of stock. Restock as soon as possible.</span></div></div>
+      <div class="alert low"><span class="dot">!</span><div><strong>Sage Incense Set (SI-022)</strong><span class="msg">Only 3 left.</span></div></div>
+      <div class="alert low"><span class="dot">!</span><div><strong>Rose Quartz Bracelet (RB-007)</strong><span class="msg">Only 8 left.</span></div></div>
+    </section>
+    <div class="btn-row"><a class="btn" href="inventory-update.html">Update Stock &nbsp;→</a></div>
+  </main>
+</body>
+</html>

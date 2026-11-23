@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automatic Updates · Mystique Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html" aria-current="page">Inventory</a>
+      <a href="orders-payments.html">Orders &amp; Payments</a>
+      <a href="settings.html">Settings</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-head"><h1 class="page-title">Automatic Stock Updates</h1><p class="page-sub">When an order is marked as completed, the quantity ordered is subtracted from stock right away.</p></header>
+    <nav class="subnav" aria-label="Inventory sections"><a href="inventory.html">Stock Levels</a><a href="inventory-update.html">Update Stock</a><a href="inventory-alerts.html">Low Stock Alerts</a><a href="inventory-auto.html" aria-current="page">Automatic Updates</a></nav>
+
+    <section class="card table-card" aria-label="Automatic stock deductions">
+      <div class="grid-head" style="--cols:1.1fr 2.2fr 1fr 1fr 1fr"><span>Order No.</span><span>Product</span><span class="num">Qty sold</span><span class="num">Before</span><span class="num">After</span></div>
+      <div class="grid-row" style="--cols:1.1fr 2.2fr 1fr 1fr 1fr"><span>#1045</span><span>Rose Quartz Bracelet</span><span class="num">2</span><span class="num">10</span><span class="num" style="color:var(--plum-deep);font-weight:500">8</span></div>
+      <div class="grid-row" style="--cols:1.1fr 2.2fr 1fr 1fr 1fr"><span>#1044</span><span>Sage Incense Set</span><span class="num">1</span><span class="num">4</span><span class="num" style="color:var(--plum-deep);font-weight:500">3</span></div>
+      <div class="grid-row" style="--cols:1.1fr 2.2fr 1fr 1fr 1fr"><span>#1043</span><span>Amethyst Pendant</span><span class="num">5</span><span class="num">125</span><span class="num" style="color:var(--plum-deep);font-weight:500">120</span></div>
+    </section>
+  </main>
+</body>
+</html>

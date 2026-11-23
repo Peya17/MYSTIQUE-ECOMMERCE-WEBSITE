@@ -1,4 +1,15 @@
+/* MYSTIQUE — checkout (load AFTER general.js, which holds the shared bag)
+   The order summary now reads the same saved bag as the cart page (MQ.state.cart),
+   uses the same totals and promo code, and empties the bag when the order is placed. */
 (function () {
+    'use strict';
+
+    var MQ = window.MQ;
+    if (!MQ) {
+        console.error('checkout.js needs general.js to load first.');
+        return;
+    }
+
     var $ = function (s, r) {
         return (r || document).querySelector(s);
     };
@@ -9,31 +20,26 @@
         );
     };
 
-    var shippingFee = 120;
+    var state = MQ.state;
 
-    var items = [
-        {
-            name: 'Velvet Lip Color',
-            variation: 'Shade: Rosewood',
-            price: 650,
-            qty: 1,
-            photo: 'photo-lipstick'
-        },
-        {
-            name: 'Second Skin Tint',
-            variation: 'Shade: 04 Warm Sand · 30 ml',
-            price: 890,
-            qty: 1,
-            photo: 'photo-tint'
-        },
-        {
-            name: 'Moonlit Eye Palette',
-            variation: 'Shade: Dusk',
-            price: 1190,
-            qty: 1,
-            photo: 'photo-palette'
-        }
-    ];
+    // drop anything in the bag that is no longer a real product (same rule as cart.js)
+    state.cart = state.cart.filter(function (l) {
+        return MQ.byId(l.id);
+    });
+
+    /* ---------- Empty bag: nothing to check out ---------- */
+    if (!state.cart.length) {
+        var layout = $('#checkout-layout');
+        layout.classList.add('full');
+        layout.innerHTML =
+            '<section class="co-card">' +
+            '<h1>Your bag is empty</h1>' +
+            '<p class="subheading">Add something you love before checking out.</p>' +
+            '<a class="main-button" href="shop.html" style="text-decoration:none">Find your little luxuries</a>' +
+            '</section>';
+        $('.steps').hidden = true;
+        return;
+    }
 
     var methods = {
         gcash: {
@@ -70,40 +76,50 @@
         }
     };
 
-    var peso = function (n) {
-        return '₱' + n.toLocaleString('en-PH', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
+    var peso = MQ.pesoD;
+
+    function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
         });
-    };
+    }
 
-    var subtotal = function () {
-        return items.reduce(function (s, i) {
-            return s + i.price * i.qty;
-        }, 0);
-    };
+    // one line of the bag, shaped for display
+    function describe(l) {
+        var p = MQ.byId(l.id);
 
-    var total = function () {
-        return subtotal() + shippingFee;
+        return {
+            name: p.name,
+            variation: l.shade ? 'Shade: ' + l.shade : MQ.lineSub(l, p),
+            price: p.price,
+            qty: l.qty
+        };
+    }
+
+    var totals = function () {
+        return MQ.cartTotals();
     };
 
 
     //display order
     function drawItems() {
-        $('#order-items').innerHTML = items.map(function (it, i) {
+        $('#order-items').innerHTML = state.cart.map(function (l, i) {
+            var p = MQ.byId(l.id);
+            var it = describe(l);
+
             return `
                 <div class="order-item">
-                    <div class="product-photo ${it.photo}"></div>
+                    <div class="product-photo photo-img photo-tint">${MQ.imgSlot(p)}</div>
 
                     <div>
-                        <div class="item-name">${it.name}</div>
-                        <div class="item-variation">${it.variation}</div>
+                        <div class="item-name">${esc(it.name)}</div>
+                        <div class="item-variation">${esc(it.variation)}</div>
 
                         <div class="quantity-control">
                             <button type="button"
                                 data-change="-1"
                                 data-index="${i}"
-                                aria-label="Decrease quantity of ${it.name}">
+                                aria-label="Decrease quantity of ${esc(it.name)}">
                                 −
                             </button>
 
@@ -112,7 +128,7 @@
                             <button type="button"
                                 data-change="1"
                                 data-index="${i}"
-                                aria-label="Increase quantity of ${it.name}">
+                                aria-label="Increase quantity of ${esc(it.name)}">
                                 +
                             </button>
                         </div>
@@ -125,27 +141,32 @@
             `;
         }).join('');
 
-        $('#subtotal').textContent = peso(subtotal());
-        $('#shipping-fee').textContent = peso(shippingFee);
-        $('#total').textContent = peso(total());
-        $('#amount-due').textContent = peso(total());
-        $('#cod-amount').textContent = peso(total());
+        var t = totals();
+
+        $('#subtotal').textContent = peso(t.sub);
+        $('#shipping-fee').textContent = peso(t.ship);
+        $('#discount-row').hidden = !t.disc;
+        $('#discount').textContent = '−' + peso(t.disc);
+        $('#total').textContent = peso(t.total);
+        $('#amount-due').textContent = peso(t.total);
+        $('#cod-amount').textContent = peso(t.total);
     }
 
 
-    //item quantity
+    //item quantity (saved back to the shared bag, so the cart page matches)
     $('#order-items').addEventListener('click', function (e) {
         var b = e.target.closest('[data-change]');
 
         if (!b) return;
 
-        var it = items[+b.dataset.index];
+        var l = state.cart[+b.dataset.index];
 
-        it.qty = Math.min(
-            10,
-            Math.max(1, it.qty + +b.dataset.change)
+        l.qty = Math.min(
+            99,
+            Math.max(1, l.qty + +b.dataset.change)
         );
 
+        MQ.saveCart();
         drawItems();
 
         var f = $(
@@ -448,6 +469,7 @@
 
         var key = chosenMethod();
         var m = methods[key];
+        var t = totals();
 
         var bad = false;
         var first = null;
@@ -492,7 +514,7 @@
 
         rows($('#review-payment'), [
             ['Method', m.label],
-            ['Amount', peso(total())]
+            ['Amount', peso(t.total)]
         ].concat(
             m.manual
                 ? [
@@ -505,7 +527,7 @@
                         ['Next step', 'Secure card payment after you submit']
                     ]
                     : [
-                        ['Pay on delivery', peso(total())]
+                        ['Pay on delivery', peso(t.total)]
                     ]
         ));
 
@@ -541,13 +563,13 @@
         var label = btn.textContent;
         var key = chosenMethod();
         var m = methods[key];
+        var t = totals();
 
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner"></span>';
 
         var order = {
-            number: 'ORD-2026-' +
-                String(Math.floor(Math.random() * 900) + 100),
+            number: 'MC-2026-' + String(Math.floor(Math.random() * 9000) + 1000),
 
             placedAt: new Date().toISOString(),
 
@@ -559,12 +581,15 @@
                 notes: $('#delivery-notes').value.trim()
             },
 
-            items: items.map(function (i) {
+            items: state.cart.map(function (l) {
+                var d = describe(l);
+
                 return {
-                    name: i.name,
-                    variation: i.variation,
-                    price: i.price,
-                    qty: i.qty
+                    id: l.id,
+                    name: d.name,
+                    variation: d.variation,
+                    price: d.price,
+                    qty: d.qty
                 };
             }),
 
@@ -580,9 +605,11 @@
                     ? chosen.name
                     : null
             },
-            subtotal: subtotal(),
-            shippingFee: shippingFee,
-            total: total()
+            promo: t.disc ? state.promo : null,
+            subtotal: t.sub,
+            shippingFee: t.ship,
+            discount: t.disc,
+            total: t.total
         };
 
         window.lastOrder = order;
@@ -617,8 +644,23 @@
                     ];
                 }).concat([
                     ['Shipping fee', peso(order.shippingFee)]
-                ])
+                ]).concat(
+                    order.discount
+                        ? [['Promo ' + order.promo, '−' + peso(order.discount)]]
+                        : []
+                )
             );
+
+            // the order is placed: keep a copy, then empty the shared bag
+            var past = MQ.store.get('mq_orders', []);
+            past.unshift(order);
+            MQ.store.set('mq_orders', past);
+
+            state.cart = [];
+            state.promo = '';
+            MQ.store.set('mq_promo', '');
+            MQ.saveCart();
+
             goTo('confirmation');
         }, 1000);
     });
@@ -627,5 +669,8 @@
     $('#print-order').addEventListener('click', function () {
         window.print();
     });
+
+    $('#checkout-layout').classList.toggle('full', step === 'confirmation');
+    $('#order-summary').hidden = step === 'confirmation';
 
 })();

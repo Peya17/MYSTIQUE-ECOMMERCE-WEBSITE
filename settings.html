@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings · Mystique Collections Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="orders-payments.html">Orders &amp; Payments</a>
+      <a href="settings.html" aria-current="page">Settings</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-head" style="margin-bottom:3rem">
+      <h1 class="page-title">Admin Settings</h1>
+      <p class="page-sub" style="font-size:1.0625rem;margin-top:1.375rem">Manage store preferences, order notifications and payment rules.</p>
+    </header>
+
+    <form>
+      <section class="card setting-card">
+        <h2 class="card-title sans">Store Preferences</h2>
+        <label class="setting">Store display name <input class="toggle" type="checkbox" checked></label>
+        <label class="setting">Email notifications <input class="toggle" type="checkbox" checked></label>
+        <label class="setting">Default shipping region <input class="toggle" type="checkbox" checked></label>
+      </section>
+
+      <section class="card setting-card">
+        <h2 class="card-title sans">Payment Configuration</h2>
+        <label class="setting">GCash and Maya payments <input class="toggle" type="checkbox" checked></label>
+        <label class="setting">Cards and bank transfers <input class="toggle" type="checkbox" checked></label>
+        <label class="setting">Receipt verification required <input class="toggle" type="checkbox" checked></label>
+      </section>
+
+      <section class="card setting-card">
+        <h2 class="card-title sans">Inventory Alerts &amp; Security</h2>
+        <label class="setting">Low-stock threshold: 10 units <input class="toggle" type="checkbox" checked></label>
+        <label class="setting">Automatic stock deduction <input class="toggle" type="checkbox" checked></label>
+        <label class="setting">Two-step admin verification <input class="toggle" type="checkbox"></label>
+      </section>
+
+      <div class="btn-row end"><button class="btn" type="button" style="min-width:16.375rem;text-align:left">Save Changes &nbsp;→</button></div>
+    </form>
+  </main>
+</body>
+</html>

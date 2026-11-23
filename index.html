@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Account</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/inventoryandaccount.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <a class="logo" href="#">mystique</a>
+    <span class="logo-sub">Collections</span>
+    <nav class="nav" aria-label="Account">
+      <a href="Main page.html">Overview</a>
+      <a href="#profile" class="on" aria-current="page">Profile</a>
+      <a href="shop.html">Shop</a>
+      <a href="#wishlist">Wishlist</a>
+      <a href="#orders">Orders &amp; Payments</a>
+      <a href="#settings">Settings</a>
+      <a href="ourworld.html">Our World</a>
+    </nav>
+  </aside>
+  <main class="main">
+    <div class="inner">
+<section class="view on prof" id="profile">
+  <div class="page-head">
+    <h1>Your personal space</h1>
+    <p>Profile, delivery details, saved payments and your order journey.</p>
+  </div>
+
+  <div class="card welcome">
+    <div class="avatar" id="p-avatar" aria-hidden="true">KB</div>
+    <div>
+      <h2>Welcome back, <span id="p-first">Karen</span>.</h2>
+      <p class="sm muted">Your personal details and orders are all in one place.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <h3>Personal information</h3>
+      <p class="sm muted">Edit your details and keep your profile up to date.</p>
+      <div class="pfields" id="p-form">
+        <div class="fld"><label class="cap" for="p-name">Full name</label>
+          <input id="p-name" type="text" autocomplete="name" readonly></div>
+        <div class="fld"><label class="cap" for="p-email">Email address</label>
+          <input id="p-email" type="email" autocomplete="email" readonly></div>
+        <div class="fld"><label class="cap" for="p-phone">Mobile number</label>
+          <input id="p-phone" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel" readonly></div>
+        <div class="two">
+          <div class="fld"><label class="cap" for="p-bday">Birthday</label>
+            <input id="p-bday" type="text" placeholder="Add your birthday" readonly></div>
+          <div class="fld"><label class="cap" for="p-prefs">Beauty preferences</label>
+            <input id="p-prefs" type="text" placeholder="Makeup · Skincare" readonly></div>
+        </div>
+      </div>
+      <p class="set-err" id="p-err" role="alert"></p>
+      <div class="foot"><button type="button" class="arrow" id="p-edit">Edit Profile</button></div>
+    </div>
+
+    <div class="stack">
+      <div class="card tint">
+        <h3>Delivery address</h3>
+        <div class="sumbox">
+          <div><span class="cap">Default address</span></div>
+          <div><strong>Karen J. Barrientos</strong>Metro Manila, Philippines</div>
+          <span class="muted sm">Saved for faster checkout</span>
+        </div>
+        <button type="button" class="block-btn arrow" data-soon="Address book is coming soon">Manage Address</button>
+      </div>
+      <div class="card tint">
+        <h3>Payment methods</h3>
+        <div class="sumbox">
+          <div class="pm"><strong class="big">GCash</strong><span class="muted sm">Available at checkout</span></div>
+          <div class="pm"><strong>Maya · Card · Bank Transfer</strong><span class="muted sm">Receipts are verified before fulfillment.</span></div>
+        </div>
+        <button type="button" class="block-btn arrow" data-soon="Payment history is coming soon">Payment History</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Your latest order</h3>
+    <div class="latest-top">
+      <span class="cap">Order #MC-2026-1089</span>
+      <strong class="big">3 beauty essentials · ₱2,850.00</strong>
+      <span class="muted sm">Payment and delivery progress</span>
+    </div>
+    <ol class="steps" style="--p:0" aria-label="Order progress">
+      <li class="now" aria-current="step"><i></i><span>Order placed</span></li>
+      <li><i></i><span>Payment verified</span></li>
+      <li><i></i><span>Preparing</span></li>
+      <li><i></i><span>Shipped</span></li>
+      <li><i></i><span>Delivered</span></li>
+    </ol>
+    <div class="latest-foot">
+      <span>Current stage: Order placed · Payment is awaiting verification.</span>
+      <button type="button" class="arrow" data-soon="Tracking will be available once your order ships">Track Order</button>
+    </div>
+  </div>
+</section>
+
+<section class="view ord" id="orders">
+  <div class="page-head">
+    <h1>Orders &amp; Payments</h1>
+    <p>Track orders, review payment records, and revisit your favorite purchases.</p>
+  </div>
+
+  <div class="ostats">
+    <div class="ostat"><span class="cap">All Orders</span><span class="n">12</span></div>
+    <div class="ostat"><span class="cap">Processing</span><span class="n">2</span></div>
+    <div class="ostat"><span class="cap">Shipped</span><span class="n">3</span></div>
+    <div class="ostat"><span class="cap">Delivered</span><span class="n">7</span></div>
+  </div>
+
+  <div class="card tint">
+    <h3 class="ord-title">Recent Orders</h3>
+    <div class="ohead" aria-hidden="true"><span>Order</span><span>Product</span><span>Total</span><span>Status</span></div>
+    <div class="orows" id="o-rows"></div>
+  </div>
+
+  <div class="card tint">
+    <h3>Payment details</h3>
+    <div class="ogrid">
+      <div>
+        <span class="cap" id="o-pay-order"></span>
+        <p><strong>Payment method:</strong> <span id="o-method"></span></p>
+      </div>
+      <div>
+        <p>Status: <span id="o-status"></span></p>
+        <p class="muted">Receipt: <span id="o-receipt"></span></p>
+      </div>
+    </div>
+    <p class="muted sm">All payment records shown here are demo examples.</p>
+  </div>
+
+  <div class="card tint">
+    <h3>Track your order</h3>
+    <p class="otrack-sum" id="o-track-sum"></p>
+    <p class="sm">Current stage: <span id="o-stage"></span> · Tracking number: <span id="o-tracking"></span></p>
+    <ol class="steps" id="o-steps" aria-label="Order progress"></ol>
+    <p class="muted sm" id="o-note"></p>
+  </div>
+</section>
+
+<section class="view set" id="settings">
+  <div class="page-head">
+    <h1>Settings</h1>
+    <p>Account preferences and security.</p>
+  </div>
+
+  <div class="set-grid">
+    <div class="set-tabs" role="tablist" aria-label="Settings sections">
+      <button type="button" class="stab" role="tab" id="tab-account" aria-controls="set-account" aria-selected="true">Account Settings</button>
+      <button type="button" class="stab" role="tab" id="tab-prefs" aria-controls="set-prefs" aria-selected="false" tabindex="-1">Preferences</button>
+      <button type="button" class="stab" role="tab" id="tab-notif" aria-controls="set-notif" aria-selected="false" tabindex="-1">Notifications</button>
+      <button type="button" class="stab" role="tab" id="tab-security" aria-controls="set-security" aria-selected="false" tabindex="-1">Security</button>
+      <button type="button" class="stab" role="tab" id="tab-store" aria-controls="set-store" aria-selected="false" tabindex="-1">Store Settings</button>
+    </div>
+
+    <!-- Account Settings (the screen in your design) -->
+    <div class="card set-panel" id="set-account" role="tabpanel" aria-labelledby="tab-account">
+      <h2>Account Settings</h2>
+      <div class="set-form">
+        <div class="fld"><label class="cap" for="s-name">Full name</label>
+          <input id="s-name" name="fullName" type="text" placeholder="Your Name" autocomplete="name"></div>
+        <div class="fld"><label class="cap" for="s-email">Email address</label>
+          <input id="s-email" name="email" type="email" placeholder="your@email.com" autocomplete="email"></div>
+        <div class="fld"><label class="cap" for="s-phone">Mobile number</label>
+          <input id="s-phone" name="phone" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel"></div>
+        <div class="set-row">
+          <span id="l-promo">Promotional email notifications</span>
+          <label class="switch"><input type="checkbox" name="promo" role="switch" aria-labelledby="l-promo" checked><i></i></label>
+        </div>
+        <p class="set-err" role="alert"></p>
+        <button type="button" class="set-save" data-save>Save Changes</button>
+      </div>
+    </div>
+
+    <!-- Preferences -->
+    <div class="card set-panel" id="set-prefs" role="tabpanel" aria-labelledby="tab-prefs" hidden>
+      <h2>Preferences</h2>
+      <div class="set-form">
+        <div class="fld"><label class="cap" for="s-lang">Language</label>
+          <select id="s-lang" name="language"><option>English</option><option>Filipino</option></select></div>
+        <div class="fld"><label class="cap" for="s-cur">Currency</label>
+          <select id="s-cur" name="currency"><option>Philippine Peso (₱)</option></select></div>
+        <div class="fld"><label class="cap" for="s-fav">Favorite category</label>
+          <select id="s-fav" name="favorite"><option>Lips</option><option>Eyes</option><option>Face</option><option>Skincare</option><option>Gifts</option></select></div>
+        <p class="set-err" role="alert"></p>
+        <button type="button" class="set-save" data-save>Save Changes</button>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="card set-panel" id="set-notif" role="tabpanel" aria-labelledby="tab-notif" hidden>
+      <h2>Notifications</h2>
+      <div class="set-form">
+        <div class="set-row"><span id="l-ord">Order and shipping updates</span>
+          <label class="switch"><input type="checkbox" name="nOrders" role="switch" aria-labelledby="l-ord" checked><i></i></label></div>
+        <div class="set-row"><span id="l-wish">Wishlist price drops</span>
+          <label class="switch"><input type="checkbox" name="nWish" role="switch" aria-labelledby="l-wish"><i></i></label></div>
+        <div class="set-row"><span id="l-sms">SMS delivery updates</span>
+          <label class="switch"><input type="checkbox" name="nSms" role="switch" aria-labelledby="l-sms"><i></i></label></div>
+        <p class="set-err" role="alert"></p>
+        <button type="button" class="set-save" data-save>Save Changes</button>
+      </div>
+    </div>
+
+    <!-- Security -->
+    <div class="card set-panel" id="set-security" role="tabpanel" aria-labelledby="tab-security" hidden>
+      <h2>Security</h2>
+      <div class="set-form">
+        <div class="fld"><label class="cap" for="s-cur-pw">Current password</label>
+          <input id="s-cur-pw" type="password" autocomplete="current-password" placeholder="••••••••••••"></div>
+        <div class="fld"><label class="cap" for="s-new-pw">New password</label>
+          <input id="s-new-pw" type="password" autocomplete="new-password" placeholder="••••••••••••">
+          <span class="sm muted">8+ characters · uppercase · lowercase · number</span></div>
+        <div class="fld"><label class="cap" for="s-new-pw2">Confirm new password</label>
+          <input id="s-new-pw2" type="password" autocomplete="new-password" placeholder="••••••••••••"></div>
+        <div class="set-row"><span id="l-2fa">Two-step verification</span>
+          <label class="switch"><input type="checkbox" name="twoStep" role="switch" aria-labelledby="l-2fa"><i></i></label></div>
+        <p class="set-err" role="alert"></p>
+        <button type="button" class="set-save" data-save>Save Changes</button>
+      </div>
+    </div>
+
+    <!-- Store Settings -->
+    <div class="card set-panel" id="set-store" role="tabpanel" aria-labelledby="tab-store" hidden>
+      <h2>Store Settings</h2>
+      <div class="set-form">
+        <div class="fld"><label class="cap" for="s-addr">Default delivery address</label>
+          <input id="s-addr" name="address" type="text" placeholder="Street, City / Province" autocomplete="street-address"></div>
+        <div class="fld"><label class="cap" for="s-pay">Preferred payment method</label>
+          <select id="s-pay" name="payment"><option>GCash</option><option>Maya</option><option>Credit / Debit Card</option><option>Bank Transfer</option></select></div>
+        <div class="set-row"><span id="l-rem">Remember my details at checkout</span>
+          <label class="switch"><input type="checkbox" name="remember" role="switch" aria-labelledby="l-rem" checked><i></i></label></div>
+        <p class="set-err" role="alert"></p>
+        <button type="button" class="set-save" data-save>Save Changes</button>
+      </div>
+    </div>
+  </div>
+</section>
+    </div>
+  </main>
+</div>
+<script src="assets/js/customer-account.js"></script>
+</body>
+</html>

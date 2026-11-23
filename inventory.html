@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inventory · Mystique Collections Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html" aria-current="page">Inventory</a>
+      <a href="orders-payments.html">Orders &amp; Payments</a>
+      <a href="settings.html">Settings</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-head"><h1 class="page-title">Inventory Management</h1></header>
+    <nav class="subnav" aria-label="Inventory sections"><a href="inventory.html" aria-current="page">Stock Levels</a><a href="inventory-update.html">Update Stock</a><a href="inventory-alerts.html">Low Stock Alerts</a><a href="inventory-auto.html">Automatic Updates</a></nav>
+
+    <section class="kpis" aria-label="Stock figures">
+      <div class="card kpi"><div class="label">Products</div><div class="value">5</div></div>
+      <div class="card kpi"><div class="label">In Stock</div><div class="value">2</div></div>
+      <div class="card kpi"><div class="label">Low Stock</div><div class="value">2</div></div>
+      <div class="card kpi"><div class="label">Out of Stock</div><div class="value">1</div></div>
+    </section>
+
+    <section class="card card-pad" style="min-height:45.75rem">
+      <h2 class="card-title">Stock Levels</h2>
+      <div class="grid-head" style="--cols:2fr 1.2fr 1fr 1.2fr;margin-top:2.5rem"><span>Product</span><span>SKU</span><span>Stock</span><span>Status</span></div>
+      <div class="rows" role="table" aria-label="Stock levels">
+        <div class="grid-row raised" style="--cols:2fr 1.2fr 1fr 1.2fr"><span class="strong">Amethyst Pendant</span><span>AP-001</span><span class="strong">120</span><span>In stock</span></div>
+        <div class="grid-row raised" style="--cols:2fr 1.2fr 1fr 1.2fr"><span class="strong">Moon Tarot Deck</span><span>TD-014</span><span class="strong">45</span><span>In stock</span></div>
+        <div class="grid-row raised" style="--cols:2fr 1.2fr 1fr 1.2fr"><span class="strong">Rose Quartz Bracelet</span><span>RB-007</span><span class="strong">8</span><span>Low stock</span></div>
+        <div class="grid-row raised" style="--cols:2fr 1.2fr 1fr 1.2fr"><span class="strong">Sage Incense Set</span><span>SI-022</span><span class="strong">3</span><span>Low stock</span></div>
+        <div class="grid-row raised" style="--cols:2fr 1.2fr 1fr 1.2fr"><span class="strong">Crystal Candle</span><span>CC-009</span><span class="strong">0</span><span>Out of stock</span></div>
+      </div>
+    </section>
+
+    <div class="btn-row">
+      <a class="btn" href="inventory-update.html" style="min-width:18.25rem">Update Stock &nbsp;→</a>
+      <a class="btn" href="inventory-alerts.html" style="min-width:20.125rem">Low Stock Alerts &nbsp;→</a>
+    </div>
+  </main>
+</body>
+</html>

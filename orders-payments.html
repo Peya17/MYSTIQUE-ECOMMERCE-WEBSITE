@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orders &amp; Payments · Mystique Collections Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="orders-payments.html" aria-current="page">Orders &amp; Payments</a>
+      <a href="settings.html">Settings</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-head" style="margin-bottom:5.25rem"><h1 class="page-title">Orders &amp; Payments</h1></header>
+
+    <section id="payments" class="card card-pad" style="min-height:48.625rem">
+      <h2 class="card-title">Payment Verification</h2>
+      <div class="grid-head" style="--cols:1.4fr 1.6fr 1.4fr 1.4fr;margin-top:3rem"><span>Order ID</span><span>Method</span><span>Amount</span><span>Status</span></div>
+      <div class="rows flat" role="table" aria-label="Payments" style="margin-top:1.25rem">
+        <div class="grid-row flat" style="--cols:1.4fr 1.6fr 1.4fr 1.4fr"><span class="strong">#MS-10458</span><span>GCash</span><span class="strong">₱1,980</span><span class="strong">Verified</span></div>
+        <div class="grid-row flat" style="--cols:1.4fr 1.6fr 1.4fr 1.4fr"><span class="strong">#MS-10441</span><span>Maya</span><span class="strong">₱2,350</span><span class="strong">Verified</span></div>
+        <div class="grid-row flat" style="--cols:1.4fr 1.6fr 1.4fr 1.4fr"><span class="strong">#MS-10422</span><span>Bank Transfer</span><span class="strong">₱1,190</span><span class="strong">Pending</span></div>
+        <div class="grid-row flat" style="--cols:1.4fr 1.6fr 1.4fr 1.4fr"><span class="strong">#MS-10419</span><span>Card</span><span class="strong">₱890</span><span class="strong">Paid</span></div>
+        <div class="grid-row flat" style="--cols:1.4fr 1.6fr 1.4fr 1.4fr"><span class="strong">#MS-10381</span><span>GCash</span><span class="strong">₱1,420</span><span class="strong">Refund review</span></div>
+      </div>
+    </section>
+
+    <div class="btn-row" style="margin-top:5rem">
+      <a class="btn" href="#payments" style="min-width:22.625rem">Verify Receipts &nbsp;→</a>
+    </div>
+  </main>
+</body>
+</html>

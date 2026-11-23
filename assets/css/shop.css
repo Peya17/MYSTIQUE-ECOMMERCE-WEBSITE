@@ -1,0 +1,125 @@
+/* =========================================================
+   MYSTIQUE — shop filter (extra styles for shop.html only)
+   Uses the tokens from general.css, so it matches the rest of the site.
+   ========================================================= */
+
+/* tabs on the left, Filter button on the right */
+.shop-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+.shop-toolbar .tabs { margin-bottom: 0; }
+
+.filter-toggle { min-width: 120px; }
+.filter-toggle[aria-expanded="true"] {
+    background: var(--plum);
+    color: #fff;
+}
+
+.filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    background: var(--plum);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+}
+.filter-count[hidden] { display: none; }
+.filter-toggle[aria-expanded="true"] .filter-count { background: #fff; color: var(--plum); }
+
+/* panel slides open and closed */
+.filter-slide {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+}
+.filter-slide.open { grid-template-rows: 1fr; }
+.filter-slide > div { overflow: hidden; }
+
+.filter-panel {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px 40px;
+    padding: 24px 28px;
+    margin: 4px 4px 32px;
+}
+
+.filter-group { border: 0; }
+.filter-group legend {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--edge);
+    background: var(--surface-light);
+    color: var(--ink);
+    box-shadow: var(--raised-sm);
+    font-size: 13px;
+    cursor: pointer;
+    transition: transform var(--ease), background-color var(--ease), color var(--ease);
+}
+.chip:hover { transform: scale(var(--hover-scale)); }
+.chip.on {
+    background: var(--plum);
+    border-color: var(--plum);
+    color: #fff;
+}
+.chip-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(53, 29, 48, 0.25);
+}
+
+.filter-clear {
+    grid-column: 1 / -1;
+    justify-self: start;
+    background: none;
+    border: 0;
+    padding: 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.filter-clear:hover { color: var(--ink); }
+
+/* cards hidden by the filter */
+.card.is-filtered { display: none; }
+
+.filter-empty {
+    font-size: 16px;
+    color: var(--ink-soft);
+    padding: 24px 0;
+}
+.filter-empty[hidden] { display: none; }
+
+@media (max-width: 768px) {
+    .filter-panel { grid-template-columns: 1fr; padding: 20px; }
+    .shop-toolbar .tabs { flex: 1 1 100%; }
+    .filter-toggle { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .filter-slide { transition: none; }
+}

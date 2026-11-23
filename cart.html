@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bag | mystique</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+</head>
+<body data-page="cart">
+
+    <main class="container">
+        <!--steps-->
+        <div class="cart-top">
+            <a class="back-link" href="shop.html">← Back to shopping</a>
+            <div class="steps" aria-label="Checkout progress">
+                <div class="step on"><b>1</b><span>Cart</span></div>
+                <div class="step"><b>2</b><span>Delivery</span></div>
+                <div class="step"><b>3</b><span>Payment</span></div>
+                <div class="step"><b>4</b><span>Review</span></div>
+                <div class="step"><b>5</b><span>Confirmation</span></div>
+            </div>
+        </div>
+
+        <div class="cart-layout">
+            <!--items-->
+            <section>
+                <h1>Your beauty bag</h1>
+                <p class="cart-sub">A few little luxuries, chosen by you.</p>
+                <div id="cartList"></div>
+                <a href="checkout.html" id="toDelivery" class="btn btn-primary cart-cta">Continue to Delivery →</a>
+            </section>
+
+            <!--order summary-->
+            <aside class="panel summary">
+                <h2>Your order</h2>
+                <div id="sumItems"></div>
+                <div class="thanks">Thank you for choosing Mystique.</div>
+                <div class="totals">
+                    <div class="sum-row"><span>Subtotal</span><span id="tSub">₱ 0.00</span></div>
+                    <div class="sum-row"><span>Shipping fee</span><span id="tShip">₱0.00</span></div>
+                    <div class="sum-row muted"><span>Promo discount</span><span id="tDisc">−₱ 0.00</span></div>
+                    <div class="sum-total"><span>Total</span><strong id="tTotal">₱0.00</strong></div>
+                </div>
+                <div class="promo">
+                    <input type="text" id="promoInput" placeholder="Enter promo code" aria-label="Promo code">
+                    <button type="button" class="btn btn-primary btn-sm" data-action="promo">Apply</button>
+                </div>
+                <p class="fineprint">Secure checkout · Encrypted payments<br>We never store your payment information.</p>
+            </aside>
+        </div>
+    </main>
+
+    <!--scripts: general.js first, then cart.js-->
+    <script src="assets/js/general.js"></script>
+    <script src="assets/js/cart.js"></script>
+</body>
+</html>

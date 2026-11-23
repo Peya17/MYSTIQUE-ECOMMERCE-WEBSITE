@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customers · Mystique Collections Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/adminstyle.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="dashboard.html"><span class="brand-name">mystique</span><span class="brand-sub">COLLECTIONS</span></a>
+    <nav aria-label="Admin">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="customers.html" aria-current="page">Customers</a>
+      <a href="adminproducts.html">Products</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="orders-payments.html">Orders &amp; Payments</a>
+      <a href="settings.html">Settings</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="page-head"><h1 class="page-title">Customer Directory</h1></header>
+
+    <section class="kpis" aria-label="Customer figures">
+      <div class="card kpi sans"><div class="label">Total Customers</div><div class="value">128</div></div>
+      <div class="card kpi sans"><div class="label">New This Month</div><div class="value">16</div></div>
+      <div class="card kpi sans"><div class="label">Returning</div><div class="value">42</div></div>
+      <div class="card kpi sans"><div class="label">Active Orders</div><div class="value">11</div></div>
+    </section>
+
+    <section class="card card-pad" style="min-height:43.125rem">
+      <h2 class="card-title sans">Customer Management</h2>
+      <input class="search" type="search" placeholder="Search customers by name, email or order..." aria-label="Search customers">
+
+      <div class="grid-head" style="--cols:2fr 3fr 1fr 1fr"><span>Customer</span><span>Email</span><span>Orders</span><span>Status</span></div>
+      <div class="rows" role="table" aria-label="Customers">
+        <div class="grid-row raised" style="--cols:2fr 3fr 1fr 1fr"><span class="strong">Elara Santos</span><span>elara@mystique.com</span><span class="strong">6</span><span class="strong">Active</span></div>
+        <div class="grid-row raised" style="--cols:2fr 3fr 1fr 1fr"><span class="strong">Maya Reyes</span><span>maya@example.com</span><span class="strong">3</span><span class="strong">Active</span></div>
+        <div class="grid-row raised" style="--cols:2fr 3fr 1fr 1fr"><span class="strong">Alex Cruz</span><span>alex@example.com</span><span class="strong">2</span><span class="strong">Active</span></div>
+        <div class="grid-row raised" style="--cols:2fr 3fr 1fr 1fr"><span class="strong">Jules Rivera</span><span>jules@example.com</span><span class="strong">1</span><span class="strong">New</span></div>
+        <div class="grid-row raised" style="--cols:2fr 3fr 1fr 1fr"><span class="strong">Rina Lopez</span><span>rina@example.com</span><span class="strong">4</span><span class="strong">Active</span></div>
+      </div>
+    </section>
+
+    <p class="foot-note">Customer profiles, purchases and preferences · demo data</p>
+  </main>
+</body>
+</html>
