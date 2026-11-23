@@ -1,0 +1,224 @@
+/* =========================================================
+   MYSTIQUE — main page (loads after general.css)
+   Hero, new arrivals, beyond the ordinary, bestsellers strip.
+   ========================================================= */
+
+/*hero*/
+.hero {
+    color: #fff;
+    /* soft dark overlay, then the silk photo, then a plum gradient if the photo is missing */
+    background:
+        linear-gradient(90deg, rgba(53, 29, 48, 0.55) 0%, rgba(53, 29, 48, 0.15) 65%),
+        url("../images/images/silk-fabric.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #7A4259 0%, #4A2638 55%, #351D30 100%);
+}
+
+.hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 40px;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    min-height: 620px;
+}
+
+.eyebrow-light {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hero h1 {
+    margin: 18px 0 34px;
+    font-size: clamp(60px, 8vw, 112px);
+    font-weight: 400;
+    line-height: 1.02;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.hero-tag {
+    margin-bottom: 10px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    font-style: italic;
+}
+
+.hero-sub {
+    max-width: 360px;
+    margin-bottom: 26px;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.hero-visual {
+    aspect-ratio: 1.15 / 1;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #7a4259, #351D30);
+}
+
+/*shade label (click to switch shade)*/
+.glass-label {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    min-width: 280px;
+    padding: 16px 22px;
+    border: 1px solid var(--edge);
+    border-radius: 22px;
+    background: rgba(241, 225, 232, 0.82);
+    box-shadow: var(--raised-sm);
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.glass-label:hover {
+    transform: scale(var(--hover-scale));
+}
+
+.glass-label span,
+.glass-label small {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
+.glass-label strong {
+    display: block;
+    margin: 4px 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+
+/*new arrivals*/
+.cat-wrap {
+    padding: 20px;
+    border: 1px solid var(--edge);
+    border-radius: 30px;
+    background: var(--surface);
+    box-shadow: var(--raised);
+}
+
+.cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.cat-card {
+    display: block;
+    padding: 14px 14px 18px;
+    border: 1px solid var(--edge);
+    border-radius: 24px;
+    background: var(--surface);
+    box-shadow: var(--raised-sm);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform var(--ease), box-shadow var(--ease);
+    backface-visibility: hidden;
+}
+
+.cat-card:hover {
+    transform: scale(var(--hover-scale-lg));
+}
+
+.cat-card .img-slot {
+    aspect-ratio: 1.4 / 1;
+}
+
+.cat-card h3 {
+    margin: 12px 6px 2px;
+    font-size: 32px;
+}
+
+.cat-card p {
+    margin: 0 6px;
+    font-size: 14px;
+    color: var(--ink-soft);
+}
+
+
+/*beyond the ordinary*/
+.beyond-head {
+    margin-bottom: 26px;
+}
+
+.beyond-head p {
+    margin-top: 6px;
+    font-size: 16px;
+    color: var(--ink-soft);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    gap: 18px;
+    padding: 16px;
+    border: 1px solid var(--edge);
+    border-radius: 26px;
+    background: var(--surface-light);
+    box-shadow: var(--raised-sm);
+}
+
+.gallery .img-slot {
+    aspect-ratio: 1.5 / 1;
+    border-radius: 16px;
+    transition: transform var(--ease), box-shadow var(--ease);
+    backface-visibility: hidden;
+}
+
+.gallery .img-slot:hover {
+    transform: scale(var(--hover-scale-lg));
+}
+
+
+/*bestsellers*/
+.brand-strip {
+    margin-top: 56px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--plum);
+}
+
+
+/*tablet*/
+@media (max-width: 1100px) {
+    .hero-inner {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .hero-visual {
+        max-width: 600px;
+    }
+}
+
+
+/*mobile*/
+@media (max-width: 768px) {
+    .cat-grid,
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .glass-label {
+        left: 6px;
+        min-width: 0;
+    }
+
+    .hero-tag {
+        font-size: 24px;
+    }
+}
