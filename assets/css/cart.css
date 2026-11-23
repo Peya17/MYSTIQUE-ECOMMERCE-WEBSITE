@@ -1,0 +1,278 @@
+/* =========================================================
+   MYSTIQUE — cart (loads after general.css)
+   The steps bar, order summary, totals and promo box are also
+   used by the checkout page, so checkout.html links this file too.
+   ========================================================= */
+
+.cart-top {
+    display: grid;
+    grid-template-columns: 1fr 980px;
+    align-items: center;
+    gap: 20px;
+    padding-top: 40px;
+}
+
+.back-link {
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-block;
+    transition: transform var(--ease), opacity var(--ease);
+}
+
+.back-link:hover {
+    transform: scale(var(--hover-scale));
+    opacity: 0.75;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 28px;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--edge);
+    box-shadow: var(--raised-sm);
+    font-size: 14px;
+    color: var(--ink-soft);
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step b {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #EBD3DD;
+    font-weight: 400;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step.on { color: var(--ink); }
+
+.step.on b {
+    background: #4A2638;
+    color: #fff;
+}
+
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 70px;
+    align-items: start;
+    margin-top: 36px;
+}
+
+.cart-layout h1 { font-size: clamp(40px, 5vw, 58px); }
+
+.cart-sub {
+    color: var(--ink-soft);
+    font-size: 16px;
+    margin: 6px 0 36px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+    margin-bottom: 36px;
+}
+
+.cart-item .img-slot {
+    width: 140px;
+    height: 172px;
+    border-radius: 10px;
+}
+
+.cart-item h3 {
+    font-size: 32px;
+    line-height: 1.1;
+}
+
+.cart-item .sub {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 10px 0 12px;
+}
+
+.cart-item .price { font-size: 16px; }
+
+.cart-item-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: transform var(--ease), color var(--ease);
+}
+
+.remove-btn:hover {
+    transform: scale(var(--hover-scale));
+    color: var(--ink);
+}
+
+.summary { padding: 28px 24px 30px; }
+
+.summary h2 {
+    font-size: 34px;
+    margin-bottom: 20px;
+}
+
+.sum-item {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.sum-item .img-slot {
+    width: 84px;
+    height: 100px;
+    border-radius: 8px;
+}
+
+.sum-item h4 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 21px;
+}
+
+.sum-item small {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 4px 0 10px;
+}
+
+.sum-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+/* "Thank you for choosing Mystique" card (was missing from this file) */
+.thanks {
+    margin: 24px 0;
+    padding: 20px 22px;
+    border-radius: 22px;
+    background: #EDD6DF;
+    border: 1px solid var(--edge);
+    box-shadow: var(--raised-sm);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    line-height: 1.2;
+    color: var(--ink);
+}
+
+.totals .sum-row {
+    font-size: 14px;
+    padding: 7px 0;
+}
+
+.totals .sum-row.muted {
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+
+.totals .sum-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid rgba(53, 29, 48, 0.15);
+    margin-top: 12px;
+    padding-top: 18px;
+    font-size: 20px;
+}
+
+.totals .sum-total strong {
+    font-weight: 400;
+    font-size: 28px;
+}
+
+.promo {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.promo input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #FAF1F5;
+    box-shadow: inset 2px 2px 5px rgba(124, 69, 97, 0.15);
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+}
+
+.promo input:focus { outline: 2px solid var(--plum); }
+
+.fineprint {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin-top: 22px;
+}
+
+.cart-cta {
+    margin-top: 60px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+/* Motion: big things get the gentler scale */
+.cart-item .img-slot,
+.sum-item .img-slot {
+    position: relative;
+    transition: transform var(--ease), box-shadow var(--ease);
+    backface-visibility: hidden;
+}
+
+.cart-item .img-slot:hover,
+.sum-item .img-slot:hover {
+    transform: scale(var(--hover-scale-lg));
+    z-index: 2;
+}
+
+@media (max-width: 1100px) {
+    .cart-top { grid-template-columns: 1fr; }
+    .cart-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .steps {
+        gap: 10px;
+        overflow-x: auto;
+        padding: 12px 16px;
+    }
+    .step span { display: none; }
+    .step.on span { display: inline; }
+    .cart-item {
+        grid-template-columns: 100px 1fr;
+        gap: 18px;
+    }
+    .cart-item .img-slot {
+        width: 100px;
+        height: 130px;
+    }
+}
