@@ -19,7 +19,7 @@
     --sans: "Inter", system-ui, sans-serif;
 
     /* Background image */
-    --photo: url("C:\Users\PEYA-PC\OneDrive\Documents\GitHub\MYSTIQUE ECOMMERCE WEBSITE\assets\images\images");
+    --photo: url("../images/images/hero-main.jpg");
 
     color-scheme: light;
     box-sizing: border-box;
