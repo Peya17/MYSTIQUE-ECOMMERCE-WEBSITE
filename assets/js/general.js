@@ -22,7 +22,7 @@
     // login / sign up page (Sign Up button points here)
     const AUTH_PAGE = 'loginandsignin.html';
 
-    // fallback page if the account popup (profile.js) has not loaded yet
+    // where the profile icon goes once the customer is signed in
     const PROFILE_PAGE = 'profile.html';
 
     // folder that holds every product photo (change this one line if yours moves)
@@ -322,31 +322,37 @@
         } catch (e) { return false; }
     }
 
-    function updateProfileBtn() {
-        const signedIn = isSignedIn();
-        $$('[data-profile]').forEach(b => {
-            if (!b.dataset.icon) b.dataset.icon = b.innerHTML;   // remember the profile icon
-            if (signedIn) {
-                b.innerHTML = b.dataset.icon;                    // the icon comes back
-                b.classList.remove('signup-btn');
-                // not exactly "Profile", so profile.js's header click catcher leaves this click alone
-                b.setAttribute('aria-label', 'My profile');
-                b.onclick = () => {
-                    if (window.MQProfile) window.MQProfile.open();   // account popup
-                    else window.location.href = PROFILE_PAGE;        // fallback if profile.js hasn't loaded yet
-                };
-            } else {
-                b.textContent = 'Sign Up';
-                b.classList.add('signup-btn');
-                b.setAttribute('aria-label', 'Sign Up');
-                b.onclick = () => { window.location.href = AUTH_PAGE + '#signup'; };
-            }
+        // profile.js (popup + accounts) is loaded on demand, or up front at boot
+    let profileQueue = null;
+    function loadProfileScript(cb) {
+        if (window.MQProfile || !THIS_SRC) { cb(); return; }
+        if (!profileQueue) {
+            profileQueue = [];
+            const ps = document.createElement('script');
+            ps.src = new URL('profile.js', THIS_SRC).href;
+            ps.onload = ps.onerror = function () {
+                const q = profileQueue;
+                profileQueue = null;
+                q.forEach(f => f());
+            };
+            document.body.appendChild(ps);
+        }
+        profileQueue.push(cb);
+    }
+
+    // popup first: signed in -> account popup, signed out -> login page
+    function openProfile() {
+        loadProfileScript(function () {
+            if (window.MQProfile) window.MQProfile.open();
+            else window.location.href = PROFILE_PAGE;   // last resort if profile.js can't load
         });
     }
-    window.addEventListener('pageshow', updateProfileBtn);         // back button / returning from the login page
-    window.addEventListener('focus', updateProfileBtn);            // coming back to this tab
-    window.addEventListener('storage', updateProfileBtn);          // sign in/out in another tab
-    document.addEventListener('mq:authchange', updateProfileBtn);  // sign in/out through profile.js
+
+    function updateProfileBtn() {
+        $$('[data-profile]').forEach(b => {
+            b.onclick = openProfile;
+        });
+    }
 
     /* ---------- Reusable card pieces ---------- */
     // quick = true: clicking the photo opens the quick view instead of leaving the page
@@ -628,14 +634,6 @@
     badges();
     booted = true;
 
-    // profile.js (account popup + helpers) sits in the same folder.
-    // Pages that already loaded it with their own <script> tag are skipped.
-    if (!window.MQProfile && THIS_SRC) {
-        try {
-            const ps = document.createElement('script');
-            ps.src = new URL('profile.js', THIS_SRC).href;
-            ps.onload = updateProfileBtn;   // re-check the header button once it's ready
-            document.body.appendChild(ps);
-        } catch (e) { /* profile.js is optional for the header button */ }
-    }
+        // load profile.js (account popup) next to this file, unless the page already did
+    loadProfileScript(function () {});
 })();

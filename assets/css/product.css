@@ -1,10 +1,3 @@
-/* =========================================================
-   MYSTIQUE — product details page (load after general.css)
-   Matches Figma "03 Product Details". Scoped to <body data-page="product">
-   so nothing else on the site changes. Falls back to fixed colors if a
-   general.css variable is missing.
-   ========================================================= */
-
 body[data-page="product"] {
     --pd-ink: var(--ink, #351D30);
     --pd-soft: var(--ink-soft, #7C6D73);
@@ -15,6 +8,33 @@ body[data-page="product"] {
 body[data-page="product"] #productRoot {
     padding-top: 22px;
     padding-bottom: 80px;
+}
+
+/* hidden inputs that hold the css-only state */
+body[data-page="product"] .state {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* search bar (css-only open/close) */
+body[data-page="product"] .search-panel { display: none; }
+body[data-page="product"] #searchToggle:checked ~ .navbar-header .search-panel { display: block; }
+
+body[data-page="product"] label.tool-btn,
+body[data-page="product"] label.search-clear { cursor: pointer; }
+
+body[data-page="product"] .search-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body[data-page="product"] #searchToggle:focus-visible ~ .navbar-header .tool-btn[for="searchToggle"] {
+    outline: 2px solid var(--plum);
+    outline-offset: 3px;
 }
 
 /* breadcrumb */
@@ -43,7 +63,7 @@ body[data-page="product"] .pd {
     align-items: start;
 }
 
-/* photo */
+/* photo (only the photo for the checked radio shows) */
 body[data-page="product"] .pd-photo {
     aspect-ratio: 1.02 / 1;
     border-radius: 22px;
@@ -52,7 +72,7 @@ body[data-page="product"] .pd-photo {
 }
 
 body[data-page="product"] .pd-photo img {
-    display: block;
+    display: none;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -62,18 +82,21 @@ body[data-page="product"] .pd-photo img.contain {
     object-fit: contain;
 }
 
-/* thumbnails only appear when a product has extra photos */
+body[data-page="product"] #photo1:checked ~ .pd .pm1,
+body[data-page="product"] #photo2:checked ~ .pd .pm2,
+body[data-page="product"] #photo3:checked ~ .pd .pm3 {
+    display: block;
+}
+
+/* thumbnails */
 body[data-page="product"] .thumbs {
     display: flex;
     gap: 10px;
     margin-top: 12px;
 }
 
-body[data-page="product"] .thumbs:empty {
-    display: none;
-}
-
 body[data-page="product"] .thumb {
+    display: block;
     width: 64px;
     height: 64px;
     padding: 0;
@@ -84,8 +107,17 @@ body[data-page="product"] .thumb {
     cursor: pointer;
 }
 
-body[data-page="product"] .thumb.active {
+body[data-page="product"] #photo1:checked ~ .pd .t1,
+body[data-page="product"] #photo2:checked ~ .pd .t2,
+body[data-page="product"] #photo3:checked ~ .pd .t3 {
     border-color: var(--pd-plum);
+}
+
+body[data-page="product"] #photo1:focus-visible ~ .pd .t1,
+body[data-page="product"] #photo2:focus-visible ~ .pd .t2,
+body[data-page="product"] #photo3:focus-visible ~ .pd .t3 {
+    outline: 2px solid var(--plum);
+    outline-offset: 3px;
 }
 
 body[data-page="product"] .thumb img {
@@ -171,7 +203,7 @@ body[data-page="product"] .pd-panel .label {
     color: var(--pd-ink);
 }
 
-/* shade swatches */
+/* shade swatches (links to the other colors) */
 body[data-page="product"] .pd-panel .swatches {
     display: flex;
     gap: 12px;
@@ -198,7 +230,7 @@ body[data-page="product"] .pd-panel .swatch.active {
     box-shadow: 0 0 0 2px var(--pd-panel), 0 0 0 3.5px var(--pd-ink);
 }
 
-/* quantity */
+/* quantity (plain number input) */
 body[data-page="product"] .qty {
     display: inline-flex;
     align-items: center;
@@ -212,16 +244,21 @@ body[data-page="product"] .qty {
     color: var(--pd-ink);
 }
 
-body[data-page="product"] .qty button {
-    width: 22px;
-    height: 22px;
-    padding: 0;
+body[data-page="product"] .qty input {
+    width: 56px;
+    height: 28px;
+    padding: 0 4px;
     border: 0;
+    border-bottom: 1px solid rgba(100, 54, 79, 0.3);
     background: none;
-    font-size: 15px;
-    line-height: 1;
+    font: 400 13px "Inter", sans-serif;
+    text-align: center;
     color: var(--pd-ink);
-    cursor: pointer;
+}
+
+body[data-page="product"] .qty input:focus-visible {
+    outline: 2px solid var(--plum);
+    outline-offset: 3px;
 }
 
 /* add to bag + wishlist */
@@ -255,14 +292,21 @@ body[data-page="product"] .pd-actions .wish-square {
     border-radius: 8px;
     background: #F8ECF1;
     color: #B08A9A;
+    cursor: pointer;
 }
 
-body[data-page="product"] .pd-actions .wish-square.on {
+/* wishlist heart (css-only toggle) */
+body[data-page="product"] #wish:checked ~ .pd .wish-square {
     color: var(--pd-plum);
 }
 
-body[data-page="product"] .pd-actions .wish-square.on svg path {
+body[data-page="product"] #wish:checked ~ .pd .wish-square svg path {
     fill: currentColor;
+}
+
+body[data-page="product"] #wish:focus-visible ~ .pd .wish-square {
+    outline: 2px solid var(--plum);
+    outline-offset: 3px;
 }
 
 body[data-page="product"] .perks {

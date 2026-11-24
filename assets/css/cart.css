@@ -2,8 +2,38 @@
    MYSTIQUE — cart (loads after general.css)
    The steps bar, order summary, totals and promo box are also
    used by the checkout page, so checkout.html links this file too.
+   No JavaScript: the search bar and the promo code are CSS-only.
    ========================================================= */
 
+/* hidden input that holds the css-only search state */
+body[data-page="cart"] .state {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* search bar (css-only open/close) */
+body[data-page="cart"] .search-panel { display: none; }
+body[data-page="cart"] #searchToggle:checked ~ .navbar-header .search-panel { display: block; }
+
+body[data-page="cart"] label.tool-btn,
+body[data-page="cart"] label.search-clear { cursor: pointer; }
+
+body[data-page="cart"] .search-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body[data-page="cart"] #searchToggle:focus-visible ~ .navbar-header .tool-btn[for="searchToggle"] {
+    outline: 2px solid var(--plum);
+    outline-offset: 3px;
+}
+
+
+/* ---------- cart ---------- */
 .cart-top {
     display: grid;
     grid-template-columns: 1fr 980px;
@@ -111,18 +141,10 @@
     margin-top: 10px;
 }
 
-.remove-btn {
-    background: none;
-    border: none;
-    font-size: 13px;
+/* plain quantity text (replaces the −/+ buttons) */
+.qty-static {
+    font-size: 14px;
     color: var(--ink-soft);
-    cursor: pointer;
-    transition: transform var(--ease), color var(--ease);
-}
-
-.remove-btn:hover {
-    transform: scale(var(--hover-scale));
-    color: var(--ink);
 }
 
 .summary { padding: 28px 24px 30px; }
@@ -202,6 +224,12 @@
     font-weight: 400;
     font-size: 28px;
 }
+
+/* css-only promo: show the discounted numbers while the promo input is valid */
+.d-on { display: none; }
+
+body[data-page="cart"]:has(#promoInput:valid) .d-off { display: none; }
+body[data-page="cart"]:has(#promoInput:valid) .d-on { display: inline; }
 
 .promo {
     display: flex;

@@ -1,9 +1,16 @@
-/* =========================================================
-   MYSTIQUE — shop filter (extra styles for shop.html only)
-   Uses the tokens from general.css, so it matches the rest of the site.
-   ========================================================= */
+.f-state {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
 
-/* tabs on the left, Filter button on the right */
+/* counts the ticked chips for the badge on the Filter button */
+main { counter-reset: fc; }
+.f-opt:checked { counter-increment: fc; }
+
+/* ---------- Toolbar: tabs on the left, Filter button on the right ---------- */
 .shop-toolbar {
     display: flex;
     align-items: center;
@@ -14,10 +21,43 @@
 }
 .shop-toolbar .tabs { margin-bottom: 0; }
 
+/* tabs are labels now, so center their text */
+.tabs .tab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* active tab */
+main:has(#t-all:checked) [for="t-all"],
+main:has(#t-emy:checked) [for="t-emy"],
+main:has(#t-seffy:checked) [for="t-seffy"] {
+    background-color: var(--plum);
+    color: #fff;
+    transform: scale(var(--hover-scale));
+}
+main:has(#t-all:focus-visible) [for="t-all"],
+main:has(#t-emy:focus-visible) [for="t-emy"],
+main:has(#t-seffy:focus-visible) [for="t-seffy"] {
+    outline: 2px solid var(--plum);
+    outline-offset: 3px;
+}
+
+/* tabs hide the other lines in New Arrivals */
+main:has(#t-emy:checked) #newGrid .card:not([data-line="emy"]),
+main:has(#t-seffy:checked) #newGrid .card:not([data-line="seffy"]) {
+    display: none;
+}
+
+/* ---------- Filter button + badge ---------- */
 .filter-toggle { min-width: 120px; }
-.filter-toggle[aria-expanded="true"] {
+main:has(#filterToggle:checked) .filter-toggle {
     background: var(--plum);
     color: #fff;
+}
+main:has(#filterToggle:focus-visible) .filter-toggle {
+    outline: 2px solid var(--plum);
+    outline-offset: 3px;
 }
 
 .filter-count {
@@ -33,16 +73,22 @@
     font-size: 11px;
     font-weight: 600;
 }
-.filter-count[hidden] { display: none; }
-.filter-toggle[aria-expanded="true"] .filter-count { background: #fff; color: var(--plum); }
+.filter-count::after { content: counter(fc); }
+main:not(:has(.f-opt:checked)) .filter-count { display: none; }
+main:has(#filterToggle:checked) .filter-count { background: #fff; color: var(--plum); }
 
-/* panel slides open and closed */
+/* ---------- Panel slides open and closed ---------- */
 .filter-slide {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease;
+    visibility: hidden;
+    transition: grid-template-rows 0.3s ease, visibility 0s linear 0.3s;
 }
-.filter-slide.open { grid-template-rows: 1fr; }
+main:has(#filterToggle:checked) .filter-slide {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows 0.3s ease, visibility 0s;
+}
 .filter-slide > div { overflow: hidden; }
 
 .filter-panel {
@@ -79,16 +125,38 @@
     transition: transform var(--ease), background-color var(--ease), color var(--ease);
 }
 .chip:hover { transform: scale(var(--hover-scale)); }
-.chip.on {
-    background: var(--plum);
-    border-color: var(--plum);
-    color: #fff;
-}
 .chip-dot {
     width: 14px;
     height: 14px;
     border-radius: 50%;
     border: 1px solid rgba(53, 29, 48, 0.25);
+}
+
+/* chip is "on" when its checkbox is ticked */
+main:has(#p-under:checked) [for="p-under"],
+main:has(#p-up:checked) [for="p-up"],
+main:has(#c-beige:checked) [for="c-beige"],
+main:has(#c-blue:checked) [for="c-blue"],
+main:has(#c-grey:checked) [for="c-grey"],
+main:has(#c-yellow:checked) [for="c-yellow"],
+main:has(#c-black:checked) [for="c-black"],
+main:has(#c-green:checked) [for="c-green"] {
+    background: var(--plum);
+    border-color: var(--plum);
+    color: #fff;
+}
+
+/* keyboard focus ring on chips */
+main:has(#p-under:focus-visible) [for="p-under"],
+main:has(#p-up:focus-visible) [for="p-up"],
+main:has(#c-beige:focus-visible) [for="c-beige"],
+main:has(#c-blue:focus-visible) [for="c-blue"],
+main:has(#c-grey:focus-visible) [for="c-grey"],
+main:has(#c-yellow:focus-visible) [for="c-yellow"],
+main:has(#c-black:focus-visible) [for="c-black"],
+main:has(#c-green:focus-visible) [for="c-green"] {
+    outline: 2px solid var(--plum);
+    outline-offset: 2px;
 }
 
 .filter-clear {
@@ -104,15 +172,26 @@
 }
 .filter-clear:hover { color: var(--ink); }
 
-/* cards hidden by the filter */
-.card.is-filtered { display: none; }
+/* ---------- Hiding cards (replaces the old .is-filtered class) ----------
+   Each card carries data-id (e.g. "emy-beige").
+   Price: Emy bags ₱1,499 and the lip color ₱650 = "Under ₱1,500";
+          Seffy bags ₱1,599 = "₱1,500 and up".
+   Color: the word after the dash in the id.
+   If you change a price or add a product, update the card and these lines. */
 
-.filter-empty {
-    font-size: 16px;
-    color: var(--ink-soft);
-    padding: 24px 0;
-}
-.filter-empty[hidden] { display: none; }
+/* price */
+main:has(.f-price:checked):not(:has(#p-under:checked)) .card:is([data-id^="emy-"], [data-id^="velvet-"]) { display: none; }
+main:has(.f-price:checked):not(:has(#p-up:checked)) .card[data-id^="seffy-"] { display: none; }
+
+/* color */
+main:has(.f-color:checked):not(:has(#c-beige:checked)) .card[data-id$="-beige"] { display: none; }
+main:has(.f-color:checked):not(:has(#c-blue:checked)) .card[data-id$="-blue"] { display: none; }
+main:has(.f-color:checked):not(:has(#c-grey:checked)) .card[data-id$="-grey"] { display: none; }
+main:has(.f-color:checked):not(:has(#c-yellow:checked)) .card[data-id$="-yellow"] { display: none; }
+main:has(.f-color:checked):not(:has(#c-black:checked)) .card[data-id$="-black"] { display: none; }
+main:has(.f-color:checked):not(:has(#c-green:checked)) .card[data-id$="-green"] { display: none; }
+/* the lip color has no color chip, so it hides whenever a color is picked */
+main:has(.f-color:checked) .card[data-id^="velvet-"] { display: none; }
 
 @media (max-width: 768px) {
     .filter-panel { grid-template-columns: 1fr; padding: 20px; }

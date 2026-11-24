@@ -1,14 +1,4 @@
 
-/* =========================================================
-   MYSTIQUE E-COMMERCE ADMIN
-   Main Stylesheet
-   ========================================================= */
-
-
-/* =========================================================
-   1. VARIABLES AND RESET
-   ========================================================= */
-
 :root {
     --banner: #351D30;
     --plum: #64364F;
@@ -16,7 +6,16 @@
     --cream: #F2E8E4;
     --surface: #FBF7F5;
     --line: #E3D5D0;
+    --blush: #F8F0F4;
+    --card-pink: #EEDBE4;
+    --ink: #3B1F33;
+    --label: #7E4F68;
+    --note: #6B5760;
+    --divider: rgba(100, 50, 80, 0.14);
+    --soft-shadow: -3px -3px 6px rgba(255, 255, 255, 0.9), 5px 7px 15px rgba(100, 50, 80, 0.3), inset 2px 2px 5px rgba(100, 50, 80, 0.45), inset -3px -3px 4px #FFFFFF;
 }
+
+/* ---------- Global ---------- */
 
 * {
     margin: 0;
@@ -28,7 +27,7 @@ body {
     font-family: "Inter", sans-serif;
     font-size: 15px;
     line-height: 1.5;
-    background: var(--cream);
+    background: var(--blush);
     color: var(--banner);
 }
 
@@ -37,15 +36,31 @@ a {
     text-decoration: none;
 }
 
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+}
+
 label,
 button {
     cursor: pointer;
 }
 
+/* Keyboard focus: a clear ring on everything you can tab to */
 
-/* =========================================================
-   2. ICONS
-   ========================================================= */
+:focus-visible {
+    outline: 2px solid var(--plum);
+    outline-offset: 2px;
+}
+
+.topbar :focus-visible,
+.sidebar :focus-visible {
+    outline-color: #F0B5CB;
+}
+
+/* ---------- Icons ---------- */
 
 .icon,
 .icon-small {
@@ -67,19 +82,7 @@ button {
     height: 14px;
 }
 
-
-/* =========================================================
-   3. HIDDEN TOGGLES
-   ========================================================= */
-
-.toggle {
-    display: none;
-}
-
-
-/* =========================================================
-   4. TOP BAR
-   ========================================================= */
+/* ---------- Top Bar ---------- */
 
 .topbar {
     position: fixed;
@@ -91,34 +94,28 @@ button {
     align-items: center;
     gap: 16px;
     padding: 0 24px;
-    background: var(--banner);
-    color: var(--cream);
+    background: linear-gradient(90deg, #2E1829 0%, #4A2742 55%, #64364F 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 6px 20px rgba(53, 29, 48, 0.25);
+    color: #FBEAF2;
     z-index: 30;
 }
 
-
-/* Branding */
-
 .brand {
     font-family: "Cormorant Garamond", serif;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 600;
+    letter-spacing: 0.02em;
     white-space: nowrap;
 }
 
 .page-title {
     padding-left: 16px;
-    border-left: 1px solid #5A3D54;
-    color: #D9C7D0;
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    color: #E4CFDB;
+    letter-spacing: 0.02em;
     white-space: nowrap;
 }
-
-.page-title span {
-    display: none;
-}
-
-
-/* Top Bar Right Side */
 
 .top-right {
     margin-left: auto;
@@ -127,8 +124,7 @@ button {
     gap: 16px;
 }
 
-
-/* Icon Buttons */
+/* Top Bar Buttons */
 
 .icon-btn {
     position: relative;
@@ -137,14 +133,17 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .menu-btn {
     display: none;
 }
-
-
-/* Notification Badge */
 
 .badge {
     position: absolute;
@@ -157,19 +156,27 @@ button {
     align-items: center;
     justify-content: center;
     border-radius: 9px;
-    background: #E8A9C0;
+    background: #F0B5CB;
     color: var(--banner);
     font-size: 11px;
     font-weight: 600;
 }
 
-
-/* Profile Button */
+/* Profile */
 
 .profile-btn {
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 4px 16px 4px 4px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.2s;
+}
+
+.profile-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
 }
 
 .avatar {
@@ -179,8 +186,8 @@ button {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: var(--cream);
-    color: var(--banner);
+    background: linear-gradient(135deg, #FBEAF2, #EBC3D5);
+    color: var(--plum);
 }
 
 .who {
@@ -188,10 +195,8 @@ button {
     font-weight: 500;
 }
 
-
-/* =========================================================
-   5. DROPDOWNS AND PANELS
-   ========================================================= */
+/* ---------- Dropdowns ---------- */
+/* The script adds the class "open" when their button is pressed */
 
 .dropdown {
     position: relative;
@@ -201,28 +206,24 @@ button {
     display: none;
     position: absolute;
     right: 0;
-    top: 50px;
+    top: 52px;
     width: 310px;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: white;
-    color: var(--banner);
+    border: 1px solid rgba(100, 50, 80, 0.12);
+    border-radius: 16px;
+    background: #FAEEF4;
+    box-shadow: 0 14px 32px rgba(53, 29, 48, 0.28);
+    color: #3B1F33;
     overflow: hidden;
+    z-index: 10;
 }
 
 .small-panel {
     width: 220px;
 }
 
-
-/* Dropdown Visibility */
-
-.dropdown input:checked ~ .panel {
+.dropdown.open > .panel {
     display: block;
 }
-
-
-/* Panel Heading */
 
 .panel h4 {
     padding: 14px 16px 8px;
@@ -230,14 +231,11 @@ button {
     font-size: 20px;
 }
 
-
-/* Notification Items */
-
 .note {
     display: flex;
     gap: 10px;
     padding: 11px 16px;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid rgba(100, 50, 80, 0.12);
     font-size: 14px;
 }
 
@@ -250,9 +248,6 @@ button {
     color: var(--mauve);
 }
 
-
-/* Dropdown Rows */
-
 .row {
     display: flex;
     align-items: center;
@@ -262,13 +257,10 @@ button {
 }
 
 .row + .row {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid rgba(100, 50, 80, 0.12);
 }
 
-
-/* =========================================================
-   6. SIDEBAR NAVIGATION
-   ========================================================= */
+/* ---------- Sidebar ---------- */
 
 .sidebar {
     position: fixed;
@@ -280,14 +272,11 @@ button {
     flex-direction: column;
     gap: 4px;
     padding: 22px 14px;
-    border-right: 1px solid var(--line);
-    background: var(--surface);
+    border-right: none;
+    background: linear-gradient(180deg, rgba(78, 56, 67, 0.66) 0%, rgba(58, 36, 50, 0.80) 55%, rgba(48, 26, 40, 0.94) 100%), url("/assets/images/images/flower.jpg") center / cover no-repeat, var(--banner);
     overflow-y: auto;
     z-index: 20;
 }
-
-
-/* Navigation Links */
 
 .nav {
     display: flex;
@@ -295,7 +284,7 @@ button {
     gap: 12px;
     padding: 11px 14px;
     border-radius: 10px;
-    color: var(--mauve);
+    color: #FFFFFF;
     font-weight: 500;
 }
 
@@ -304,63 +293,26 @@ button {
     color: var(--plum);
 }
 
-
-/* Sidebar Overlay */
-
-.scrim {
-    display: none;
-}
-
-
-/* =========================================================
-   7. SCREEN SWITCHING
-   ========================================================= */
-
-/* Hide All Views */
-
-.view {
-    display: none;
-}
-
-
-/* Active Screen */
-
-#tab-dashboard:checked ~ main #dashboard,
-#tab-sales:checked ~ main #sales,
-#tab-transaction:checked ~ main #transaction,
-#tab-customers:checked ~ main #customers,
-#tab-customer:checked ~ main #customer {
-    display: block;
-}
-
-
-/* Highlighted Sidebar Item */
-
-#tab-dashboard:checked ~ .sidebar .nav[for="tab-dashboard"],
-#tab-sales:checked ~ .sidebar .nav[for="tab-sales"],
-#tab-transaction:checked ~ .sidebar .nav[for="tab-sales"],
-#tab-customers:checked ~ .sidebar .nav[for="tab-customers"],
-#tab-customer:checked ~ .sidebar .nav[for="tab-customers"] {
+.nav[aria-current="page"] {
     background: var(--cream);
     color: var(--banner);
     box-shadow: inset 3px 0 0 var(--plum);
 }
 
-
-/* Dynamic Page Title */
-
-#tab-dashboard:checked ~ .topbar .title-dashboard,
-#tab-sales:checked ~ .topbar .title-sales,
-#tab-transaction:checked ~ .topbar .title-sales,
-#tab-customers:checked ~ .topbar .title-customers,
-#tab-customer:checked ~ .topbar .title-customers {
-    display: inline;
+.scrim {
+    display: none;
 }
 
+/* ---------- Screens ---------- */
+/* The script gives the screen you are on the class "active" */
 
-/* =========================================================
-   8. MAIN PAGE LAYOUT
-   ========================================================= */
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
 
 main {
     margin: 64px 0 0 250px;
@@ -368,8 +320,9 @@ main {
     max-width: 1280px;
 }
 
-
-/* Page Welcome */
+main:focus {
+    outline: none;
+}
 
 .welcome {
     font-family: "Cormorant Garamond", serif;
@@ -382,9 +335,6 @@ main {
     margin-top: 4px;
     color: var(--mauve);
 }
-
-
-/* Back Navigation */
 
 .back {
     display: inline-flex;
@@ -399,10 +349,7 @@ main {
     transform: rotate(180deg);
 }
 
-
-/* =========================================================
-   9. DASHBOARD AND STATISTIC CARDS
-   ========================================================= */
+/* ---------- Cards ---------- */
 
 .cards {
     display: grid;
@@ -410,23 +357,14 @@ main {
     margin-top: 24px;
 }
 
-
-/* Card Grid Layouts */
-
 .cards-four {
     grid-template-columns: repeat(4, 1fr);
-}
-
-.cards-three {
-    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 }
 
 .cards-two {
     grid-template-columns: repeat(2, 1fr);
 }
-
-
-/* General Card */
 
 .card {
     display: flex;
@@ -438,31 +376,12 @@ main {
     background: var(--surface);
 }
 
-.card.wide {
-    grid-column: span 2;
-}
-
-
-/* Dark Card */
-
-.card.dark {
-    border-color: var(--banner);
-    background: var(--banner);
-    color: white;
-}
-
-
-/* Card Header */
-
 .card-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: var(--plum);
 }
-
-
-/* Card Text */
 
 .card-label {
     font-weight: 500;
@@ -481,9 +400,6 @@ main {
     color: var(--mauve);
 }
 
-
-/* Card Links */
-
 .card-link {
     display: flex;
     align-items: center;
@@ -493,23 +409,46 @@ main {
     color: var(--plum);
 }
 
+/* Summary Cards: soft pink with an inset edge */
 
-/* Dark Card Text */
-
-.card.dark .card-top,
-.card.dark .card-label,
-.card.dark .card-note {
-    color: #E4CFDB;
+.cards-four .card,
+.soft .cards-two .card {
+    border: none;
+    border-radius: 20px;
+    background: var(--card-pink);
+    box-shadow: var(--soft-shadow);
 }
 
-.card.dark .card-number {
-    font-size: 52px;
+.cards-four .card {
+    min-height: 130px;
+    gap: 18px;
+    padding: 14px 18px;
 }
 
+.cards-four .card-top svg,
+.cards-four .card-note {
+    display: flex;
+}
 
-/* =========================================================
-   10. CONTENT BOXES AND TABLES
-   ========================================================= */
+.cards-four .card-note {
+    color: var(--note);
+}
+
+.cards-four .card-label,
+.soft .cards-two .card-label {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--label);
+}
+
+.cards-four .card-number,
+.soft .cards-two .card-number {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+/* ---------- Boxes and Tables ---------- */
 
 .box {
     margin-top: 24px;
@@ -518,9 +457,6 @@ main {
     background: var(--surface);
     overflow: hidden;
 }
-
-
-/* Box Header */
 
 .box-head {
     display: flex;
@@ -542,15 +478,16 @@ main {
     color: var(--mauve);
 }
 
-
-/* Table Wrapper */
+.head-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
 
 .table-wrap {
     overflow-x: auto;
 }
-
-
-/* Table Structure */
 
 table {
     width: 100%;
@@ -558,8 +495,9 @@ table {
     border-collapse: collapse;
 }
 
-
-/* Table Headings */
+table.compact {
+    min-width: 0;
+}
 
 th {
     padding: 11px 22px;
@@ -572,9 +510,6 @@ th {
     color: var(--mauve);
 }
 
-
-/* Table Cells */
-
 td {
     padding: 14px 22px;
     border-bottom: 1px solid var(--line);
@@ -584,9 +519,6 @@ td {
 tr:last-child td {
     border-bottom: none;
 }
-
-
-/* Table Footer */
 
 tfoot td {
     padding: 8px 22px;
@@ -599,8 +531,11 @@ tfoot .total td {
     font-weight: 600;
 }
 
-
-/* Table Text Alignment */
+td.empty {
+    padding: 28px 22px;
+    text-align: center;
+    color: var(--label);
+}
 
 .bold {
     font-weight: 600;
@@ -610,12 +545,77 @@ tfoot .total td {
     text-align: right;
 }
 
+/* Clickable Table Headings (Sorting) */
 
-/* =========================================================
-   11. LINKS AND BUTTONS
-   ========================================================= */
+.sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: inherit;
+}
 
-/* General Links */
+.sort::after {
+    content: "↕";
+    font-size: 12px;
+    opacity: 0.45;
+}
+
+th[aria-sort="ascending"] .sort::after {
+    content: "↑";
+    opacity: 1;
+}
+
+th[aria-sort="descending"] .sort::after {
+    content: "↓";
+    opacity: 1;
+}
+
+/* Page Numbers Under a Table */
+
+.pager {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 30px 18px;
+    border-top: 1px solid var(--divider);
+    font-size: 13px;
+    color: var(--label);
+}
+
+.page-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.page-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #C9A6B8;
+    border-radius: 10px;
+    color: var(--ink);
+    font-size: 13px;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: var(--card-pink);
+}
+
+.page-btn[aria-current="page"] {
+    border-color: var(--plum);
+    background: var(--plum);
+    color: #FFFFFF;
+}
+
+.page-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ---------- Links, Buttons, Filters, Search and Info Grid ---------- */
 
 .link {
     display: inline-flex;
@@ -629,9 +629,6 @@ tfoot .total td {
     text-decoration: underline;
 }
 
-
-/* View All Button */
-
 .view-all {
     display: flex;
     align-items: center;
@@ -644,8 +641,10 @@ tfoot .total td {
     font-weight: 500;
 }
 
-
-/* Primary Button */
+.view-all:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
 
 .btn {
     padding: 9px 18px;
@@ -653,29 +652,43 @@ tfoot .total td {
     border-radius: 8px;
     background: var(--plum);
     color: white;
-    font: inherit;
     font-size: 14px;
     font-weight: 500;
 }
 
+.btn:hover {
+    background: #7A4260;
+}
 
-/* Clear Button */
+.btn.danger {
+    border-color: #9B2C2C;
+    background: #9B2C2C;
+}
 
-.clear {
-    padding: 9px 4px;
-    border: none;
-    background: none;
-    color: var(--plum);
-    font: inherit;
+.btn.danger:hover {
+    background: #7F2323;
+}
+
+.btn-reject {
+    padding: 9px 18px;
+    border: 1px solid #9B2C2C;
+    border-radius: 8px;
+    color: #9B2C2C;
+    font-size: 14px;
     font-weight: 500;
 }
 
+.btn-reject:hover {
+    background: #F6D8D8;
+}
 
-/* =========================================================
-   12. FILTERS AND INFORMATION GRID
-   ========================================================= */
+.clear {
+    padding: 9px 4px;
+    color: var(--plum);
+    font-weight: 500;
+}
 
-/* Filter Container */
+/* Filters */
 
 .filter {
     display: flex;
@@ -689,18 +702,12 @@ tfoot .total td {
     background: var(--surface);
 }
 
-
-/* Filter Labels */
-
 .filter label {
     display: block;
     margin-bottom: 3px;
     font-size: 13px;
     color: var(--mauve);
 }
-
-
-/* Filter Inputs */
 
 .filter input {
     padding: 8px 10px;
@@ -711,8 +718,59 @@ tfoot .total td {
     font: inherit;
 }
 
+/* Search, Select and Textarea */
 
-/* Information Grid */
+.search,
+.select,
+.textarea {
+    border: 1px solid #C9A6B8;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 1px 2px 4px rgba(100, 50, 80, 0.1);
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.search {
+    width: 100%;
+    height: 48px;
+    padding: 0 18px;
+}
+
+.select {
+    height: 40px;
+    padding: 0 36px 0 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237E4F68' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+}
+
+.textarea {
+    width: 100%;
+    min-height: 96px;
+    padding: 12px 14px;
+    resize: vertical;
+}
+
+.search::placeholder,
+.textarea::placeholder {
+    color: var(--label);
+    opacity: 1;
+}
+
+.search:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--plum);
+    box-shadow: inset 1px 2px 4px rgba(100, 50, 80, 0.1), 0 0 0 3px rgba(100, 54, 79, 0.18);
+}
+
+/* Info Grid */
 
 .info {
     display: grid;
@@ -720,9 +778,6 @@ tfoot .total td {
     gap: 18px 24px;
     padding: 4px 22px 22px;
 }
-
-
-/* Information Text */
 
 .info span {
     display: block;
@@ -734,10 +789,7 @@ tfoot .total td {
     font-weight: 500;
 }
 
-
-/* =========================================================
-   13. STATUS BADGES
-   ========================================================= */
+/* ---------- Status Badges ---------- */
 
 .pill {
     display: inline-flex;
@@ -749,98 +801,602 @@ tfoot .total td {
     font-weight: 500;
 }
 
-
-/* Status Indicator Dot */
-
 .pill::before {
     content: "";
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: currentColor;
+    background: var(--dot, currentColor);
 }
 
-
-/* Individual Status Colors */
-
 .pill.pending {
+    --dot: #C98A00;
     background: #FBEBC9;
     color: #8A5A00;
 }
 
 .pill.paid {
+    --dot: #2E9150;
     background: #D8EFDF;
     color: #1E6B3A;
 }
 
 .pill.packed {
+    --dot: #7B52B8;
     background: #E8DDF3;
     color: #5B3A8C;
 }
 
 .pill.shipped {
+    --dot: #2F7CC4;
     background: #D6E6F5;
     color: #1F5A94;
 }
 
 .pill.delivered {
+    --dot: #1B9B88;
     background: #CDEBE6;
     color: #0F6A5C;
 }
 
 .pill.cancelled {
+    --dot: #C94545;
     background: #F6D8D8;
     color: #9B2C2C;
 }
 
+.pill.active {
+    --dot: #2E9150;
+    background: #D8EFDF;
+    color: #1E6B3A;
+}
 
-/* =========================================================
-   14. RESPONSIVE DESIGN
-   ========================================================= */
+.pill.inactive {
+    --dot: #9A8791;
+    background: #ECE4E8;
+    color: #6E5A64;
+}
 
+.pill.new {
+    --dot: #C2548A;
+    background: #FBE0EC;
+    color: #A33E6E;
+}
 
-/* =========================================================
-   14.1 TABLET - MAX WIDTH 1100PX
-   ========================================================= */
+.pill.approved {
+    --dot: #2E9150;
+    background: #D8EFDF;
+    color: #1E6B3A;
+}
+
+.pill.rejected {
+    --dot: #C94545;
+    background: #F6D8D8;
+    color: #9B2C2C;
+}
+
+/* ---------- Pink Screens (they all carry the class "soft") ---------- */
+
+.soft .box {
+    border: none;
+    border-radius: 20px;
+    background: #FAEEF4;
+    color: var(--ink);
+    box-shadow: var(--soft-shadow);
+}
+
+.soft th {
+    background: transparent;
+    border-color: var(--divider);
+    color: var(--label);
+}
+
+.soft td {
+    border-bottom: none;
+}
+
+.soft .info span {
+    color: var(--label);
+}
+
+.soft tfoot .total td {
+    border-top-color: var(--divider);
+    color: var(--ink);
+}
+
+/* Status shows as plain text with a small coloured dot */
+
+.soft .pill {
+    padding: 0;
+    background: none;
+    color: var(--ink);
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.soft .box-head .pill {
+    color: #6A3A57;
+}
+
+/* ---------- Sales Reports and Detail Pages ---------- */
+
+.page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+#sales .welcome,
+#verification .welcome,
+#order .welcome,
+#customer .welcome {
+    font-size: 44px;
+    font-weight: 400;
+}
+
+#sales .subtext,
+#verification .subtext,
+#order .subtext,
+#customer .subtext {
+    font-size: 14.5px;
+}
+
+#order .box,
+#customer .box {
+    margin-top: 32px;
+}
+
+#customer .cards {
+    margin-top: 32px;
+}
+
+/* Date Range */
+
+.range-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 266px;
+    max-width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 14px;
+    background: #F0DDE6;
+    box-shadow: var(--soft-shadow);
+    color: var(--ink);
+    font-size: 12.5px;
+}
+
+.range-panel {
+    width: 266px;
+    max-width: 100%;
+}
+
+.range-panel .filter {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 0;
+    padding: 16px;
+    border: none;
+    border-radius: 0;
+    background: none;
+}
+
+.range-panel .filter input {
+    width: 100%;
+}
+
+/* Sales and Verification Summary Cards */
+
+#sales .cards-four,
+#verification .cards-four {
+    margin-top: 40px;
+}
+
+#sales .cards-four .card,
+#verification .cards-four .card {
+    min-height: 0;
+    gap: 10px;
+}
+
+#sales .cards-four .card-label,
+#verification .cards-four .card-label {
+    font-size: 12.5px;
+    color: var(--note);
+}
+
+#sales .cards-four .card-number,
+#verification .cards-four .card-number {
+    margin-top: 12px;
+    font-size: 32px;
+}
+
+#sales .cards-four .card-note,
+#verification .cards-four .card-note {
+    display: block;
+    font-size: 12px;
+    color: var(--note);
+}
+
+/* ---------- Order Verification Screen ---------- */
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 18px 6px 6px;
+    border-radius: 999px;
+    background: #F0DDE6;
+    box-shadow: var(--soft-shadow);
+    color: var(--ink);
+    font-size: 13.5px;
+    line-height: 1.3;
+}
+
+.reviewer .avatar {
+    width: 32px;
+    height: 32px;
+}
+
+.reviewer small {
+    display: block;
+    font-size: 12px;
+    color: var(--label);
+}
+
+/* Tabs */
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+}
+
+.tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid #C9A6B8;
+    border-radius: 14px;
+    color: var(--label);
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.tab:hover {
+    background: var(--card-pink);
+}
+
+.tab[aria-pressed="true"] {
+    border-color: var(--plum);
+    background: var(--plum);
+    color: #FFFFFF;
+}
+
+.tab-count {
+    min-width: 22px;
+    padding: 0 7px;
+    border-radius: 11px;
+    background: #F0B5CB;
+    color: var(--banner);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Toolbar */
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.toolbar .search {
+    width: 270px;
+    height: 40px;
+    padding: 0 16px;
+}
+
+/* Verification Cases */
+
+.case-list {
+    border-top: 1px solid var(--divider);
+}
+
+.case {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px 28px;
+    padding: 22px;
+    border-bottom: 1px solid var(--divider);
+}
+
+.case:last-child {
+    border-bottom: none;
+}
+
+.case-main {
+    min-width: 0;
+}
+
+.case-head {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.case-head h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.case .info {
+    padding: 0;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px 24px;
+}
+
+.info .wide {
+    grid-column: 1 / -1;
+}
+
+/* Photos */
+
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.photo {
+    width: 96px;
+    height: 72px;
+    padding: 0;
+    border: 2px solid #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(100, 50, 80, 0.2);
+}
+
+.photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s;
+}
+
+.photo:hover img {
+    transform: scale(1.08);
+}
+
+.case-note {
+    margin-top: 16px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.55);
+    font-size: 13.5px;
+}
+
+.case-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-self: start;
+    min-width: 120px;
+}
+
+.empty-note {
+    padding: 28px 22px;
+    text-align: center;
+    color: var(--label);
+}
+
+/* ---------- Dialog Boxes ---------- */
+/* The photo viewer and the approve / reject box */
+
+dialog {
+    margin: auto;
+    width: min(520px, calc(100% - 32px));
+    border: none;
+    border-radius: 20px;
+    background: #FAEEF4;
+    color: var(--ink);
+    box-shadow: 0 14px 32px rgba(53, 29, 48, 0.28);
+}
+
+dialog::backdrop {
+    background: rgba(53, 29, 48, 0.55);
+}
+
+.photo-dialog {
+    width: min(820px, calc(100% - 32px));
+}
+
+.dialog-box {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px 24px;
+}
+
+.dialog-box h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.dialog-box label {
+    font-size: 13px;
+    color: var(--label);
+}
+
+.dialog-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.dialog-head .icon-btn:hover {
+    background: var(--card-pink);
+}
+
+.dialog-text {
+    margin-top: -6px;
+    color: var(--label);
+    font-size: 14px;
+}
+
+.dialog-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--label);
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.photo-large {
+    display: block;
+    width: 100%;
+    max-height: 62vh;
+    border-radius: 14px;
+    object-fit: contain;
+}
+
+.field-error {
+    color: #9B2C2C;
+    font-size: 13px;
+}
+
+/* ---------- Toast Notification ---------- */
+/* The small message after a decision */
+
+.toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 60;
+    max-width: min(360px, calc(100% - 48px));
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: var(--banner);
+    color: #FBEAF2;
+    font-size: 14px;
+    box-shadow: 0 14px 32px rgba(53, 29, 48, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+/* ---------- Customers Screen ---------- */
+
+#customers .welcome {
+    font-size: 56px;
+    font-weight: 400;
+}
+
+#customers .cards-four {
+    gap: 20px;
+    margin-top: 72px;
+}
+
+#customers .cards-four .card {
+    min-height: 120px;
+    gap: 16px;
+    padding: 12px 16px;
+}
+
+#customers .cards-four .card-label {
+    font-size: 13px;
+}
+
+#customers .cards-four .card-number {
+    font-family: "Inter", sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+}
+
+/* Roomy Layout */
+
+.roomy .box-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px;
+    padding: 22px 30px 24px;
+}
+
+.roomy .box-head h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+/* ---------- Tablet ---------- */
 
 @media (max-width: 1100px) {
-
-    /* Dashboard Cards */
-
     .cards-four {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
+@media (min-width: 641px) {
+    .roomy th:first-child,
+    .roomy td:first-child {
+        padding-left: 30px;
+    }
 
-/* =========================================================
-   14.2 SMALL TABLET AND PHONE - MAX WIDTH 900PX
-   ========================================================= */
+    .roomy th:last-child,
+    .roomy td:last-child {
+        padding-right: 30px;
+    }
+}
+
+/* ---------- Small Tablet and Phone: Sidebar becomes a slide-in menu ---------- */
 
 @media (max-width: 900px) {
-
-    /* Mobile Menu Button */
-
     .menu-btn {
         display: flex;
     }
 
-
-    /* Slide-in Sidebar */
-
     .sidebar {
         transform: translateX(-100%);
+        visibility: hidden;
+        transition: transform 0.25s, visibility 0.25s;
     }
 
-    #menu-toggle:checked ~ .sidebar {
+    body.menu-open .sidebar {
         transform: none;
+        visibility: visible;
     }
 
-
-    /* Sidebar Background Overlay */
-
-    #menu-toggle:checked ~ .scrim {
+    body.menu-open .scrim {
         display: block;
         position: fixed;
         top: 64px;
@@ -851,31 +1407,30 @@ tfoot .total td {
         z-index: 15;
     }
 
-
-    /* Main Content */
-
     main {
         margin-left: 0;
     }
 
+    .case {
+        grid-template-columns: 1fr;
+    }
 
-    /* Hide Profile Name */
+    .case-actions {
+        flex-direction: row;
+    }
 
     .who {
         display: none;
     }
 
+    .profile-btn {
+        padding: 4px;
+    }
 }
 
-
-/* =========================================================
-   14.3 PHONE - MAX WIDTH 640PX
-   ========================================================= */
+/* ---------- Phone ---------- */
 
 @media (max-width: 640px) {
-
-    /* Top Bar */
-
     .topbar {
         padding: 0 12px;
         gap: 8px;
@@ -889,36 +1444,28 @@ tfoot .total td {
         display: none;
     }
 
-
-    /* Main Content */
-
     main {
         padding: 24px 18px 40px;
     }
 
-
-    /* Welcome Heading */
-
-    .welcome {
+    .welcome,
+    #sales .welcome,
+    #verification .welcome,
+    #order .welcome,
+    #customer .welcome,
+    #customers .welcome {
         font-size: 34px;
     }
 
-
-    /* Single-column Layouts */
+    #customers .cards-four {
+        margin-top: 32px;
+    }
 
     .cards-four,
-    .cards-three,
     .cards-two,
     .info {
         grid-template-columns: 1fr;
     }
-
-    .card.wide {
-        grid-column: auto;
-    }
-
-
-    /* Dropdown Panels */
 
     .panel {
         width: 260px;
@@ -928,10 +1475,45 @@ tfoot .total td {
         width: 200px;
     }
 
+    .roomy .box-head {
+        padding: 20px 18px;
+    }
 
-    /* Recent Orders Mobile Table */
+    .roomy .box-head h2 {
+        font-size: 24px;
+    }
 
-    .stack {
+    .pager {
+        padding: 14px 18px 18px;
+    }
+
+    .toolbar,
+    .toolbar .search,
+    .select {
+        width: 100%;
+    }
+
+    .tab {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+
+    .case {
+        padding: 18px;
+    }
+
+    .dialog-box {
+        padding: 20px 18px;
+    }
+
+    .toast {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    /* Tables turn into stacked cards, so there is no sideways scrolling */
+
+    table {
         min-width: 0;
     }
 
@@ -939,14 +1521,16 @@ tfoot .total td {
         display: none;
     }
 
-    .stack tr {
+    .stack,
+    .stack tbody,
+    .stack tr,
+    .stack td {
         display: block;
-        padding: 12px 18px;
-        border-bottom: 1px solid var(--line);
     }
 
-    .stack tr:last-child {
-        border-bottom: none;
+    .stack tr {
+        padding: 12px 18px;
+        border-top: 1px solid var(--divider);
     }
 
     .stack td {
@@ -954,13 +1538,64 @@ tfoot .total td {
         justify-content: space-between;
         gap: 16px;
         padding: 5px 0;
-        border: none;
+        text-align: right;
     }
 
     .stack td::before {
         content: attr(data-label);
-        font-size: 13px;
-        color: var(--mauve);
+        flex-shrink: 0;
+        color: var(--label);
+        text-align: left;
     }
 
+    .stack td.empty {
+        display: block;
+        padding: 24px 0;
+        text-align: center;
+    }
+
+    .stack td.empty::before {
+        content: none;
+    }
+}
+
+/* ---------- Print: Only the Page Itself ---------- */
+
+@media print {
+    .topbar,
+    .sidebar,
+    .scrim,
+    .toast,
+    dialog,
+    .no-print {
+        display: none;
+    }
+
+    body {
+        background: #FFFFFF;
+    }
+
+    main {
+        margin: 0;
+        padding: 0;
+        max-width: none;
+    }
+
+    .soft .box,
+    .cards-four .card {
+        border: 1px solid var(--line);
+        box-shadow: none;
+    }
+
+    .range-btn {
+        box-shadow: none;
+    }
+}
+
+/* ---------- Reduced Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
 }

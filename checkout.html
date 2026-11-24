@@ -12,7 +12,88 @@
 </head>
 <body data-page="checkout">
 
+<!--css-only state: opens the search bar (must stay before the header)-->
+<input type="checkbox" id="searchToggle" class="state">
+
+<!--announcement bar-->
+<div class="announcement-bar">
+    <div class="announcement-content">
+        <span>Limited Edition Mystique Collections — Enjoy 15% off your first order with code MYSTIQUE15.</span>
+        <a href="shop.html" class="goto-btn" aria-label="Go to offer">
+            <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.75 6.0006H11.2512M6.0006 11.2512L11.2512 6.0006L6.0006 0.75" stroke-width="1.5" stroke-linecap="round" stroke="#ffffff"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!--header-->
+<header class="navbar-header">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="Main page.html">mystique</a>
+            <span class="navbar-sub">Collections</span>
+        </div>
+        <ul class="navbar-links">
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="shop.html#new-arrivals">New Arrivals</a></li>
+            <li><a href="shop.html#bestsellers">Bestsellers</a></li>
+            <li><a href="ourworld.html">Our World</a></li>
+        </ul>
+        <div class="navbar-tools">
+            <label for="searchToggle" class="tool-btn" aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.7501 15.7501L12.1335 12.1335M14.0833 7.41667C14.0833 11.0986 11.0986 14.0833 7.41667 14.0833C3.73477 14.0833 0.75 11.0986 0.75 7.41667C0.75 3.73477 3.73477 0.75 7.41667 0.75C11.0986 0.75 14.0833 3.73477 14.0833 7.41667Z" stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+                </svg>
+            </label>
+            <a href="wishlist.html" class="tool-btn" aria-label="Wishlist">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 20.5s-8-4.9-8-11A4.6 4.6 0 0 1 12 6.6a4.6 4.6 0 0 1 8 2.9c0 6.1-8 11-8 11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="cart.html" class="tool-btn" aria-label="Shopping Bag">
+                <svg width="21" height="21" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.3333 8.33322C13.3333 9.21734 12.9821 10.0653 12.357 10.6904C11.7319 11.3156 10.8841 11.6668 10 11.6668C9.11594 11.6668 8.2681 11.3156 7.64298 10.6904C7.01786 10.0653 6.66667 9.21734 6.66667 8.33322M2.58545 5.0281H2.58563M2.58563 5.0281H17.4138M2.58563 5.0281C2.64191 4.85934 2.72521 4.69958 2.83333 4.55541L4.5 2.33274C4.65525 2.12573 4.85655 1.95771 5.08798 1.84198C5.3194 1.72626 5.57459 1.66602 5.83333 1.66602H14.1667C14.4254 1.66602 14.6806 1.72626 14.912 1.84198C15.1434 1.95771 15.3448 2.12573 15.5 2.33274L17.1667 4.55541C17.383 4.84393 17.5 5.19485 17.5 5.55549V16.6672C17.5 17.1093 17.3244 17.5332 17.0118 17.8458C16.6993 18.1584 16.2754 18.334 15.8333 18.334H4.16667C3.72464 18.334 3.30072 18.1584 2.98816 17.8458C2.67559 17.5332 2.5 17.1093 2.5 16.6672V5.55549C2.5 5.37506 2.52928 5.19707 2.58563 5.0281Z" stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+                </svg>
+            </a>
+            <a href="loginandsignin.html" class="tool-btn" aria-label="Profile">
+                <svg width="17" height="19" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.416 9.08333C9.71696 9.08333 11.5822 7.21785 11.5822 4.91667C11.5822 2.61548 9.71696 0.75 7.416 0.75C5.11504 0.75 3.24975 2.61548 3.24975 4.91667C3.24975 7.21785 5.11504 9.08333 7.416 9.08333ZM7.416 9.08333C9.18393 9.08333 10.8795 9.78571 12.1296 11.036C13.3797 12.2862 14.082 13.9819 14.082 15.75M7.416 9.08333C5.64807 9.08333 3.95254 9.78571 2.70243 11.036C1.45231 12.2862 0.75 13.9819 0.75 15.75"
+                    stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!--search bar (opens under the navbar)-->
+    <div class="search-panel">
+        <div class="search-inner">
+            <form class="search-form" action="shop.html" method="get" role="search">
+                <svg width="18" height="18" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+                    <path d="M15.7501 15.7501L12.1335 12.1335M14.0833 7.41667C14.0833 11.0986 11.0986 14.0833 7.41667 14.0833C3.73477 14.0833 0.75 11.0986 0.75 7.41667C0.75 3.73477 3.73477 0.75 7.41667 0.75C11.0986 0.75 14.0833 3.73477 14.0833 7.41667Z" stroke-width="1.5" stroke-linecap="round" stroke="#8F5E77"/>
+                </svg>
+                <input type="search" name="q" placeholder="Search makeup, skincare and bags" autocomplete="off" aria-label="Search products">
+                <label for="searchToggle" class="search-clear" aria-label="Close search">×</label>
+            </form>
+            <div class="search-results">
+                <p class="sr-hint">Popular searches</p>
+                <div class="sr-chips">
+                    <a href="shop.html?tab=makeup">Makeup</a>
+                    <a href="shop.html?tab=skincare">Skincare</a>
+                    <a href="shop.html?tab=bags">Bags</a>
+                    <a href="shop.html?q=lip">Lip color</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
 <main class="checkout">
+
+  <!--css-only state: which step is showing (the Continue / Back / Edit buttons are labels for these)-->
+  <input type="radio" name="step" id="st-delivery" class="state" checked>
+  <input type="radio" name="step" id="st-payment" class="state">
+  <input type="radio" name="step" id="st-review" class="state">
+  <input type="radio" name="step" id="st-confirmation" class="state">
+
   <div class="checkout-bar">
     <a class="back-link" href="cart.html">← Back to bag</a>
     <span class="secure-note">
@@ -20,11 +101,11 @@
   </div>
 
   <ol class="steps" aria-label="Checkout progress">
-    <li class="done"><span class="dot">✓</span>Cart</li>
-    <li class="current" id="progress-delivery"><span class="dot">2</span>Delivery</li>
-    <li id="progress-payment"><span class="dot">3</span>Payment</li>
-    <li id="progress-review"><span class="dot">4</span>Review</li>
-    <li id="progress-confirmation"><span class="dot">5</span>Confirmation</li>
+    <li class="done"><span class="dot" data-n="1"></span>Cart</li>
+    <li id="progress-delivery"><span class="dot" data-n="2"></span>Delivery</li>
+    <li id="progress-payment"><span class="dot" data-n="3"></span>Payment</li>
+    <li id="progress-review"><span class="dot" data-n="4"></span>Review</li>
+    <li id="progress-confirmation"><span class="dot" data-n="5"></span>Confirmation</li>
   </ol>
 
   <p class="page-title pt-delivery">Delivery details</p>
@@ -38,43 +119,43 @@
       <section class="co-card" id="delivery-step">
         <h1 tabindex="-1">Where should we deliver?</h1>
         <p class="subheading">Tell us where to send your order.</p>
-        <form id="delivery-form" novalidate>
+        <div id="delivery-form">
           <div class="field">
             <label for="full-name">Full name</label>
-            <input type="text" id="full-name" autocomplete="name" placeholder="Maria Santos">
+            <input type="text" id="full-name" autocomplete="name" placeholder="Maria Santos" required minlength="2">
             <div class="error-message">Please enter your full name.</div>
           </div>
           <div class="two-columns">
             <div class="field">
               <label for="email-address">Email address</label>
-              <input type="email" id="email-address" autocomplete="email" placeholder="you@example.com">
+              <input type="email" id="email-address" autocomplete="email" placeholder="you@example.com" required>
               <div class="error-message">Enter a valid email address, like you@example.com.</div>
             </div>
             <div class="field">
               <label for="contact-number">Contact number</label>
-              <input type="tel" id="contact-number" autocomplete="tel" placeholder="09XX XXX XXXX">
+              <input type="tel" id="contact-number" autocomplete="tel" placeholder="09XX XXX XXXX" required pattern="(\D*\d){10,}\D*">
               <div class="error-message">Enter a mobile number with at least 10 digits.</div>
             </div>
           </div>
           <div class="field">
             <label for="street-address">Complete delivery address</label>
-            <input type="text" id="street-address" autocomplete="street-address" placeholder="House no., street, barangay">
+            <input type="text" id="street-address" autocomplete="street-address" placeholder="House no., street, barangay" required minlength="5">
             <div class="error-message">Please enter your complete address.</div>
           </div>
           <div class="three-columns">
             <div class="field">
               <label for="city">City / Municipality</label>
-              <input type="text" id="city" autocomplete="address-level2" placeholder="Quezon City">
+              <input type="text" id="city" autocomplete="address-level2" placeholder="Quezon City" required>
               <div class="error-message">Enter your city or municipality.</div>
             </div>
             <div class="field">
               <label for="province">Province</label>
-              <input type="text" id="province" autocomplete="address-level1" placeholder="Metro Manila">
+              <input type="text" id="province" autocomplete="address-level1" placeholder="Metro Manila" required>
               <div class="error-message">Enter your province.</div>
             </div>
             <div class="field">
               <label for="zip-code">ZIP code</label>
-              <input type="text" id="zip-code" inputmode="numeric" autocomplete="postal-code" placeholder="1100" maxlength="4">
+              <input type="text" id="zip-code" inputmode="numeric" autocomplete="postal-code" placeholder="1100" maxlength="4" required pattern="\d{4}">
               <div class="error-message">Use a 4-digit ZIP code.</div>
             </div>
           </div>
@@ -82,36 +163,37 @@
             <label for="delivery-notes">Delivery instructions <span class="optional">(optional)</span></label>
             <textarea id="delivery-notes" placeholder="Landmarks, gate code, best time to deliver"></textarea>
           </div>
-          <button class="main-button" type="submit">Continue to payment →</button>
-        </form>
+          <label for="st-payment" class="main-button next-delivery">Continue to payment →</label>
+          <p class="gate-hint hint-delivery">Fill in all the required fields to continue.</p>
+        </div>
       </section>
 
       <!-- PAYMENT -->
-      <section class="co-card" id="payment-step" hidden>
+      <section class="co-card" id="payment-step">
         <h1 tabindex="-1">Select a payment method</h1>
         <p class="subheading">Choose how you’d like to pay. Your details stay private.</p>
-        <form id="payment-form" novalidate>
+        <div id="payment-form">
           <div class="payment-options" role="radiogroup" aria-label="Payment method">
             <label class="payment-option">
-              <input type="radio" name="payment-method" value="gcash" checked>
+              <input type="radio" name="pay" id="pm-gcash" value="gcash" checked>
               <span class="radio-dot"></span>
               <span class="payment-icon icon-gcash">G</span>
               <span><span class="payment-name">GCash</span><span class="payment-note">Pay using your GCash wallet.</span></span>
             </label>
             <label class="payment-option">
-              <input type="radio" name="payment-method" value="maya">
+              <input type="radio" name="pay" id="pm-maya" value="maya">
               <span class="radio-dot"></span>
               <span class="payment-icon icon-maya">m</span>
               <span><span class="payment-name">Maya</span><span class="payment-note">Pay using your Maya account.</span></span>
             </label>
             <label class="payment-option">
-              <input type="radio" name="payment-method" value="card">
+              <input type="radio" name="pay" id="pm-card" value="card">
               <span class="radio-dot"></span>
               <span class="payment-icon icon-card">▭</span>
               <span><span class="payment-name">Credit / Debit Card</span><span class="payment-note">Visa and Mastercard.</span></span>
             </label>
             <label class="payment-option">
-              <input type="radio" name="payment-method" value="bank">
+              <input type="radio" name="pay" id="pm-bank" value="bank">
               <span class="radio-dot"></span>
               <span class="payment-icon icon-bank">B</span>
               <span><span class="payment-name">Bank Transfer</span><span class="payment-note">Direct payment through supported banks.</span></span>
@@ -124,40 +206,47 @@
               <span class="status-pill">Awaiting payment confirmation</span>
             </div>
             <p class="step-title">Step 1. Complete your payment</p>
-            <p class="step-help">Send the exact amount to the account below.</p>
-            <div class="payment-details">
-              <div class="detail-row"><span id="method-title">GCash payment details</span><strong></strong></div>
+            <p class="step-help">Send the exact amount to the account below. Tap the number to select it.</p>
+
+            <div class="payment-details only-gcash">
+              <div class="detail-row"><span>GCash payment details</span><strong></strong></div>
               <div class="detail-row"><span>Account name</span><strong>Mystique Beauty Co.</strong></div>
-              <div class="detail-row"><span id="number-label">GCash number</span><strong id="account-number">09XX XXX XXXX</strong></div>
-              <div class="detail-row amount"><span>Amount due</span><strong id="amount-due">₱0.00</strong></div>
+              <div class="detail-row"><span>GCash number</span><strong class="acct">09XX XXX XXXX</strong></div>
+              <div class="detail-row amount"><span>Amount due</span><strong>₱3,218.00</strong></div>
             </div>
-            <button type="button" class="copy-button" id="copy-button">Copy GCash number</button>
+            <div class="payment-details only-maya">
+              <div class="detail-row"><span>Maya payment details</span><strong></strong></div>
+              <div class="detail-row"><span>Account name</span><strong>Mystique Beauty Co.</strong></div>
+              <div class="detail-row"><span>Maya number</span><strong class="acct">09XX XXX XXXX</strong></div>
+              <div class="detail-row amount"><span>Amount due</span><strong>₱3,218.00</strong></div>
+            </div>
+            <div class="payment-details only-bank">
+              <div class="detail-row"><span>Bank transfer details</span><strong></strong></div>
+              <div class="detail-row"><span>Account name</span><strong>Mystique Beauty Co.</strong></div>
+              <div class="detail-row"><span>Account number</span><strong class="acct">XXXX XXXX XXXX</strong></div>
+              <div class="detail-row amount"><span>Amount due</span><strong>₱3,218.00</strong></div>
+            </div>
 
             <p class="step-title">Step 2. Upload your payment receipt</p>
             <p class="step-help">Upload a screenshot or photo of your successful transaction as proof of payment.</p>
-            <label class="upload-box" id="upload-box">
-              <input type="file" id="receipt-file" accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf">
+            <div class="upload-box" id="upload-box">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17a4 4 0 0 1-.5-7.970A5.500 5.500 0 0 1 17 8.500 3.500 3.500 0 0 1 17 17M12 12v8M9 14.500l3-3 3 3"/></svg>
               <span class="upload-title">Upload payment receipt</span>
               <span class="upload-rules">PNG, JPG, JPEG or PDF · Maximum 5 MB</span>
-              <span class="text-button" aria-hidden="true">Choose a file</span>
-            </label>
-            <div class="error-message" id="receipt-error">Upload a PNG, JPG, JPEG or PDF file that’s 5 MB or smaller.</div>
-            <div class="file-chosen" id="file-chosen" hidden>
-              <span id="file-name"></span>
-              <button type="button" class="text-button" id="remove-file">Remove</button>
+              <input type="file" id="receipt-file" accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf" required aria-label="Payment receipt">
             </div>
+            <div class="error-message" id="receipt-error">Upload a PNG, JPG, JPEG or PDF file that’s 5 MB or smaller.</div>
 
             <div class="divider"></div>
             <p class="step-title">Step 3. Transaction information</p>
             <div class="field" style="margin-top:12px">
               <label for="reference-number">Transaction reference number</label>
-              <input type="text" id="reference-number" placeholder="Enter reference number" autocomplete="off">
+              <input type="text" id="reference-number" placeholder="Enter reference number" autocomplete="off" required minlength="4">
               <div class="error-message">Enter the reference number from your receipt.</div>
             </div>
             <div class="field">
               <label for="payment-date">Date of payment</label>
-              <input type="date" id="payment-date">
+              <input type="date" id="payment-date" required>
               <div class="error-message">Choose the date you paid.</div>
             </div>
             <div class="safety-note">
@@ -166,63 +255,115 @@
             </div>
           </div>
 
-          <div class="info-panel" id="card-panel" hidden>
+          <div class="info-panel" id="card-panel">
             <div class="panel-heading"><h3>Pay by card</h3></div>
             <p class="step-help" style="margin:0">After you place your order, you’ll be taken to our secure payment partner to enter your card details. Your payment is confirmed automatically, so there’s no receipt to upload.</p>
           </div>
-          <div class="info-panel" id="cod-panel" hidden>
-            <div class="panel-heading"><h3>Cash on delivery</h3></div>
-            <p class="step-help" style="margin:0">Please prepare the exact amount of <strong id="cod-amount"></strong> for our courier. COD is available in selected areas, and we’ll confirm yours by text.</p>
-          </div>
 
           <div class="button-row">
-            <button type="button" class="side-button" id="back-to-delivery">Back</button>
-            <button class="main-button" type="submit" id="place-order">Continue to review →</button>
+            <label for="st-delivery" class="side-button">Back</label>
+            <label for="st-review" class="main-button next-payment">Continue to review →</label>
           </div>
-        </form>
+          <p class="gate-hint hint-payment">Upload your receipt and fill in the reference number and date to continue.</p>
+        </div>
       </section>
 
       <!-- REVIEW -->
-      <section class="co-card" id="review-step" hidden>
+      <section class="co-card" id="review-step">
         <h1 tabindex="-1">Almost there.</h1>
         <p class="subheading">Check everything below, then submit your order.</p>
-        <div class="review-block"><div class="review-heading"><h3>Delivery address</h3><button type="button" class="text-button" data-edit="delivery">Edit</button></div><div id="review-delivery"></div></div>
-        <div class="review-block"><div class="review-heading"><h3>Payment method</h3><button type="button" class="text-button" data-edit="payment">Edit</button></div><div id="review-payment"></div></div>
-        <label class="terms-check"><input type="checkbox" id="order-terms"><span>I confirm my details are correct and I agree to the Terms of Use and Return Policy.</span></label>
+        <div class="review-block">
+          <div class="review-heading"><h3>Delivery address</h3><label for="st-delivery" class="text-button">Edit</label></div>
+          <div id="review-delivery">
+            <div class="detail-row"><span>Details</span><strong>As entered on the delivery step. Tap Edit to check them.</strong></div>
+          </div>
+        </div>
+        <div class="review-block">
+          <div class="review-heading"><h3>Payment method</h3><label for="st-payment" class="text-button">Edit</label></div>
+          <div id="review-payment">
+            <div class="detail-row"><span>Method</span>
+              <strong>
+                <span class="only-gcash">GCash</span>
+                <span class="only-maya">Maya</span>
+                <span class="only-card">Credit / Debit Card</span>
+                <span class="only-bank">Bank Transfer</span>
+              </strong>
+            </div>
+            <div class="detail-row"><span>Amount</span><strong>₱3,218.00</strong></div>
+            <div class="detail-row manual-only"><span>Receipt</span><strong>Attached</strong></div>
+            <div class="detail-row card-only"><span>Next step</span><strong>Secure card payment after you submit</strong></div>
+          </div>
+        </div>
+        <label class="terms-check"><input type="checkbox" id="order-terms" required><span>I confirm my details are correct and I agree to the Terms of Use and Return Policy.</span></label>
         <div class="error-message" id="terms-error">Please tick the box to submit your order.</div>
         <div class="button-row">
-          <button type="button" class="side-button" id="back-to-payment">Back</button>
-          <button type="button" class="main-button" id="submit-order">Submit order →</button>
+          <label for="st-payment" class="side-button">Back</label>
+          <label for="st-confirmation" class="main-button next-review">Submit order →</label>
         </div>
       </section>
 
       <!-- CONFIRMATION -->
-      <section class="co-card confirmation" id="confirmation-step" hidden>
+      <section class="co-card confirmation" id="confirmation-step">
         <div class="success-circle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.500 4.500L19 7.500"/></svg></div>
         <h1 tabindex="-1">Your next ritual is on its way.</h1>
         <p class="subheading">Thank you for shopping with us. Your order has been received.</p>
         <div class="order-details">
-          <div class="detail-row"><span>Order number</span><strong id="order-number"></strong></div>
-          <div class="detail-row"><span>Payment method</span><strong id="confirm-method"></strong></div>
-          <div class="detail-row"><span>Payment status</span><strong><span class="status-pill" id="confirm-status"></span></strong></div>
-          <div class="detail-row"><span>Total</span><strong id="confirm-total"></strong></div>
-          <div class="detail-row"><span>Delivering to</span><strong id="confirm-address"></strong></div>
-          <div class="detail-row"><span>Confirmation sent to</span><strong id="confirm-email"></strong></div>
+          <div class="detail-row"><span>Order number</span><strong>MC-2026-1001</strong></div>
+          <div class="detail-row"><span>Payment method</span>
+            <strong>
+              <span class="only-gcash">GCash</span>
+              <span class="only-maya">Maya</span>
+              <span class="only-card">Credit / Debit Card</span>
+              <span class="only-bank">Bank Transfer</span>
+            </strong>
+          </div>
+          <div class="detail-row"><span>Payment status</span>
+            <strong>
+              <span class="status-pill manual-only">Under verification</span>
+              <span class="status-pill card-only">Paid</span>
+            </strong>
+          </div>
+          <div class="detail-row"><span>Total</span><strong>₱3,218.00</strong></div>
+          <div class="detail-row"><span>Delivering to</span><strong>The address you entered</strong></div>
+          <div class="detail-row"><span>Confirmation sent to</span><strong>The email you entered</strong></div>
         </div>
         <h3 class="items-title">Items in your order</h3>
-        <div class="confirm-items" id="confirm-items"></div>
-        <p class="step-help" id="confirm-message" style="margin-top:18px">We will notify you once your payment has been verified.</p>
+        <div class="confirm-items" id="confirm-items">
+          <div class="detail-row"><span>1 × Emy Blue (Emy Line · Blue)</span><strong>₱1,499.00</strong></div>
+          <div class="detail-row"><span>1 × Seffy Black (Seffy Line · Black)</span><strong>₱1,599.00</strong></div>
+          <div class="detail-row"><span>Shipping fee</span><strong>₱120.00</strong></div>
+        </div>
+        <p class="step-help manual-only" id="confirm-message" style="margin-top:18px">We will notify you once your payment has been verified.</p>
+        <p class="step-help card-only" style="margin-top:18px">Your payment was confirmed automatically. A receipt is on its way to your inbox.</p>
         <div class="confirmation-buttons">
-          <a class="main-button" href="index.html">Track order →</a>
-          <button type="button" class="side-button" id="print-order">Print order</button>
-          <a class="side-button continue-link" href="index.html">Continue shopping</a>
+          <a class="main-button" href="">Track order →</a>
+          <a class="side-button continue-link" href="shop.html">Continue shopping</a>
         </div>
       </section>
     </div>
 
     <aside class="order-summary" id="order-summary" aria-label="Order summary">
       <h2>Order summary</h2>
-      <div id="order-items"></div>
+      <div id="order-items">
+        <div class="order-item">
+          <div class="product-photo photo-img photo-tint"><div class="img-slot"><img src="assets/images/images/emy-blue-1.jpg" alt="Emy Blue" onerror="this.style.display='none'"></div></div>
+          <div>
+            <div class="item-name">Emy Blue</div>
+            <div class="item-variation">Emy Line · Blue</div>
+            <div class="item-qty">Qty: 1</div>
+          </div>
+          <div class="item-price">₱1,499.00</div>
+        </div>
+        <div class="order-item">
+          <div class="product-photo photo-img photo-tint"><div class="img-slot"><img src="assets/images/images/seffy-black-1.jpg" alt="Seffy Black" onerror="this.style.display='none'"></div></div>
+          <div>
+            <div class="item-name">Seffy Black</div>
+            <div class="item-variation">Seffy Line · Black</div>
+            <div class="item-qty">Qty: 1</div>
+          </div>
+          <div class="item-price">₱1,599.00</div>
+        </div>
+      </div>
 
       <div class="thanks-note">
         <h3>Thank you for choosing Mystique.</h3>
@@ -237,25 +378,41 @@
         <p class="fine">Track your purchase in Account → Orders &amp; Payments.</p>
       </div>
 
-      <div class="review-art"><img src="assets/images/review-silk.jpg" alt="" onerror="this.remove()"></div>
+      <div class="review-art"><img src="assets/images/review-silk.jpg" alt="" onerror="this.style.display='none'"></div>
 
       <div class="totals">
-        <div class="totals-row"><span>Subtotal</span><span id="subtotal"></span></div>
-        <div class="totals-row"><span>Shipping fee</span><span id="shipping-fee"></span></div>
-        <div class="totals-row discount-row" id="discount-row" hidden><span>Promo discount</span><span id="discount"></span></div>
-        <div class="totals-row grand-total"><span>Total</span><span id="total"></span></div>
+        <div class="totals-row"><span>Subtotal</span><span id="subtotal">₱3,098.00</span></div>
+        <div class="totals-row"><span>Shipping fee</span><span id="shipping-fee">₱120.00</span></div>
+        <div class="totals-row grand-total"><span>Total</span><span id="total">₱3,218.00</span></div>
       </div>
-
-      <div class="promo-row confirm-only">
-        <input type="text" id="promo-code" placeholder="Enter promo code">
-        <button type="button" class="main-button" id="apply-promo">Apply</button>
-      </div>
-      <p class="secure-fine confirm-only">Secure checkout · Encrypted payments.<br>We never store your payment information.</p>
     </aside>
   </div>
 </main>
 
-<script src="/assets/js/general.js"></script>
-<script src="/assets/js/index.js"></script>
+<!--footer-->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column brand-col">
+            <a href="front-page.html" class="footer-logo">mystique</a>
+            <p>(^^placeholder^^)</p>
+            <p>(Should be Logo)</p>
+        </div>
+        <div class="footer-column hours-col">
+            <h3>Opening Hours</h3>
+            <p>Monday to Friday: <span>Oras mo na</span></p>
+            <p>Saturday to Sunday: <span>muehhehehe</span></p>
+        </div>
+        <div class="footer-column links-col">
+            <h3>Contact Info</h3>
+            <ul class="footer-links">
+                <li><a href="#">Address: Lot 123, Etivac St., Brgy. Etivac, Etivac City, Etivac, Philippines</a></li>
+                <li><a href="#">Email: mystiquebusinessemail.123@gmail.com</a></li>
+                <li><a href="#">Phone Number: +63 6767 6767</a></li>
+                <li><a href="#">Instagram: Da Only Mystique Official 100% Legit Pure (Verified)</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

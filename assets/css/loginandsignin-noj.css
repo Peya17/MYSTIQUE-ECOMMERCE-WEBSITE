@@ -1,0 +1,233 @@
+/* =========================================================
+   MYSTIQUE — no-JS layer (load AFTER the two existing CSS files)
+   Replaces: dialog open/close, error flagging, show/hide password,
+   password strength display, dark mode.
+   ========================================================= */
+
+/* ---------- 1. screens are shown by the URL hash ---------- */
+dialog.dlg {
+    display: none;
+}
+
+dialog.dlg:target,
+body:not(:has(dialog.dlg:target)) #dlg-signin {
+    display: block;
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100dvh;
+    animation: pop .3s cubic-bezier(.2, .8, .2, 1);
+}
+
+/* success screens: single column like forgot/verify/reset */
+:is(#dlg-signin-done, #dlg-signup-done, #dlg-forgot-done, #dlg-verify-done, #dlg-reset-done) #popup {
+    grid-template-columns: minmax(0, 460px);
+    justify-content: center;
+}
+
+:is(#dlg-signin-done, #dlg-signup-done, #dlg-forgot-done, #dlg-verify-done, #dlg-reset-done) .first-column {
+    align-self: center;
+}
+
+:is(#dlg-signin-done, #dlg-signup-done, #dlg-forgot-done, #dlg-verify-done, #dlg-reset-done)::before {
+    content: "mystique";
+    position: absolute;
+    top: clamp(16px, 3vw, 36px);
+    left: clamp(16px, 6vw, 96px);
+    font: 400 34px/1 var(--serif);
+    color: #fff;
+}
+
+/* links that used to be buttons */
+a.create-account,
+a.forgot-pass,
+a.continue,
+.socials a {
+    text-decoration: none;
+}
+
+a.forgot-pass {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+a.create-account::after {
+    content: " →";
+}
+
+a.continue {
+    color: #fff;
+}
+
+.socials a {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #6b4a5b;
+}
+
+.socials a + a::before {
+    content: "·";
+    margin-right: 18px;
+    color: var(--mute);
+}
+
+.socials a:hover {
+    color: var(--plum);
+}
+
+/* resend form: inline text, and the button is NOT styled as a primary button
+   (it has no type="submit" attribute, so `form button[type=submit]` skips it) */
+form.foot {
+    margin: 22px 0 0;
+}
+
+/* ---------- 2. native validation drives the old .bad look ---------- */
+.field:has(:user-invalid) .msg {
+    display: block;
+}
+
+.field input:user-invalid:not([type="checkbox"]) {
+    border-color: transparent;
+    background:
+        linear-gradient(var(--field), var(--field)) padding-box,
+        var(--gloss-err) border-box;
+    box-shadow: var(--bevel-out), var(--bevel-in), 0 0 0 3px rgba(181, 64, 90, .15);
+}
+
+.field input[type="checkbox"]:user-invalid {
+    border-color: var(--err);
+}
+
+/* ---------- 3. show / hide password with a hidden checkbox ---------- */
+.field .inp input.eye-toggle {
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    pointer-events: none;
+}
+
+.field .inp input.eye-toggle::after {
+    display: none !important;
+}
+
+input.pw {
+    -webkit-text-security: disc;
+    text-security: disc;
+}
+
+.eye-toggle:checked + input.pw {
+    -webkit-text-security: none;
+    text-security: none;
+}
+
+.inp label.eye {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11px;
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.inp label.eye::before {
+    content: "Show";
+}
+
+.eye-toggle:checked ~ label.eye::before {
+    content: "Hide";
+}
+
+.eye-toggle:focus-visible ~ label.eye {
+    outline: 2px solid var(--plum);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* ---------- 4. password strength (all-or-nothing, driven by the pattern) ---------- */
+.strength-label {
+    font-size: 11px;
+    color: var(--mute);
+    margin: 0;
+}
+
+.strength-label b {
+    display: none;
+    font-weight: 400;
+}
+
+.pwgroup:has(.pw:placeholder-shown) .s-empty,
+.pwgroup:has(.pw:not(:placeholder-shown):invalid) .s-weak,
+.pwgroup:has(.pw:not(:placeholder-shown):valid) .s-strong {
+    display: inline;
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):invalid) :is(.meter, .pw-meter) span:first-child {
+    background: #B5505C;
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):valid) :is(.meter, .pw-meter) span {
+    background: #4F7A5E;
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):valid) :is(.rules, .pw-rules) li {
+    color: var(--ok);
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):valid) :is(.rules, .pw-rules) li::before {
+    content: "●";
+}
+
+/* ---------- 5. dark mode (follows the system setting) ---------- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --card: rgba(52, 28, 46, .9);
+        --field: #4a2a40;
+        --line: #7a4a66;
+        --ink: #f3dce8;
+        --mute: #c9a3b8;
+        --plum: #b9739a;
+        --plumd: #9a5a7e;
+        --ok: #7fc596;
+        --err: #f07c93;
+        --gloss-edge: linear-gradient(150deg, #8a5a76 0%, #6a3f58 50%, #8a5a76 100%);
+        --gloss-err: linear-gradient(150deg, #b5505c 0%, #f07c93 100%);
+        --bevel-out: 0 3px 8px rgba(0, 0, 0, .35);
+        --bevel-in: inset 0 1px 2px rgba(255, 255, 255, .08);
+    }
+
+    .first-column {
+        background: linear-gradient(160deg, rgba(60, 33, 52, .92), rgba(44, 22, 38, .9));
+        border-color: rgba(255, 255, 255, .18);
+    }
+
+    .between label,
+    .field label:has(input[type="checkbox"]),
+    .socials a,
+    .socials button {
+        color: var(--mute);
+    }
+
+    input::placeholder {
+        color: #a07a90;
+    }
+
+    .inp label.eye,
+    .chip span {
+        color: var(--ink);
+    }
+
+    form button[type="submit"],
+    .continue {
+        color: #fff;
+    }
+}

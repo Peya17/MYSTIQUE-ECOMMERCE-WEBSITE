@@ -1,496 +1,1557 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MystiqueCollections Admin</title>
-  <!--fonts-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&amp;display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/mystiquecollectionsadmin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MystiqueCollections Admin</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2364364F'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' font-weight='bold' fill='%23F8F0F4' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/mystiquecollectionsadmin.css">
+    <link rel="stylesheet" href="/assets/css/admin-extend.css">
+
+    <style>
+
+        .view {
+            display: none;
+        }
+
+        .view:target,
+        #dashboard {
+            display: block;
+        }
+
+        body:has(.view:target) #dashboard:not(:target) {
+            display: none;
+        }
+
+        body:not(:has(.view:target)) .nav[href="#dashboard"],
+        body:has(#products:target) .nav[href="#products"],
+        body:has(#inventory:target) .nav[href="#inventory"],
+        body:has(#orders:target) .nav[href="#orders"],
+        body:has(#order:target) .nav[href="#orders"],
+        body:has(#verification:target) .nav[href="#verification"],
+        body:has(#proofs:target) .nav[href="#proofs"],
+        body:has(#sales:target) .nav[href="#sales"],
+        body:has(#customers:target) .nav[href="#customers"] {
+            background: rgba(100,54,79,.12);
+            font-weight: 500;
+        }
+
+        details.dropdown > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        details.dropdown > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.dropdown[open] > .panel {
+            display: block;
+        }
+
+        .tr {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .tp {
+            display: none;
+        }
+
+        #v1:checked ~ .p1,
+        #v2:checked ~ .p2,
+        #v3:checked ~ .p3,
+        #i1:checked ~ .q1,
+        #i2:checked ~ .q2,
+        #i3:checked ~ .q3,
+        #i4:checked ~ .q4 {
+            display: block;
+        }
+
+        #v1:checked ~ .tabs [for=v1],
+        #v2:checked ~ .tabs [for=v2],
+        #v3:checked ~ .tabs [for=v3],
+        #i1:checked ~ .tabs [for=i1],
+        #i2:checked ~ .tabs [for=i2],
+        #i3:checked ~ .tabs [for=i3],
+        #i4:checked ~ .tabs [for=i4] {
+            background: #64364F;
+            color: #fff;
+        }
+
+        label.tab {
+            cursor: pointer;
+        }
+
+        #menu-tg {
+            display: none;
+        }
+
+        body:has(#menu-tg:checked) .sidebar {
+            transform: none;
+            left: 0;
+            visibility: visible;
+        }
+
+        body:has(#menu-tg:checked) .scrim {
+            display: block;
+        }
+
+        .pager {
+            padding: 12px 0;
+            font-size: 12px;
+        }
+
+        .ph {
+            width: 96px;
+            height: 72px;
+            border-radius: 8px;
+            background: linear-gradient(#F6E4EC,#E3C2D2);
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            color: #64364F;
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- hidden radios: one per screen. The labels in the page select them. -->
-  <input type="radio" name="view" id="tab-dashboard" class="toggle" checked>
-  <input type="radio" name="view" id="tab-sales" class="toggle">
-  <input type="radio" name="view" id="tab-transaction" class="toggle">
-  <input type="radio" name="view" id="tab-customers" class="toggle">
-  <input type="radio" name="view" id="tab-customer" class="toggle">
+    <!-- SVG Icons -->
+    <svg width="0" height="0" style="position:absolute">
+        <symbol id="i-chevron" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6"/>
+        </symbol>
 
-  <!-- hidden checkbox: phone menu -->
-  <input type="checkbox" id="menu-toggle" class="toggle">
+        <symbol id="i-arrow-r" viewBox="0 0 13 12">
+            <path d="M0.75 6.0006H11.2512M6.0006 11.2512L11.2512 6.0006L6.0006 0.75"/>
+        </symbol>
 
-  <svg width="0" height="0" style="position:absolute">
-    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14.0002 17.9993V8.00033M14.0002 17.9993H15.0002M14.0002 17.9993H8.99977M14.0002 8.00033V6.00053C14.0002 5.47015 13.7894 4.9615 13.4143 4.58646C13.0392 4.21142 12.5305 4.00073 12 4.00073H3.99937C3.46889 4.00073 2.96014 4.21142 2.58504 4.58646C2.19994 4.9615 1.99921 5.47015 1.99921 6.00053V16.9994C1.99921 17.2646 2.10457 17.519 2.29212 17.7065C2.47967 17.894 2.73405 17.9993 2.99929 17.9993H4.99945M14.0002 8.00033H17.5204C17.6703 8.00055 17.8183 8.03444 17.9533 8.09952C18.0883 8.1646 18.207 8.25919 18.3005 8.3763L21.7808 12.7259C21.9228 12.9029 22.0004 13.1229 22.0008 13.3498V16.9994C22.0008 17.2646 21.8954 17.519 21.7079 17.7065C21.5203 17.894 21.266 17.9993 21.0007 17.9993H19.0006M4.99945 17.9993C4.99945 19.1038 5.89495 19.9991 6.99961 19.9991C8.10426 19.9991 8.99977 19.1038 8.99977 17.9993M4.99945 17.9993C4.99945 16.8949 5.89495 15.9995 6.99961 15.9995C8.10426 15.9995 8.99977 16.8949 8.99977 17.9993M15.0002 17.9993C15.0002 19.1038 15.8957 19.9991 17.0004 19.9991C18.1051 19.9991 19.0006 19.1038 19.0006 17.9993M15.0002 17.9993C15.0002 16.8949 15.8957 15.9995 17.0004 15.9995C18.1051 15.9995 19.0006 16.8949 19.0006 17.9993"/></symbol>
-    <symbol id="i-rabbit" viewBox="0 0 24 24"><path d="M13.0001 15.9996C13.5796 15.9988 14.1469 16.1659 14.6335 16.4806C15.1201 16.7953 15.5051 17.2442 15.7421 17.7731C15.9007 18.1271 15.9884 18.5069 16.0023 18.8911M16.0023 18.8911C16.0092 19.0807 15.9981 19.2714 15.9686 19.4606C15.8796 20.0332 15.6266 20.5677 15.2403 20.9997M16.0023 18.8911C16.0297 18.135 16.3421 17.4156 16.8791 16.8787C17.4417 16.316 18.2049 16 19.0006 16H20.0006C20.5311 16 21.0399 15.7892 21.415 15.4142C21.7901 15.0391 22.0008 14.5304 22.0008 13.9999V12.9999C22.0008 11.2329 21.2266 9.63783 20.0006 8.53726M16.0023 18.8911C16.001 18.9274 16.0003 18.9637 16.0003 19M18.0005 11.9995H18.0105M18.0005 21.0001H9.99985C8.9389 21.0001 7.9214 20.5786 7.17119 19.8285C6.42099 19.0783 5.99953 18.0609 5.99953 17C5.99953 16.9423 6.00024 16.8847 6.00166 16.8272M6.00166 16.8272C6.04589 15.0333 6.77786 13.3221 8.04994 12.0501C9.3628 10.7374 11.1434 9.99984 13.0001 9.99984H13.2001L9.59981 6.39977C9.41595 6.21591 9.2701 5.99764 9.17059 5.75743C9.07108 5.51721 9.01987 5.25975 9.01987 4.99974C9.01987 4.47462 9.22848 3.97102 9.59981 3.59971C9.97115 3.2284 10.4748 3.0198 10.9999 3.0198C11.26 3.0198 11.5174 3.07101 11.7577 3.17051C11.9979 3.27001 12.2162 3.41585 12.4 3.59971L15.8003 6.99978H16.0003M6.00166 16.8272C5.46623 17.017 4.88786 17.0509 4.33382 16.9248C3.77641 16.798 3.26684 16.5146 2.86508 16.1079C2.46333 15.7013 2.18612 15.1883 2.06609 14.6294C1.94606 14.0706 1.9882 13.489 2.18756 12.9533C2.38691 12.4176 2.73518 11.9499 3.19137 11.6054C3.64755 11.261 4.19267 11.054 4.76254 11.0088C5.33241 10.9637 5.90331 11.0823 6.40805 11.3507C6.91278 11.619 7.33033 12.026 7.61155 12.5237M6.00166 16.8272C6.00491 16.8261 6.00817 16.8249 6.01142 16.8238M16.0003 6.99978C17.5334 6.99978 18.9371 7.58245 20.0006 8.53726M16.0003 6.99978V3.99931C16.0003 3.46886 16.2111 2.96015 16.5862 2.58507C16.9613 2.20999 17.47 1.99927 18.0005 1.99927C18.531 1.99927 19.0397 2.20999 19.4148 2.58507C19.7899 2.96015 20.0006 3.46886 20.0006 3.99931V8.53726M20.0006 8.53726V8.5394"/></symbol>
-    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M20.0007 2.00122V4.00114M20.0007 4.00114V6.00106M20.0007 4.00114H22.0008M20.0007 4.00114H18.0005M11.0169 2.81563C11.0598 2.58624 11.1815 2.37906 11.361 2.22997C11.5406 2.08088 11.7666 1.99927 12 1.99927C12.2334 1.99927 12.4594 2.08088 12.639 2.22997C12.8185 2.37906 12.9402 2.58624 12.9831 2.81563L14.0342 8.37341C14.1088 8.76854 14.3009 9.132 14.5852 9.41634C14.8696 9.70068 15.2331 9.89271 15.6283 9.96735L21.1867 11.0183C21.4162 11.0612 21.6234 11.1829 21.7725 11.3624C21.9216 11.5419 22.0032 11.7679 22.0032 12.0013C22.0032 12.2346 21.9216 12.4606 21.7725 12.6401C21.6234 12.8197 21.4162 12.9414 21.1867 12.9842L15.6283 14.0352C15.2331 14.1098 14.8696 14.3019 14.5852 14.5862C14.3009 14.8705 14.1088 15.234 14.0342 15.6291L12.9831 21.1869C12.9402 21.4163 12.8185 21.6235 12.639 21.7726C12.4594 21.9217 12.2334 22.0033 12 22.0033C11.7666 22.0033 11.5406 21.9217 11.361 21.7726C11.1815 21.6235 11.0598 21.4163 11.0169 21.1869L9.96583 15.6291C9.89118 15.234 9.69913 14.8705 9.41476 14.5862C9.13038 14.3019 8.76688 14.1098 8.3717 14.0352L2.81326 12.9842C2.58384 12.9414 2.37664 12.8197 2.22753 12.6401C2.07842 12.4606 1.9968 12.2346 1.9968 12.0013C1.9968 11.7679 2.07842 11.5419 2.22753 11.3624C2.37664 11.1829 2.58384 11.0612 2.81326 11.0183L8.3717 9.96735C8.76688 9.89271 9.13038 9.70068 9.41476 9.41634C9.69913 9.132 9.89118 8.76854 9.96583 8.37341L11.0169 2.81563ZM5.99956 20.0005C5.99956 21.105 5.10406 22.0004 3.9994 22.0004C2.89474 22.0004 1.99924 21.105 1.99924 20.0005C1.99924 18.896 2.89474 18.0006 3.9994 18.0006C5.10406 18.0006 5.99956 18.896 5.99956 20.0005Z"/></symbol>
-    <symbol id="i-bag" viewBox="0 0 20 20"><path d="M13.3333 8.33322C13.3333 9.21734 12.9821 10.0653 12.357 10.6904C11.7319 11.3156 10.8841 11.6668 10 11.6668C9.11594 11.6668 8.2681 11.3156 7.64298 10.6904C7.01786 10.0653 6.66667 9.21734 6.66667 8.33322M2.58545 5.0281H2.58563M2.58563 5.0281H17.4138M2.58563 5.0281C2.64191 4.85934 2.72521 4.69958 2.83333 4.55541L4.5 2.33274C4.65525 2.12573 4.85655 1.95771 5.08798 1.84198C5.3194 1.72626 5.57459 1.66602 5.83333 1.66602H14.1667C14.4254 1.66602 14.6806 1.72626 14.912 1.84198C15.1434 1.95771 15.3448 2.12573 15.5 2.33274L17.1667 4.55541C17.383 4.84393 17.5 5.19485 17.5 5.55549V16.6672C17.5 17.1093 17.3244 17.5332 17.0118 17.8458C16.6993 18.1584 16.2754 18.334 15.8333 18.334H4.16667C3.72464 18.334 3.30072 18.1584 2.98816 17.8458C2.67559 17.5332 2.5 17.1093 2.5 16.6672V5.55549C2.5 5.37506 2.52928 5.19707 2.58563 5.0281Z"/></symbol>
-    <symbol id="i-person" viewBox="0 0 15 17"><path d="M7.416 9.08333C9.71696 9.08333 11.5822 7.21785 11.5822 4.91667C11.5822 2.61548 9.71696 0.75 7.416 0.75C5.11504 0.75 3.24975 2.61548 3.24975 4.91667C3.24975 7.21785 5.11504 9.08333 7.416 9.08333ZM7.416 9.08333C9.18393 9.08333 10.8795 9.78571 12.1296 11.036C13.3797 12.2862 14.082 13.9819 14.082 15.75M7.416 9.08333C5.64807 9.08333 3.95254 9.78571 2.70243 11.036C1.45231 12.2862 0.75 13.9819 0.75 15.75"/></symbol>
-    <symbol id="i-arrow-ur" viewBox="0 0 9 9"><path d="M8.2488 8.2488V0.75H0.75M8.2488 0.75L0.75 8.2488"/></symbol>
-    <symbol id="i-arrow-r" viewBox="0 0 13 12"><path d="M0.75 6.0006H11.2512M6.0006 11.2512L11.2512 6.0006L6.0006 0.75"/></symbol>
-    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></symbol>
-    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8"/></symbol>
-    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
-    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3zM9 8h6M9 12h6"/></symbol>
-    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-3"/></symbol>
-    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/></symbol>
-    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17v-6a6 6 0 0112 0v6l2 2H4l2-2zM10 21h4"/></symbol>
-    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
-    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9.5 10a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM21 20v-2a4 4 0 00-3-3.9M15 3.1a3.5 3.5 0 010 6.8"/></symbol>
-    <symbol id="i-settings" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 0M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></symbol>
-  </svg>
+        <symbol id="i-arrow-ur" viewBox="0 0 9 9">
+            <path d="M8.2488 8.2488V0.75H0.75M8.2488 0.75L0.75 8.2488"/>
+        </symbol>
 
-  <header class="topbar">
-    <label for="menu-toggle" class="icon-btn menu-btn"><svg class="icon"><use href="#i-menu"/></svg></label>
-    <label for="tab-dashboard" class="brand">MystiqueCollections</label>
-    <span class="page-title">
-      <span class="title-dashboard">Dashboard</span>
-      <span class="title-sales">Sales Reports</span>
-      <span class="title-customers">Customers</span>
-    </span>
+        <symbol id="i-grid" viewBox="0 0 24 24">
+            <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/>
+        </symbol>
 
-    <div class="top-right">
-      <div class="dropdown">
-        <input type="checkbox" id="notif-toggle" class="toggle">
-        <label for="notif-toggle" class="icon-btn">
-          <svg class="icon"><use href="#i-bell"/></svg>
-          <span class="badge">2</span>
+        <symbol id="i-box" viewBox="0 0 24 24">
+            <path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8"/>
+        </symbol>
+
+        <symbol id="i-layers" viewBox="0 0 24 24">
+            <path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/>
+        </symbol>
+
+        <symbol id="i-receipt" viewBox="0 0 24 24">
+            <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3zM9 8h6M9 12h6"/>
+        </symbol>
+
+        <symbol id="i-chart" viewBox="0 0 24 24">
+            <path d="M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-3"/>
+        </symbol>
+
+        <symbol id="i-logout" viewBox="0 0 24 24">
+            <path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/>
+        </symbol>
+
+        <symbol id="i-bell" viewBox="0 0 24 24">
+            <path d="M6 17v-6a6 6 0 0112 0v6l2 2H4l2-2zM10 21h4"/>
+        </symbol>
+
+        <symbol id="i-menu" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+        </symbol>
+
+        <symbol id="i-users" viewBox="0 0 24 24">
+            <path d="M16 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9.5 10a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM21 20v-2a4 4 0 00-3-3.9M15 3.1a3.5 3.5 0 010 6.8"/>
+        </symbol>
+
+        <symbol id="i-verify" viewBox="0 0 24 24">
+            <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/>
+            <path d="M9 12l2 2 4-4"/>
+        </symbol>
+
+        <symbol id="i-close" viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6L6 18"/>
+        </symbol>
+    </svg>
+
+    <!-- Mobile Menu Toggle -->
+    <input type="checkbox" id="menu-tg">
+
+    <!-- Header -->
+    <header class="topbar">
+
+        <label for="menu-tg" class="icon-btn menu-btn" aria-label="Open menu">
+            <svg class="icon">
+                <use href="#i-menu"/>
+            </svg>
         </label>
-        <div class="panel">
-          <h4>Notifications</h4>
-          <div class="note">
-            <svg class="icon-small"><use href="#i-bag"/></svg>
-            <div>2 new orders need payment verification<small>10 min ago</small></div>
-          </div>
-          <div class="note">
-            <svg class="icon-small"><use href="#i-layers"/></svg>
-            <div>Rose Quartz Bracelet is low on stock (3 left)<small>1 hr ago</small></div>
-          </div>
-        </div>
-      </div>
 
-      <div class="dropdown">
-        <input type="checkbox" id="profile-toggle" class="toggle">
-        <label for="profile-toggle" class="profile-btn">
-          <span class="avatar"><svg class="icon-small"><use href="#i-person"/></svg></span>
-          <span class="who">Administrator</span>
-        </label>
-        <div class="panel small-panel">
-          <span class="row"><svg class="icon-small"><use href="#i-person"/></svg>My account</span>
-          <span class="row"><svg class="icon-small"><use href="#i-settings"/></svg>Settings</span>
-          <a class="row" href="logout.php"><svg class="icon-small"><use href="#i-logout"/></svg>Log out</a>
-        </div>
-      </div>
-    </div>
-  </header>
+        <a class="brand" href="#dashboard">MystiqueCollections</a>
 
-  <nav class="sidebar">
-    <label class="nav" for="tab-dashboard"><svg class="icon"><use href="#i-grid"/></svg>Dashboard</label>
-    <a class="nav" href="products.html"><svg class="icon"><use href="#i-box"/></svg>Products</a>
-    <a class="nav" href="admin-inventory.html"><svg class="icon"><use href="#i-layers"/></svg>Inventory Management</a>
-    <a class="nav" href="orders.html"><svg class="icon"><use href="#i-receipt"/></svg>Orders</a>
-    <label class="nav" for="tab-sales"><svg class="icon"><use href="#i-chart"/></svg>Sales Reports</label>
-    <label class="nav" for="tab-customers"><svg class="icon"><use href="#i-users"/></svg>Customers</label>
-  </nav>
-  <label for="menu-toggle" class="scrim"></label>
+        <div class="top-right">
 
-  <main>
-    <section class="view" id="dashboard">
-      <h1 class="welcome">Welcome back</h1>
-      <p class="subtext">Here is how the shop is doing today.</p>
-      <section class="cards cards-four">
-        <div class="card dark wide">
-          <div class="card-top">
-            <span class="card-label">Total Sales</span>
-            <svg class="icon"><use href="#i-sparkle"/></svg>
-          </div>
-          <div class="card-number">₱150,36.00</div>
-          <div class="card-note">From orders with confirmed payment</div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="card-label">Total Orders</span>
-            <svg class="icon"><use href="#i-bag"/></svg>
-          </div>
-          <div class="card-number">89</div>
-          <div class="card-note">All orders recorded</div>
-        </div>
-        <div class="card">
-          <div class="card-top">
-            <span class="card-label">Total Products</span>
-            <svg class="icon"><use href="#i-rabbit"/></svg>
-          </div>
-          <div class="card-number">50</div>
-          <div class="card-note">Active in the catalog</div>
-        </div>
-        <div class="card wide">
-          <div class="card-top">
-            <span class="card-label">Pending Orders</span>
-            <svg class="icon"><use href="#i-truck"/></svg>
-          </div>
-          <div class="card-number">9</div>
-          <div class="card-note">Waiting for payment check or processing</div>
-          <a class="card-link" href="orders.html?status=Pending">Review pending orders <svg class="icon-small"><use href="#i-arrow-r"/></svg></a>
-        </div>
-      </section>
-      <section class="box">
-        <div class="box-head">
-          <h2>Recent Orders</h2>
-          <a class="view-all" href="orders.html">View all orders <svg class="icon-small"><use href="#i-arrow-r"/></svg></a>
-        </div>
-        <div class="table-wrap">
-          <table class="stack">
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Customer Name</th>
-                <th>Order Date</th>
-                <th>Total Amount</th>
-                <th>Payment Method</th>
-                <th>Order Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Order ID" class="bold">MC-1005</td>
-                <td data-label="Customer">Karen J. Barrientos</td>
-                <td data-label="Date">Nov 3, 2026</td>
-                <td data-label="Total">₱920.00</td>
-                <td data-label="Payment">Cash on Delivery</td>
-                <td data-label="Status"><span class="pill packed">Packed</span></td>
-                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1005">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
-              </tr>
-              <tr>
-                <td data-label="Order ID" class="bold">MC-1004</td>
-                <td data-label="Customer">Sophea Labuson</td>
-                <td data-label="Date">Nov 2, 2026</td>
-                <td data-label="Total">₱2,575.00</td>
-                <td data-label="Payment">GCash</td>
-                <td data-label="Status"><span class="pill paid">Paid</span></td>
-                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1004">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
-              </tr>
-              <tr>
-                <td data-label="Order ID" class="bold">MC-1003</td>
-                <td data-label="Customer">Ruel Rabi Catolos</td>
-                <td data-label="Date">Nov 1, 2026</td>
-                <td data-label="Total">₱1,480.00</td>
-                <td data-label="Payment">GCash</td>
-                <td data-label="Status"><span class="pill shipped">Shipped</span></td>
-                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1003">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
-              </tr>
-              <tr>
-                <td data-label="Order ID" class="bold">MC-1002</td>
-                <td data-label="Customer">Nica M. Germo</td>
-                <td data-label="Date">Oct 31, 2026</td>
-                <td data-label="Total">₱4,120.00</td>
-                <td data-label="Payment">Bank Transfer</td>
-                <td data-label="Status"><span class="pill delivered">Delivered</span></td>
-                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1002">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
-              </tr>
-              <tr>
-                <td data-label="Order ID" class="bold">MC-1001</td>
-                <td data-label="Customer">Michael Estrella</td>
-                <td data-label="Date">Oct 30, 2026</td>
-                <td data-label="Total">₱760.00</td>
-                <td data-label="Payment">Cash on Delivery</td>
-                <td data-label="Status"><span class="pill cancelled">Cancelled</span></td>
-                <td data-label="Action"><a class="link" href="order-details.html?id=MC-1001">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </section>
+            <!-- Notifications Dropdown -->
+            <details class="dropdown">
+                <summary class="icon-btn" aria-label="Notifications">
+                    <svg class="icon">
+                        <use href="#i-bell"/>
+                    </svg>
+                    <span class="badge">3</span>
+                </summary>
 
-    <section class="view" id="sales">
-      <h1 class="welcome">Sales History</h1>
-      <p class="subtext">Orders with confirmed payment (Paid, Packed, Shipped and Delivered).</p>
-      <form class="filter" method="get">
-        <div><label for="from">From</label><input type="date" id="from" name="from" value="2026-10-27"></div>
-        <div><label for="to">To</label><input type="date" id="to" name="to" value="2026-11-02"></div>
-        <button type="submit" class="btn">Filter sales</button>
-        <button type="reset" class="clear">Clear</button>
-      </form>
-      <div class="cards cards-three">
-        <div class="card dark">
-          <span class="card-label">Total Sales</span>
-          <span class="card-number">₱14,100.00</span>
-          <span class="card-note">Oct 1 to Nov 1 2026</span>
-        </div>
-        <div class="card">
-          <span class="card-label">Transactions</span>
-          <span class="card-number">16</span>
-          <span class="card-note">Paid orders in this date range</span>
-        </div>
-        <div class="card">
-          <span class="card-label">Average Sale</span>
-          <span class="card-number">₱4,126.00</span>
-          <span class="card-note">Total sales divided by transactions</span>
-        </div>
-      </div>
-      <div class="box">
-        <div class="box-head"><h2>Transactions</h2><span>Newest first</span></div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Customer</th>
-                <th>Payment Method</th>
-                <th>Status</th>
-                <th class="num">Amount</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="bold">MC-1005</td>
-                <td>Nov 2, 2026</td>
-                <td>Karen J. Barrientos</td>
-                <td>Cash on Delivery</td>
-                <td><span class="pill packed">Packed</span></td>
-                <td class="num">₱920.00</td>
-                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">MC-1004</td>
-                <td>Nov 2, 2026</td>
-                <td>Sophea Labuson</td>
-                <td>GCash</td>
-                <td><span class="pill paid">Paid</span></td>
-                <td class="num">₱2,575.00</td>
-                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">MC-1003</td>
-                <td>Nov 1, 2026</td>
-                <td>Ruel Rabi Catolos</td>
-                <td>GCash</td>
-                <td><span class="pill shipped">Shipped</span></td>
-                <td class="num">₱1,480.00</td>
-                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">MC-1002</td>
-                <td>Oct 31, 2026</td>
-                <td>Nica M. Germo</td>
-                <td>Bank Transfer</td>
-                <td><span class="pill delivered">Delivered</span></td>
-                <td class="num">₱4,120.00</td>
-                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">MC-1001</td>
-                <td>Oct 28, 2026</td>
-                <td>Michael Estrella</td>
-                <td>GCash</td>
-                <td><span class="pill delivered">Delivered</span></td>
-                <td class="num">₱1,350.00</td>
-                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">MC-1000</td>
-                <td>Oct 27, 2026</td>
-                <td>Angela Reyes</td>
-                <td>Bank Transfer</td>
-                <td><span class="pill delivered">Delivered</span></td>
-                <td class="num">₱2,200.00</td>
-                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+                <div class="panel">
+                    <h4>Notifications</h4>
 
-    <section class="view" id="transaction">
-      <label class="back" for="tab-sales"><svg class="icon-small"><use href="#i-arrow-r"/></svg>Back to sales history</label>
-      <h1 class="welcome">Transaction MC-1005</h1>
-      <p class="subtext">Full details of this sale.</p>
-      <div class="box">
-        <div class="box-head"><h2>Order Information</h2><span class="pill paid">Paid</span></div>
-        <div class="info">
-          <div><span>Order ID</span><b>MC-1005</b></div>
-          <div><span>Order Date</span><b>Nov 2, 2026</b></div>
-          <div><span>Customer</span><label class="link" for="tab-customer">Karen J. Barrientos</label></div>
-          <div><span>Payment Method</span><b>Cash on Delivery</b></div>
-          <div><span>Payment Status</span><b>Verified by admin</b></div>
-          <div><span>Delivery Address</span><b>Pasay City, Metro Manila</b></div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="box-head"><h2>Items Ordered</h2></div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th class="num">Price</th>
-                <th class="num">Qty</th>
-                <th class="num">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Rose Quartz Bracelet</td>
-                <td class="num">₱650.00</td>
-                <td class="num">2</td>
-                <td class="num">₱1,300.00</td>
-              </tr>
-              <tr>
-                <td>Silver Moon Necklace</td>
-                <td class="num">₱1,150.00</td>
-                <td class="num">1</td>
-                <td class="num">₱1,150.00</td>
-              </tr>
-              <tr>
-                <td>Caroline Bag</td>
-                <td class="num">5,000.00</td>
-                <td class="num">1</td>
-                <td class="num">5,000.00</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3" class="num">Items subtotal</td>
-                <td class="num">₱7,450.00</td>
-              </tr>
-              <tr>
-                <td colspan="3" class="num">Shipping fee</td>
-                <td class="num">₱250.00</td>
-              </tr>
-              <tr class="total">
-                <td colspan="3" class="num">Total amount</td>
-                <td class="num">₱7,700.00</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-    </section>
+                    <a class="note" href="#orders">
+                        <div>1 order needs payment verification</div>
+                    </a>
 
-    <section class="view" id="customers">
-      <h1 class="welcome">Customers</h1>
-      <p class="subtext">Everyone who has an account in the shop.</p>
-      <div class="box">
-        <div class="box-head"><h2>Customer List</h2><span>5 customers</span></div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Customer ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th class="num">Orders</th>
-                <th class="num">Total Spent</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="bold">C-001</td>
-                <td>Karen J. Barrientos</td>
-                <td>krnbrrnts02@gmail.com</td>
-                <td>0916 696 5075</td>
-                <td class="num">3</td>
-                <td class="num">₱7,700.00</td>
-                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">C-002</td>
-                <td>Sophea Labuson</td>
-                <td>sophealabuson@gmail.com</td>
-                <td>0917 000 0002</td>
-                <td class="num">4</td>
-                <td class="num">₱6,240.00</td>
-                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">C-003</td>
-                <td>Ruel Rabi Catolos</td>
-                <td>ruelcatolos@gmail.com</td>
-                <td>0917 000 0003</td>
-                <td class="num">2</td>
-                <td class="num">₱5,440.50</td>
-                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">C-004</td>
-                <td>Nica M. Germo</td>
-                <td>nicagermo@gmail.com</td>
-                <td>0917 000 0004</td>
-                <td class="num">1</td>
-                <td class="num">₱920.00</td>
-                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-              <tr>
-                <td class="bold">C-005</td>
-                <td>Michael Estrella</td>
-                <td>michaelestrella@gmail.com</td>
-                <td>0917 000 0005</td>
-                <td class="num">5</td>
-                <td class="num">₱9,830.00</td>
-                <td><label class="link" for="tab-customer">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+                    <a class="note" href="#verification">
+                        <div>2 proofs or return requests to review</div>
+                    </a>
 
-    <section class="view" id="customer">
-      <label class="back" for="tab-customers"><svg class="icon-small"><use href="#i-arrow-r"/></svg>Back to customer list</label>
-      <h1 class="welcome">Karen J. Barrientos</h1>
-      <p class="subtext">Customer C-001</p>
-      <div class="box">
-        <div class="box-head"><h2>Customer Details</h2></div>
-        <div class="info">
-          <div><span>Full Name</span><b>Karen J. Barrientos</b></div>
-          <div><span>Email</span><b>krnbrrnts02@gmail.com</b></div>
-          <div><span>Phone</span><b>0916 696 5075</b></div>
-          <div><span>Address</span><b>Pasay City, Metro Manila</b></div>
-          <div><span>Member Since</span><b>Jan 1, 2026</b></div>
+                    <a class="note" href="#inventory">
+                        <div>3 products are low or out of stock</div>
+                    </a>
+                </div>
+            </details>
+
+            <!-- Account Dropdown -->
+            <details class="dropdown">
+                <summary class="profile-btn" aria-label="Account menu">
+                    <span class="avatar">A</span>
+                    <span class="who">Administrator</span>
+                </summary>
+
+                <div class="panel small-panel">
+                    <a class="row" href="#settings">Settings</a>
+                    <a class="row" href="#moderators">Moderators</a>
+
+                    <a class="row" href="logout.php">
+                        <svg class="icon-small">
+                            <use href="#i-logout"/>
+                        </svg>
+                        Log out
+                    </a>
+                </div>
+            </details>
+
         </div>
-      </div>
-      <div class="cards cards-two">
-        <div class="card"><span class="card-label">Total Orders</span><span class="card-number">3</span></div>
-        <div class="card"><span class="card-label">Total Spent</span><span class="card-number">₱7,700.00</span></div>
-      </div>
-      <div class="box">
-        <div class="box-head"><h2>Order History</h2><span>Newest first</span></div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Payment Method</th>
-                <th>Status</th>
-                <th class="num">Total</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="bold">MC-1005</td>
-                <td>Nov 2, 2026</td>
-                <td>GCash</td>
-                <td><span class="pill paid">Paid</span></td>
-                <td class="num">₱7,700.00</td>
-                <td><label class="link" for="tab-transaction">View <svg class="icon-small"><use href="#i-arrow-ur"/></svg></label></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar" aria-label="Main menu">
+
+        <a class="nav" href="#dashboard">
+            <svg class="icon"><use href="#i-grid"/></svg>
+            Dashboard
+        </a>
+
+        <a class="nav" href="#products">
+            <svg class="icon"><use href="#i-box"/></svg>
+            Products
+        </a>
+
+        <a class="nav" href="#inventory">
+            <svg class="icon"><use href="#i-layers"/></svg>
+            Inventory Management
+        </a>
+
+        <a class="nav" href="#orders">
+            <svg class="icon"><use href="#i-receipt"/></svg>
+            Orders &amp; Payments
+        </a>
+
+        <a class="nav" href="#verification">
+            <svg class="icon"><use href="#i-verify"/></svg>
+            Order Verification
+        </a>
+
+        <a class="nav" href="#proofs">
+            <svg class="icon"><use href="#i-receipt"/></svg>
+            Payment Proofs
+        </a>
+
+        <a class="nav" href="#sales">
+            <svg class="icon"><use href="#i-chart"/></svg>
+            Sales Reports
+        </a>
+
+        <a class="nav" href="#customers">
+            <svg class="icon"><use href="#i-users"/></svg>
+            Customers
+        </a>
+
+    </nav>
+
+    <label class="scrim" for="menu-tg"></label>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- ============ Dashboard ============ -->
+        <section class="view soft" id="dashboard">
+
+            <h1 class="welcome">Welcome back</h1>
+            <p class="subtext">Here is how the shop is doing today.</p>
+
+            <section class="cards cards-four">
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="card-label">Total Sales</span>
+                    </div>
+                    <div class="card-number">₱5,220</div>
+                    <div class="card-note">From orders with confirmed payment</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="card-label">Total Orders</span>
+                    </div>
+                    <div class="card-number">5</div>
+                    <div class="card-note">All orders recorded</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="card-label">Products</span>
+                    </div>
+                    <div class="card-number">5</div>
+                    <div class="card-note">Active in the catalog</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="card-label">Pending Orders</span>
+                    </div>
+                    <div class="card-number">3</div>
+                    <div class="card-note">Waiting for payment check or processing</div>
+
+                    <a class="card-link" href="#orders">
+                        Review pending orders
+                        <svg class="icon-small"><use href="#i-arrow-r"/></svg>
+                    </a>
+                </div>
+
+            </section>
+
+            <section class="box">
+                <div class="box-head">
+                    <h2>Recent Orders</h2>
+                    <a class="view-all" href="#orders">
+                        View all orders
+                        <svg class="icon-small"><use href="#i-arrow-r"/></svg>
+                    </a>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="stack">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="bold">MS-10458</td>
+                                <td>Ana Reyes</td>
+                                <td>Nov 22, 2026</td>
+                                <td>₱1,980.00</td>
+                                <td>GCash</td>
+                                <td><span class="pill paid">Paid</span></td>
+                                <td>
+                                    <a class="link" href="#order">
+                                        View
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10441</td>
+                                <td>Ben Cruz</td>
+                                <td>Nov 20, 2026</td>
+                                <td>₱2,350.00</td>
+                                <td>Maya</td>
+                                <td><span class="pill delivered">Delivered</span></td>
+                                <td>
+                                    <a class="link" href="#order">
+                                        View
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10422</td>
+                                <td>Carla Santos</td>
+                                <td>Nov 18, 2026</td>
+                                <td>₱1,190.00</td>
+                                <td>Bank Transfer</td>
+                                <td><span class="pill pending">Pending</span></td>
+                                <td>
+                                    <a class="link" href="#order">
+                                        View
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </section>
+
+        <!-- ============ Products ============ -->
+        <section class="view soft" id="products">
+
+            <div class="page-head">
+                <div>
+                    <h1 class="welcome">Products</h1>
+                    <p class="subtext">Your catalogue at a glance. Stock numbers match the inventory page.</p>
+                </div>
+
+                <button type="button" class="btn" commandfor="add-dlg" command="show-modal">
+                    Add product
+                </button>
+            </div>
+
+            <section class="cards cards-four">
+
+                <div class="card">
+                    <span class="card-label">Products</span>
+                    <span class="card-number">5</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">In Stock</span>
+                    <span class="card-number">2</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Low Stock</span>
+                    <span class="card-number">2</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Out of Stock</span>
+                    <span class="card-number">1</span>
+                </div>
+
+            </section>
+
+            <div class="box">
+                <div class="box-head">
+                    <h2>All Products</h2>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="stack">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>SKU</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="bold">Amethyst Pendant</td>
+                                <td>AP-001</td>
+                                <td>120</td>
+                                <td><span class="pill approved">In stock</span></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">Moon Tarot Deck</td>
+                                <td>TD-014</td>
+                                <td>45</td>
+                                <td><span class="pill approved">In stock</span></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">Rose Quartz Bracelet</td>
+                                <td>RB-007</td>
+                                <td>8</td>
+                                <td><span class="pill pending">Low stock</span></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">Sage Incense Set</td>
+                                <td>SI-022</td>
+                                <td>3</td>
+                                <td><span class="pill pending">Low stock</span></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">Crystal Candle</td>
+                                <td>CC-009</td>
+                                <td>0</td>
+                                <td><span class="pill rejected">Out of stock</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ============ Inventory ============ -->
+        <section class="view soft" id="inventory">
+
+            <h1 class="welcome">Inventory Management</h1>
+
+            <input class="tr" type="radio" name="inv" id="i1" checked>
+            <input class="tr" type="radio" name="inv" id="i2">
+            <input class="tr" type="radio" name="inv" id="i3">
+            <input class="tr" type="radio" name="inv" id="i4">
+
+            <div class="tabs">
+                <label class="tab" for="i1">Stock Levels</label>
+                <label class="tab" for="i2">Update Stock</label>
+                <label class="tab" for="i3">Low Stock Alerts</label>
+                <label class="tab" for="i4">Automatic Updates</label>
+            </div>
+
+            <!-- Stock Levels -->
+            <div class="tp q1">
+
+                <section class="cards cards-four">
+
+                    <div class="card">
+                        <span class="card-label">Products</span>
+                        <span class="card-number">5</span>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label">In Stock</span>
+                        <span class="card-number">2</span>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label">Low Stock</span>
+                        <span class="card-number">2</span>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label">Out of Stock</span>
+                        <span class="card-number">1</span>
+                    </div>
+
+                </section>
+
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Stock Levels</h2>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="stack">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>SKU</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td class="bold">Amethyst Pendant</td>
+                                    <td>AP-001</td>
+                                    <td>120</td>
+                                    <td><span class="pill approved">In stock</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="bold">Moon Tarot Deck</td>
+                                    <td>TD-014</td>
+                                    <td>45</td>
+                                    <td><span class="pill approved">In stock</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="bold">Rose Quartz Bracelet</td>
+                                    <td>RB-007</td>
+                                    <td>8</td>
+                                    <td><span class="pill pending">Low stock</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="bold">Sage Incense Set</td>
+                                    <td>SI-022</td>
+                                    <td>3</td>
+                                    <td><span class="pill pending">Low stock</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="bold">Crystal Candle</td>
+                                    <td>CC-009</td>
+                                    <td>0</td>
+                                    <td><span class="pill rejected">Out of stock</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Update Stock -->
+            <div class="tp q2">
+
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Update Stock</h2>
+                    </div>
+
+                    <form class="dialog-box" action="#inventory" method="get">
+
+                        <label for="su-product">Product</label>
+                        <select class="select" id="su-product">
+                            <option>Amethyst Pendant</option>
+                            <option>Moon Tarot Deck</option>
+                            <option>Rose Quartz Bracelet</option>
+                            <option>Sage Incense Set</option>
+                            <option>Crystal Candle</option>
+                        </select>
+
+                        <label for="su-action">Action</label>
+                        <select class="select" id="su-action">
+                            <option>Add stock</option>
+                            <option>Remove stock</option>
+                            <option>Set exact amount</option>
+                        </select>
+
+                        <label for="su-qty">Quantity</label>
+                        <input class="search" id="su-qty" type="number" min="0" value="0">
+
+                        <div class="dialog-actions">
+                            <button class="btn">Update stock</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Low Stock Alerts -->
+            <div class="tp q3">
+
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Low Stock Alerts</h2>
+                        <span>Threshold: 10 units</span>
+                    </div>
+
+                    <div class="note">
+                        <div>
+                            <b>Crystal Candle (CC-009)</b>
+                            <small>Out of stock. Restock as soon as possible.</small>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <div>
+                            <b>Sage Incense Set (SI-022)</b>
+                            <small>Only 3 left.</small>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <div>
+                            <b>Rose Quartz Bracelet (RB-007)</b>
+                            <small>Only 8 left.</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Automatic Updates -->
+            <div class="tp q4">
+
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Automatic Updates</h2>
+                        <span>Stock is deducted when a delivery is approved</span>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="stack">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Product</th>
+                                    <th class="num">Qty sold</th>
+                                    <th class="num">Before</th>
+                                    <th class="num">After</th>
+                                    <th>When</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td class="bold">MS-10441</td>
+                                    <td>Moon Tarot Deck</td>
+                                    <td class="num">1</td>
+                                    <td class="num">46</td>
+                                    <td class="num">45</td>
+                                    <td>Nov 21, 2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ============ Orders & Payments ============ -->
+        <section class="view soft" id="orders">
+
+            <h1 class="welcome">Orders &amp; Payments</h1>
+            <p class="subtext">Verify receipts and follow each order along.</p>
+
+            <div class="box">
+                <div class="box-head">
+                    <h2>Payment Verification</h2>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="stack">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Method</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="bold">MS-10458</td>
+                                <td>GCash</td>
+                                <td>₱1,980</td>
+                                <td><span class="pill paid">Verified</span></td>
+                                <td>
+                                    <a class="link" href="#order">
+                                        View
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10441</td>
+                                <td>Maya</td>
+                                <td>₱2,350</td>
+                                <td><span class="pill paid">Verified</span></td>
+                                <td>
+                                    <a class="link" href="#order">
+                                        View
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10422</td>
+                                <td>Bank Transfer</td>
+                                <td>₱1,190</td>
+                                <td><span class="pill pending">Pending</span></td>
+                                <td>
+                                    <a class="link" href="#proofs">
+                                        Verify receipt
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10419</td>
+                                <td>Card</td>
+                                <td>₱890</td>
+                                <td><span class="pill paid">Paid</span></td>
+                                <td>
+                                    <a class="link" href="#order">
+                                        View
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10381</td>
+                                <td>GCash</td>
+                                <td>₱1,420</td>
+                                <td><span class="pill cancelled">Refund review</span></td>
+                                <td>
+                                    <a class="link" href="#order">
+                                        View
+                                        <svg class="icon-small"><use href="#i-arrow-ur"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ============ One Order ============ -->
+        <section class="view soft" id="order">
+
+            <a class="back" href="#orders">
+                <svg class="icon-small"><use href="#i-arrow-r"/></svg>
+                Back to orders
+            </a>
+
+            <h1 class="welcome">Order MS-10458</h1>
+
+            <div class="box">
+                <div class="box-head">
+                    <h2>Order Information</h2>
+                    <span class="pill paid">Paid</span>
+                </div>
+
+                <div class="info">
+                    <div>
+                        <span>Order Date</span>
+                        <b>Nov 22, 2026</b>
+                    </div>
+
+                    <div>
+                        <span>Customer</span>
+                        <b>Ana Reyes</b>
+                    </div>
+
+                    <div>
+                        <span>Payment Method</span>
+                        <b>GCash</b>
+                    </div>
+
+                    <div>
+                        <span>Payment Status</span>
+                        <b>Verified by admin</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-head">
+                    <h2>Items Ordered</h2>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="compact">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th class="num">Price</th>
+                                <th class="num">Qty</th>
+                                <th class="num">Subtotal</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Amethyst Pendant</td>
+                                <td class="num">₱1,860.00</td>
+                                <td class="num">1</td>
+                                <td class="num">₱1,860.00</td>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="num">Shipping fee</td>
+                                <td class="num">₱120.00</td>
+                            </tr>
+
+                            <tr class="total">
+                                <td colspan="3" class="num">Total amount</td>
+                                <td class="num">₱1,980.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ============ Order Verification ============ -->
+        <section class="view soft" id="verification">
+
+            <h1 class="welcome">Order Verification</h1>
+            <p class="subtext">Review delivery proofs and return requests before an order is closed.</p>
+
+            <div class="cards cards-four">
+
+                <div class="card">
+                    <span class="card-label">Pending Deliveries</span>
+                    <span class="card-number">1</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Pending Returns</span>
+                    <span class="card-number">1</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Approved</span>
+                    <span class="card-number">1</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Rejected</span>
+                    <span class="card-number">0</span>
+                </div>
+
+            </div>
+
+            <input class="tr" type="radio" name="ver" id="v1" checked>
+            <input class="tr" type="radio" name="ver" id="v2">
+            <input class="tr" type="radio" name="ver" id="v3">
+
+            <div class="tabs">
+                <label class="tab" for="v1">Delivery Confirmation</label>
+                <label class="tab" for="v2">Return Requests</label>
+                <label class="tab" for="v3">Verification Logs</label>
+            </div>
+
+            <!-- Delivery Confirmation -->
+            <div class="tp p1">
+
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Delivery Confirmation</h2>
+                    </div>
+
+                    <div class="case-list">
+
+                        <article class="case">
+
+                            <div class="case-main">
+
+                                <div class="case-head">
+                                    <h3>Order MS-10458</h3>
+                                    <span class="pill pending">Pending</span>
+                                </div>
+
+                                <div class="info">
+                                    <div>
+                                        <span>Customer</span>
+                                        <b>Ana Reyes</b>
+                                    </div>
+
+                                    <div>
+                                        <span>Order total</span>
+                                        <b>₱1,980.00</b>
+                                    </div>
+
+                                    <div class="wide">
+                                        <span>Items</span>
+                                        <b>Amethyst Pendant × 1</b>
+                                    </div>
+                                </div>
+
+                                <div class="photos">
+                                    <div class="ph">Parcel photo</div>
+                                    <div class="ph">Receipt photo</div>
+                                </div>
+
+                            </div>
+
+                            <div class="case-actions">
+                                <button type="button" class="btn" commandfor="ok-dlg" command="show-modal">
+                                    Approve
+                                </button>
+
+                                <button type="button" class="btn-reject" commandfor="no-dlg" command="show-modal">
+                                    Reject
+                                </button>
+                            </div>
+
+                        </article>
+
+                        <article class="case">
+
+                            <div class="case-main">
+
+                                <div class="case-head">
+                                    <h3>Order MS-10441</h3>
+                                    <span class="pill approved">Approved</span>
+                                </div>
+
+                                <div class="info">
+                                    <div>
+                                        <span>Customer</span>
+                                        <b>Ben Cruz</b>
+                                    </div>
+
+                                    <div>
+                                        <span>Order total</span>
+                                        <b>₱2,350.00</b>
+                                    </div>
+                                </div>
+
+                                <p class="case-note">
+                                    <b>Approved</b> by Administrator on Nov 21, 2026.
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Return Requests -->
+            <div class="tp p2">
+
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Return Requests</h2>
+                    </div>
+
+                    <div class="case-list">
+
+                        <article class="case">
+
+                            <div class="case-main">
+
+                                <div class="case-head">
+                                    <h3>Return RR-2001</h3>
+                                    <span class="pill pending">Pending</span>
+                                </div>
+
+                                <div class="info">
+                                    <div>
+                                        <span>Customer</span>
+                                        <b>Ana Reyes</b>
+                                    </div>
+
+                                    <div>
+                                        <span>Order</span>
+                                        <b>MS-10381</b>
+                                    </div>
+
+                                    <div class="wide">
+                                        <span>Reason</span>
+                                        <b>Damaged item</b>
+                                    </div>
+
+                                    <div class="wide">
+                                        <span>Customer comment</span>
+                                        <b>The clasp arrived broken.</b>
+                                    </div>
+                                </div>
+
+                                <div class="photos">
+                                    <div class="ph">Damage photo</div>
+                                </div>
+
+                            </div>
+
+                            <div class="case-actions">
+                                <button type="button" class="btn" commandfor="ok-dlg" command="show-modal">
+                                    Approve
+                                </button>
+
+                                <button type="button" class="btn-reject" commandfor="no-dlg" command="show-modal">
+                                    Reject
+                                </button>
+                            </div>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Verification Logs -->
+            <div class="tp p3">
+
+                <div class="box">
+                    <div class="box-head">
+                        <h2>Verification Logs</h2>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="stack">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Action</th>
+                                    <th>Employee</th>
+                                    <th>Date &amp; Time</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td class="bold">MS-10441</td>
+                                    <td><span class="pill approved">Delivery approved</span></td>
+                                    <td>Administrator</td>
+                                    <td>Nov 21, 2026, 3:10 PM</td>
+                                    <td>—</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ============ Payment Proofs ============ -->
+        <section class="view soft" id="proofs">
+
+            <h1 class="welcome">Payment Proofs</h1>
+            <p class="subtext">Receipts uploaded by customers.</p>
+
+            <div class="proof-grid">
+
+                <div class="proof-card">
+                    <div class="ph">Receipt</div>
+                    <b>MS-10422</b>
+                    <span>Carla Santos</span>
+                    <span class="pill pending">Pending</span>
+
+                    <button type="button" class="btn" commandfor="ok-dlg" command="show-modal">
+                        Approve payment
+                    </button>
+
+                    <button type="button" class="btn-reject" commandfor="no-dlg" command="show-modal">
+                        Reject
+                    </button>
+                </div>
+
+                <div class="proof-card">
+                    <div class="ph">Receipt</div>
+                    <b>MS-10458</b>
+                    <span>Ana Reyes</span>
+                    <span class="pill approved">Approved</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ============ Sales Reports ============ -->
+        <section class="view soft" id="sales">
+
+            <h1 class="welcome">Sales Reports &amp; Insights</h1>
+            <p class="subtext">Monthly sales, customer trends, and performance at a glance.</p>
+
+            <div class="cards cards-four">
+
+                <div class="card">
+                    <span class="card-label">Total Sales</span>
+                    <span class="card-number">₱5,220</span>
+                    <span class="card-note">Across all dates</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Total Orders</span>
+                    <span class="card-number">5</span>
+                    <span class="card-note">3 pending orders</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Total Products</span>
+                    <span class="card-number">5</span>
+                    <span class="card-note">176 units across all products</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Total Customers</span>
+                    <span class="card-number">3</span>
+                    <span class="card-note">Customers who ordered</span>
+                </div>
+
+            </div>
+
+            <div class="box">
+                <div class="box-head">
+                    <h2>Transactions</h2>
+                    <span>Newest first</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="stack">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th class="num">Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="bold">MS-10458</td>
+                                <td>Nov 22, 2026</td>
+                                <td>Ana Reyes</td>
+                                <td>GCash</td>
+                                <td><span class="pill paid">Paid</span></td>
+                                <td class="num">₱1,980.00</td>
+                                <td><a class="link" href="#order">View</a></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10441</td>
+                                <td>Nov 20, 2026</td>
+                                <td>Ben Cruz</td>
+                                <td>Maya</td>
+                                <td><span class="pill delivered">Delivered</span></td>
+                                <td class="num">₱2,350.00</td>
+                                <td><a class="link" href="#order">View</a></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10422</td>
+                                <td>Nov 18, 2026</td>
+                                <td>Carla Santos</td>
+                                <td>Bank Transfer</td>
+                                <td><span class="pill pending">Pending</span></td>
+                                <td class="num">₱1,190.00</td>
+                                <td><a class="link" href="#order">View</a></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10419</td>
+                                <td>Nov 16, 2026</td>
+                                <td>Ben Cruz</td>
+                                <td>Card</td>
+                                <td><span class="pill paid">Paid</span></td>
+                                <td class="num">₱890.00</td>
+                                <td><a class="link" href="#order">View</a></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">MS-10381</td>
+                                <td>Nov 9, 2026</td>
+                                <td>Ana Reyes</td>
+                                <td>GCash</td>
+                                <td><span class="pill cancelled">Cancelled</span></td>
+                                <td class="num">₱1,420.00</td>
+                                <td><a class="link" href="#order">View</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ============ Customers ============ -->
+        <section class="view soft" id="customers">
+
+            <h1 class="welcome">Customer Directory</h1>
+
+            <div class="cards cards-four">
+
+                <div class="card">
+                    <span class="card-label">Total Customers</span>
+                    <span class="card-number">3</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">New This Month</span>
+                    <span class="card-number">1</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Returning</span>
+                    <span class="card-number">2</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-label">Active Orders</span>
+                    <span class="card-number">3</span>
+                </div>
+
+            </div>
+
+            <div class="box roomy">
+
+                <div class="box-head">
+                    <h2>Customer Management</h2>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="stack">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th class="num">Orders</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="bold">C-001</td>
+                                <td>Ana Reyes</td>
+                                <td>ana@example.com</td>
+                                <td>+63 900 000 0001</td>
+                                <td class="num">2</td>
+                                <td><span class="pill active">Active</span></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">C-002</td>
+                                <td>Ben Cruz</td>
+                                <td>ben@example.com</td>
+                                <td>+63 900 000 0002</td>
+                                <td class="num">2</td>
+                                <td><span class="pill active">Active</span></td>
+                            </tr>
+
+                            <tr>
+                                <td class="bold">C-003</td>
+                                <td>Carla Santos</td>
+                                <td>carla@example.com</td>
+                                <td>+63 900 000 0003</td>
+                                <td class="num">1</td>
+                                <td><span class="pill new">New</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pager">Showing 1–3 of 3 customers</div>
+
+            </div>
+
+        </section>
+
+        <!-- ============ Settings ============ -->
+        <section class="view soft" id="settings">
+
+            <h1 class="welcome">Admin Settings</h1>
+            <p class="subtext">Manage store preferences, order notifications and payment rules.</p>
+
+            <form action="#settings" method="get">
+
+                <section class="box">
+                    <h2>Store Preferences</h2>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Store display name
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Email notifications
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Default shipping region
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+                </section>
+
+                <section class="box">
+                    <h2>Payment Configuration</h2>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        GCash and Maya payments
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Cards and bank transfers
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Receipt verification required
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+                </section>
+
+                <section class="box">
+                    <h2>Inventory Alerts &amp; Security</h2>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Low-stock threshold: 10 units
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Automatic stock deduction
+                        <input class="toggle" type="checkbox" checked>
+                    </label>
+
+                    <label class="setting" style="display:flex;justify-content:space-between;padding:8px 0">
+                        Two-step admin verification
+                        <input class="toggle" type="checkbox">
+                    </label>
+                </section>
+
+                <button class="btn">Save Changes</button>
+
+            </form>
+
+        </section>
+
+        <!-- ============ Moderators ============ -->
+        <section class="view soft" id="moderators">
+
+            <h1 class="welcome">Moderators</h1>
+
+            <div class="box">
+                <div class="note">
+                    <div>
+                        <b>Administrator</b> · Administrator
+                        <small>admin@example.com</small>
+                    </div>
+                </div>
+            </div>
+
+            <form class="box dialog-box" action="#moderators" method="get">
+
+                <h2>Add person</h2>
+
+                <label for="mod-name">Full name</label>
+                <input class="search" id="mod-name" name="name" required>
+
+                <label for="mod-email">Email</label>
+                <input class="search" id="mod-email" name="email" type="email" required>
+
+                <label for="mod-role">Role</label>
+                <select class="select" id="mod-role">
+                    <option>Moderator</option>
+                    <option>Administrator</option>
+                </select>
+
+                <div class="dialog-actions">
+                    <button class="btn">Add person</button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <!-- ============ Dialogs ============ -->
+
+    <!-- Add Product Dialog -->
+    <dialog id="add-dlg">
+
+        <form class="dialog-box" method="dialog">
+
+            <h2>Add product</h2>
+
+            <label for="np-name">Name</label>
+            <input class="search" id="np-name" required>
+
+            <label for="np-sku">SKU</label>
+            <input class="search" id="np-sku" required>
+
+            <label for="np-price">Price (₱)</label>
+            <input class="search" id="np-price" type="number" min="0" step="0.01" required>
+
+            <label for="np-stock">Stock</label>
+            <input class="search" id="np-stock" type="number" min="0" value="0">
+
+            <div class="dialog-actions">
+                <button type="button" class="clear" commandfor="add-dlg" command="close">
+                    Cancel
+                </button>
+
+                <button class="btn">Save</button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- Approve Dialog -->
+    <dialog id="ok-dlg">
+
+        <form class="dialog-box" method="dialog">
+
+            <h2>Approve</h2>
+
+            <label for="ok-r">Remarks (optional)</label>
+            <textarea class="textarea" id="ok-r" rows="3"></textarea>
+
+            <div class="dialog-actions">
+                <button type="button" class="clear" commandfor="ok-dlg" command="close">
+                    Cancel
+                </button>
+
+                <button class="btn">Approve</button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- Reject Dialog -->
+    <dialog id="no-dlg">
+
+        <form class="dialog-box" method="dialog">
+
+            <h2>Reject</h2>
+
+            <label for="no-r">Reason for rejecting (required)</label>
+            <textarea class="textarea" id="no-r" rows="3" required></textarea>
+
+            <div class="dialog-actions">
+                <button type="button" class="clear" commandfor="no-dlg" command="close">
+                    Cancel
+                </button>
+
+                <button class="btn danger">Reject</button>
+            </div>
+
+        </form>
+
+    </dialog>
 
 </body>
 </html>

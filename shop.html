@@ -12,7 +12,67 @@
 </head>
 <body data-page="shop">
 
+    <!-- Header -->
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <span>Limited Edition Mystique Collections — Enjoy 15% off your first order with code MYSTIQUE15.</span>
+            <a href="shop.html" class="goto-btn" aria-label="Go to offer">
+                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.75 6.0006H11.2512M6.0006 11.2512L11.2512 6.0006L6.0006 0.75" stroke-width="1.5" stroke-linecap="round" stroke="#ffffff"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <header class="navbar-header">
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <a href="Main page.html">mystique</a>
+                <span class="navbar-sub">Collections</span>
+            </div>
+            <ul class="navbar-links">
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="shop.html#new-arrivals">New Arrivals</a></li>
+                <li><a href="shop.html#bestsellers">Bestsellers</a></li>
+                <li><a href="ourworld.html">Our World</a></li>
+            </ul>
+            <div class="navbar-tools">
+                <a href="wishlist.html" class="tool-btn" aria-label="Wishlist">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 20.5s-8-4.9-8-11A4.6 4.6 0 0 1 12 6.6a4.6 4.6 0 0 1 8 2.9c0 6.1-8 11-8 11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="cart.html" class="tool-btn" aria-label="Shopping Bag">
+                    <svg width="21" height="21" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.3333 8.33322C13.3333 9.21734 12.9821 10.0653 12.357 10.6904C11.7319 11.3156 10.8841 11.6668 10 11.6668C9.11594 11.6668 8.2681 11.3156 7.64298 10.6904C7.01786 10.0653 6.66667 9.21734 6.66667 8.33322M2.58545 5.0281H2.58563M2.58563 5.0281H17.4138M2.58563 5.0281C2.64191 4.85934 2.72521 4.69958 2.83333 4.55541L4.5 2.33274C4.65525 2.12573 4.85655 1.95771 5.08798 1.84198C5.3194 1.72626 5.57459 1.66602 5.83333 1.66602H14.1667C14.4254 1.66602 14.6806 1.72626 14.912 1.84198C15.1434 1.95771 15.3448 2.12573 15.5 2.33274L17.1667 4.55541C17.383 4.84393 17.5 5.19485 17.5 5.55549V16.6672C17.5 17.1093 17.3244 17.5332 17.0118 17.8458C16.6993 18.1584 16.2754 18.334 15.8333 18.334H4.16667C3.72464 18.334 3.30072 18.1584 2.98816 17.8458C2.67559 17.5332 2.5 17.1093 2.5 16.6672V5.55549C2.5 5.37506 2.52928 5.19707 2.58563 5.0281Z" stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+                    </svg>
+                </a>
+                <a href="loginandsignin.html" class="tool-btn" aria-label="Profile">
+                    <svg width="17" height="19" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.416 9.08333C9.71696 9.08333 11.5822 7.21785 11.5822 4.91667C11.5822 2.61548 9.71696 0.75 7.416 0.75C5.11504 0.75 3.24975 2.61548 3.24975 4.91667C3.24975 7.21785 5.11504 9.08333 7.416 9.08333ZM7.416 9.08333C9.18393 9.08333 10.8795 9.78571 12.1296 11.036C13.3797 12.2862 14.082 13.9819 14.082 15.75M7.416 9.08333C5.64807 9.08333 3.95254 9.78571 2.70243 11.036C1.45231 12.2862 0.75 13.9819 0.75 15.75" stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
     <main class="container">
+
+        <!-- Tab state (radios) and filter state (checkboxes). CSS reads these. -->
+        <input type="radio" class="f-state" name="tab" id="t-all" checked aria-label="All bags">
+        <input type="radio" class="f-state" name="tab" id="t-emy" aria-label="Emy Line">
+        <input type="radio" class="f-state" name="tab" id="t-seffy" aria-label="Seffy Line">
+
+        <form id="filterForm"></form>
+        <input type="checkbox" class="f-state" id="filterToggle" aria-label="Show filters">
+
+        <input type="checkbox" class="f-state f-opt f-price" id="p-under" form="filterForm">
+        <input type="checkbox" class="f-state f-opt f-price" id="p-up" form="filterForm">
+
+        <input type="checkbox" class="f-state f-opt f-color" id="c-beige" form="filterForm">
+        <input type="checkbox" class="f-state f-opt f-color" id="c-blue" form="filterForm">
+        <input type="checkbox" class="f-state f-opt f-color" id="c-grey" form="filterForm">
+        <input type="checkbox" class="f-state f-opt f-color" id="c-yellow" form="filterForm">
+        <input type="checkbox" class="f-state f-opt f-color" id="c-black" form="filterForm">
+        <input type="checkbox" class="f-state f-opt f-color" id="c-green" form="filterForm">
+
         <div class="page-head">
             <span class="section-eyebrow">The Collection</span>
             <h1 class="page-title">Find your little luxuries.</h1>
@@ -22,45 +82,128 @@
             <h2 class="section-title mb-24">New Arrivals</h2>
 
             <div class="shop-toolbar">
-                <div class="tabs" role="tablist">
-                    <button type="button" class="tab-btn" data-tab="all">All Bags</button>
-                    <button type="button" class="tab-btn" data-tab="emy">Emy Line</button>
-                    <button type="button" class="tab-btn" data-tab="seffy">Seffy Line</button>
+                <div class="tabs">
+                    <label class="tab-btn" for="t-all">All Bags</label>
+                    <label class="tab-btn" for="t-emy">Emy Line</label>
+                    <label class="tab-btn" for="t-seffy">Seffy Line</label>
                 </div>
-                <button type="button" class="btn btn-ghost filter-toggle" id="filterBtn" aria-expanded="false" aria-controls="filterSlide">
-                    Filter <span class="filter-count" id="filterCount" hidden>0</span>
-                </button>
+                <label class="btn btn-ghost filter-toggle" for="filterToggle">
+                    Filter <span class="filter-count"></span>
+                </label>
             </div>
 
             <!-- Filter panel (opens under the tabs) -->
-            <div class="filter-slide" id="filterSlide" inert>
+            <div class="filter-slide" id="filterSlide">
                 <div>
                     <div class="filter-panel panel">
                         <fieldset class="filter-group">
                             <legend>Price</legend>
-                            <div class="chips" id="priceChips"></div>
+                            <div class="chips">
+                                <label class="chip" for="p-under">Under ₱1,500</label>
+                                <label class="chip" for="p-up">₱1,500 and up</label>
+                            </div>
                         </fieldset>
                         <fieldset class="filter-group">
                             <legend>Color</legend>
-                            <div class="chips" id="colorChips"></div>
+                            <div class="chips">
+                                <label class="chip" for="c-beige"><i class="chip-dot" style="background:#D8C3A5"></i>Beige</label>
+                                <label class="chip" for="c-blue"><i class="chip-dot" style="background:#6F8FB5"></i>Blue</label>
+                                <label class="chip" for="c-grey"><i class="chip-dot" style="background:#9A9A9F"></i>Grey</label>
+                                <label class="chip" for="c-yellow"><i class="chip-dot" style="background:#E3C65B"></i>Yellow</label>
+                                <label class="chip" for="c-black"><i class="chip-dot" style="background:#2A2226"></i>Black</label>
+                                <label class="chip" for="c-green"><i class="chip-dot" style="background:#4F6F58"></i>Green</label>
+                            </div>
                         </fieldset>
-                        <button type="button" class="filter-clear" id="filterClear">Clear all</button>
+                        <button type="reset" form="filterForm" class="filter-clear">Clear all</button>
                     </div>
                 </div>
             </div>
 
-            <div class="grid-4" id="newGrid"></div>
-            <p class="filter-empty" id="newEmpty" hidden>Nothing matches these filters yet.</p>
+            <div class="grid-4" id="newGrid">
+                <article class="card" data-id="emy-beige" data-line="emy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=emy-beige"><img src="assets/images/images/emy-beige-1.jpg" alt="Emy Beige" loading="lazy"></a></div>
+                    <h3 class="card-title">Emy Beige</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,499 · Emy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=emy-beige">View →</a></div>
+                </article>
+                <article class="card" data-id="emy-blue" data-line="emy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=emy-blue"><img src="assets/images/images/emy-blue-1.jpg" alt="Emy Blue" loading="lazy"></a></div>
+                    <h3 class="card-title">Emy Blue</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,499 · Emy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=emy-blue">View →</a></div>
+                </article>
+                <article class="card" data-id="emy-grey" data-line="emy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=emy-grey"><img src="assets/images/images/emy-grey-1.jpg" alt="Emy Grey" loading="lazy"></a></div>
+                    <h3 class="card-title">Emy Grey</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,499 · Emy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=emy-grey">View →</a></div>
+                </article>
+                <article class="card" data-id="emy-yellow" data-line="emy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=emy-yellow"><img src="assets/images/images/emy-yellow-1.jpg" alt="Emy Yellow" loading="lazy"></a></div>
+                    <h3 class="card-title">Emy Yellow</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,499 · Emy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=emy-yellow">View →</a></div>
+                </article>
+                <article class="card" data-id="seffy-black" data-line="seffy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=seffy-black"><img src="assets/images/images/seffy-black-1.jpg" alt="Seffy Black" loading="lazy"></a></div>
+                    <h3 class="card-title">Seffy Black</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,599 · Seffy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=seffy-black">View →</a></div>
+                </article>
+                <article class="card" data-id="seffy-green" data-line="seffy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=seffy-green"><img src="assets/images/images/seffy-green-1.jpg" alt="Seffy Green" loading="lazy"></a></div>
+                    <h3 class="card-title">Seffy Green</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,599 · Seffy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=seffy-green">View →</a></div>
+                </article>
+            </div>
         </section>
 
         <section class="section anchor" id="bestsellers">
             <h2 class="section-title mb-28">Bestsellers</h2>
-            <div class="grid-3" id="bestGrid"></div>
-            <p class="filter-empty" id="bestEmpty" hidden>Nothing matches these filters yet.</p>
+            <div class="grid-3" id="bestGrid">
+                <article class="card" data-id="emy-beige" data-line="emy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=emy-beige"><img src="assets/images/images/emy-beige-1.jpg" alt="Emy Beige" loading="lazy"></a></div>
+                    <h3 class="card-title">Emy Beige</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,499 · Emy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=emy-beige">View →</a></div>
+                </article>
+                <article class="card" data-id="emy-blue" data-line="emy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=emy-blue"><img src="assets/images/images/emy-blue-1.jpg" alt="Emy Blue" loading="lazy"></a></div>
+                    <h3 class="card-title">Emy Blue</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,499 · Emy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=emy-blue">View →</a></div>
+                </article>
+                <article class="card" data-id="seffy-black" data-line="seffy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=seffy-black"><img src="assets/images/images/seffy-black-1.jpg" alt="Seffy Black" loading="lazy"></a></div>
+                    <h3 class="card-title">Seffy Black</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,599 · Seffy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=seffy-black">View →</a></div>
+                </article>
+                <article class="card" data-id="seffy-green" data-line="seffy">
+                    <div class="card-media"><a class="img-wrap" href="product.html?id=seffy-green"><img src="assets/images/images/seffy-green-1.jpg" alt="Seffy Green" loading="lazy"></a></div>
+                    <h3 class="card-title">Seffy Green</h3>
+                    <div class="card-foot"><p class="card-meta">₱1,599 · Seffy Line</p><a class="btn btn-ghost btn-sm" href="product.html?id=seffy-green">View →</a></div>
+                </article>
+            </div>
         </section>
     </main>
 
-    <script src="assets/js/general.js"></script>
-    <script src="assets/js/shop.js"></script>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="front-page.html" class="footer-logo">mystique</a>
+                <p>(^^placeholder^^)</p>
+                <p>(Should be Logo)</p>
+            </div>
+            <div class="footer-column hours-col">
+                <h3>Opening Hours</h3>
+                <p>Monday to Friday: <span>Oras mo na</span></p>
+                <p>Saturday to Sunday: <span>muehhehehe</span></p>
+            </div>
+            <div class="footer-column links-col">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Address: Lot 123, Etivac St., Brgy. Etivac, Etivac City, Etivac, Philippines</a></li>
+                    <li><a href="#">Email: mystiquebusinessemail.123@gmail.com</a></li>
+                    <li><a href="#">Phone Number: +63 6767 6767</a></li>
+                    <li><a href="#">Instagram: Da Only Mystique Official 100% Legit Pure (Verified)</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

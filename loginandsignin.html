@@ -3,229 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
     <title>Login and Sign In</title>
     <link rel="stylesheet" href="assets/css/loginandsignin.css">
     <link rel="stylesheet" href="assets/css/loginandsigninadditional.css">
+    <style>
+dialog.dlg {
+    display: none;
+}
+
+/* sign in is the default screen: it is last in the HTML, so any
+   earlier dialog that is the :target hides it via the ~ selector */
+dialog.dlg:target,
+#dlg-signin {
+    display: block;
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100dvh;
+    animation: pop .3s cubic-bezier(.2, .8, .2, 1);
+}
+
+dialog.dlg:target ~ #dlg-signin {
+    display: none;
+}
+
+/* success screens: single column like forgot/verify/reset */
+:is(#dlg-signin-done, #dlg-signup-done, #dlg-forgot-done, #dlg-verify-done, #dlg-reset-done) #popup {
+    grid-template-columns: minmax(0, 460px);
+    justify-content: center;
+}
+
+:is(#dlg-signin-done, #dlg-signup-done, #dlg-forgot-done, #dlg-verify-done, #dlg-reset-done) .first-column {
+    align-self: center;
+}
+
+:is(#dlg-signin-done, #dlg-signup-done, #dlg-forgot-done, #dlg-verify-done, #dlg-reset-done)::before {
+    content: "mystique";
+    position: absolute;
+    top: clamp(16px, 3vw, 36px);
+    left: clamp(16px, 6vw, 96px);
+    font: 400 34px/1 var(--serif);
+    color: #fff;
+}
+
+/* links that used to be buttons */
+a.create-account,
+a.forgot-pass,
+a.continue,
+.socials a {
+    text-decoration: none;
+}
+
+a.forgot-pass {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+a.create-account::after {
+    content: " →";
+}
+
+a.continue {
+    color: #fff;
+}
+
+.socials a {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #6b4a5b;
+}
+
+.socials a + a::before {
+    content: "·";
+    margin-right: 18px;
+    color: var(--mute);
+}
+
+.socials a:hover {
+    color: var(--plum);
+}
+
+/* ---------- 2. native validation drives the old .bad look ---------- */
+.field:has(:user-invalid) .msg {
+    display: block;
+}
+
+.field input:user-invalid:not([type="checkbox"]) {
+    border-color: transparent;
+    background:
+        linear-gradient(var(--field), var(--field)) padding-box,
+        var(--gloss-err) border-box;
+    box-shadow: var(--bevel-out), var(--bevel-in), 0 0 0 3px rgba(181, 64, 90, .15);
+}
+
+.field input[type="checkbox"]:user-invalid {
+    border-color: var(--err);
+}
+
+/* ---------- 3. show / hide password with a hidden checkbox ---------- */
+.field .inp input.eye-toggle {
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    pointer-events: none;
+}
+
+.field .inp input.eye-toggle::after {
+    display: none !important;
+}
+
+input.pw {
+    -webkit-text-security: disc;
+    text-security: disc;
+}
+
+.eye-toggle:checked + input.pw {
+    -webkit-text-security: none;
+    text-security: none;
+}
+
+.inp label.eye {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11px;
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.inp label.eye::before {
+    content: "Show";
+}
+
+.eye-toggle:checked ~ label.eye::before {
+    content: "Hide";
+}
+
+.eye-toggle:focus-visible ~ label.eye {
+    outline: 2px solid var(--plum);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* ---------- 4. password strength (all-or-nothing, driven by the pattern) ---------- */
+.strength-label {
+    font-size: 11px;
+    color: var(--mute);
+    margin: 0;
+}
+
+.strength-label b {
+    display: none;
+    font-weight: 400;
+}
+
+.pwgroup:has(.pw:placeholder-shown) .s-empty,
+.pwgroup:has(.pw:not(:placeholder-shown):invalid) .s-weak,
+.pwgroup:has(.pw:not(:placeholder-shown):valid) .s-strong {
+    display: inline;
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):invalid) :is(.meter, .pw-meter) span:first-child {
+    background: #B5505C;
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):valid) :is(.meter, .pw-meter) span {
+    background: #4F7A5E;
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):valid) :is(.rules, .pw-rules) li {
+    color: var(--ok);
+}
+
+.pwgroup:has(.pw:not(:placeholder-shown):valid) :is(.rules, .pw-rules) li::before {
+    content: "●";
+}
+
+/* ---------- 5. dark mode (follows the system setting) ---------- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --card: rgba(52, 28, 46, .9);
+        --field: #4a2a40;
+        --line: #7a4a66;
+        --ink: #f3dce8;
+        --mute: #c9a3b8;
+        --plum: #b9739a;
+        --plumd: #9a5a7e;
+        --ok: #7fc596;
+        --err: #f07c93;
+        --gloss-edge: linear-gradient(150deg, #8a5a76 0%, #6a3f58 50%, #8a5a76 100%);
+        --gloss-err: linear-gradient(150deg, #b5505c 0%, #f07c93 100%);
+        --bevel-out: 0 3px 8px rgba(0, 0, 0, .35);
+        --bevel-in: inset 0 1px 2px rgba(255, 255, 255, .08);
+    }
+
+    .first-column {
+        background: linear-gradient(160deg, rgba(60, 33, 52, .92), rgba(44, 22, 38, .9));
+        border-color: rgba(255, 255, 255, .18);
+    }
+
+    .between label,
+    .field label:has(input[type="checkbox"]),
+    .socials a,
+    .socials button {
+        color: var(--mute);
+    }
+
+    input::placeholder {
+        color: #a07a90;
+    }
+
+    .inp label.eye,
+    .chip span {
+        color: var(--ink);
+    }
+
+    form button[type="submit"],
+    .continue {
+        color: #fff;
+    }
+}
+
+/* ---------- recovery-code screen (same look as verify) ---------- */
+#dlg-recover #popup {
+    grid-template-columns: minmax(0, 460px);
+    justify-content: center;
+}
+
+#dlg-recover .first-column {
+    align-self: center;
+}
+
+#dlg-recover::before {
+    content: "mystique";
+    position: absolute;
+    top: clamp(16px, 3vw, 36px);
+    left: clamp(16px, 6vw, 96px);
+    font: 400 34px/1 var(--serif);
+    color: #fff;
+}
+
+/* ---------- 6. server-side error banner (sign in / create account) ---------- */
+.form-error {
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border-left: 4px solid var(--err);
+    border-radius: 8px;
+    background: rgba(181, 64, 90, .1);
+    color: var(--err);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+    </style>
 </head>
 <body>
-    <!--signin -->
-    <dialog id="dlg-signin"> 
-        <div id="popup">
-            <aside class="right">
-                <span class="logo">mystique</span>
-                <h1>Welcome back to Mystique</h1>
-                <p>
-                    Your shades, your style and your favorites are all waiting.
-                </p>
-                <ul class="left">
-                    <li>
-                        <img src="/assets/images/Website icons/1.png" alt="heart icon">
-                        <div>
-                            <span>Save your favorite styles.</span>
-                            Just order in one tap.
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/assets/images/Website icons/2.png" alt="track icon">
-                        <div>
-                            <span>Track your orders.</span>
-                            Get real-time updates on your deliveries.
-                        </div>
-                    </li>
-                </ul>
-            </aside>
 
-            <div class="first-column">
-                <!--close btn-->
-                <button class="x" type="button" data-close aria-label="Close">
-                    <img src="/assets/images/Website icons/3.png" alt="close icon">
-                </button>
+    <!--
+        Pure HTML + CSS front end. No JavaScript, no server.
+        Screens switch by URL hash (:target): #dlg-signin (default)  #dlg-signup  #dlg-signup-done
+        Forms are validated by the browser, then "Create Account" shows the success screen
+        and "Sign In" opens Main page.html. No accounts are stored or checked.
+    -->
 
-                <!--main view-->
-                <div class="view" data-view="main">
-                    <h2 id="sign-in" tabindex="-1">Sign In</h2>
-                    <p class="subheading">
-                        Sign in to your account to continue.
-                    </p>
-
-                    <form novalidate autocomplete="off" data-form="signin">
-                        <!--email-->
-                        <div class="input-email field">
-                            <label for="si-email">Email</label>
-                            <input
-                                type="email"
-                                id="si-email"
-                                name="email"
-                                autocomplete="off"
-                                placeholder="you@example.com"
-                                required
-                            >
-                            <div class="msg"> <!--error msg-->
-                                Enter a valid email address.
-                            </div>
-                        </div>
-
-                        <!--pass-->
-                        <div class="input-pass field">
-                            <label for="si-pass">Password</label>
-                            <div class="inp"> <!--verify dialog-->
-                                <input
-                                    type="password"
-                                    id="si-pass"
-                                    name="password"
-                                    autocomplete="new-password"
-                                    placeholder="Enter your password"
-                                    required
-                                >
-                                <button
-                                    type="button"
-                                    class="password-input eye"
-                                    data-eye="si-pass"
-                                    aria-label="Show Password"
-                                >
-                                    Show Password
-                                </button>
-                            </div>
-                            <div class="msg"> <!--error msg-->
-                                Enter your password.
-                            </div>
-                        </div>
-
-                        <!--forgot pass-->
-                        <div class="between">
-                            <label for="check" style="margin:0">
-                                <input
-                                    type="checkbox"
-                                    name="checked"
-                                    id="check"
-                                    checked
-                                >
-                                Keep me signed in
-                            </label>
-                            <button
-                                type="button"
-                                class="forgot-pass"
-                                data-swap="dlg-forgot"
-                            >
-                                Forgot password?
-                            </button>
-                        </div>
-
-                        <!--sign in-->
-                        <button type="submit">
-                            Sign In
-                        </button>
-
-                        <!--socials-->
-                        <div class="choice">or continue with</div>
-                        <div class="socials">
-                            <button type="button" class="google">
-                                <img src="/assets/images/Website icons/4.png" alt="google icon">
-                                Google
-                            </button>
-                            <button type="button" class="facebook">
-                                <img src="/assets/images/Website icons/5.png" alt="facebook icon">
-                                Facebook
-                            </button>
-                            <button type="button" class="apple">
-                                <img src="/assets/images/Website icons/6.png" alt="apple icon">
-                                Apple
-                            </button>
-                        </div>
-
-                        <!--create acc-->
-                        <p class="foot">
-                            New to Mystique?
-                            <button
-                                type="button"
-                                class="create-account"
-                                data-swap="dlg-signup"
-                            >
-                                Create an account
-                            </button>
-                        </p>
-                    </form>
-                </div>
-
-                <!--success-->
-                <div class="view" data-view="done" hidden>
-                    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-                    <h2 tabindex="-1">Signed in</h2>
-                    <p class="subheading">
-                        Welcome back to Mystique. Your saved styles and favorites are waiting for you.
-                    </p>
-                    <button type="button" class="continue">
-                        Continue
-                    </button>
-                </div>
-            </div>
-        </div>
-    </dialog>
-
-    <!--forgot pass-->
-    <dialog id="dlg-forgot">
-        <div id="popup">
-            <div class="first-column">
-                <button class="x" type="button" data-close aria-label="Close">
-                    <img src="/assets/images/Website icons/3.png" alt="close icon">
-                </button>
-
-                <div class="view" data-view="main">
-                    <h2 tabindex="-1">Forgot Password?</h2>
-                    <p class="subheading">
-                        Enter your email address to reset your password.
-                    </p>
-                    <form novalidate autocomplete="off" data-form="forgot">
-                        <div class="input-email field">
-                            <label for="fp-email">Email</label>
-                            <input
-                                type="email"
-                                id="fp-email"
-                                name="email"
-                                placeholder="you@example.com"
-                                autocomplete="off"
-                                required
-                            >
-                            <div class="msg"> <!--error msg-->
-                                Enter a valid email address.
-                            </div>
-                        </div>
-                        <button type="submit">
-                            Reset Password
-                        </button>
-                        <p class="foot">
-                            <button type="button" class="create-account" data-swap="dlg-signin">
-                                Back to sign in
-                            </button>
-                        </p>
-                    </form>
-                </div>
-
-                <!--pass reset-->
-                <div class="view" data-view="done" hidden>
-                    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-                    <h2 tabindex="-1">Request Submitted</h2>
-                    <p class="subheading">
-                        Your password reset request has been submitted.
-                    </p>
-
-                    <button type="button" class="continue" data-close>
-                        Continue
-                    </button>
-                </div>
-            </div>
-        </div>
-    </dialog>
-
-    <!--signup-->
-    <dialog id="dlg-signup">
+    <!-- ===================== SIGN UP ===================== -->
+    <dialog open id="dlg-signup" class="dlg">
         <div id="popup">
             <aside class="right">
                 <span class="logo">mystique</span>
                 <h1>A world of possibility.</h1>
-                <p>
-                    Join for member perks, personal picks and a welcome gift.
-                </p>
+                <p>Join for member perks, personal picks and a welcome gift.</p>
                 <ul class="left">
                     <li>
                         <svg viewBox="0 0 24 24"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7S9 7 8 5s1-3 2-3 2 2 2 5zm0 0s3 0 4-2-1-3-2-3-2 2-2 5z"/></svg>
@@ -252,420 +310,223 @@
             </aside>
 
             <div class="first-column">
-                <button class="x" type="button" data-close aria-label="Close">
-                    <img src="/assets/images/Website icons/3.png" alt="close icon">
-                </button>
-
                 <div class="view" data-view="main">
-                    <h2 tabindex="-1">Create Account</h2>
-                    <p class="subheading">
-                        Create your Mystique account and discover your style.
-                    </p>
+                    <h2>Create Account</h2>
+                    <p class="subheading">Create your Mystique account and discover your style.</p>
 
-                    <form novalidate autocomplete="off" data-form="signup">
+                    <form method="get" action="#dlg-signup-done" autocomplete="off" data-form="signup">
                         <div class="row">
-                            <!--first name-->
                             <div class="field">
                                 <label for="su-first">First Name</label>
-                                <input
-                                    type="text"
-                                    id="su-first"
-                                    name="first-name"
-                                    autocomplete="off"
-                                    placeholder="Enter your first name"
-                                    required
-                                >
-                                <div class="msg"> <!--msg-->
-                                    Enter your first name.
-                                </div>
+                                <input type="text" id="su-first" autocomplete="off"
+                                       placeholder="Enter your first name" required pattern=".*\S.*">
+                                <div class="msg">Enter your first name.</div>
                             </div>
-
-                            <!--last name-->
                             <div class="field">
                                 <label for="su-last">Last Name</label>
-                                <input
-                                    type="text"
-                                    id="su-last"
-                                    name="last-name"
-                                    autocomplete="off"
-                                    placeholder="Enter your last name"
-                                    required
-                                >
-                                <div class="msg">
-                                    Enter your last name.
-                                </div>
+                                <input type="text" id="su-last" autocomplete="off"
+                                       placeholder="Enter your last name" required pattern=".*\S.*">
+                                <div class="msg">Enter your last name.</div>
                             </div>
                         </div>
 
-                        <!--username-->
                         <div class="field">
                             <label for="su-user">Username</label>
-                            <input
-                                type="text"
-                                id="su-user"
-                                name="username"
-                                autocomplete="off"
-                                placeholder="Choose a username"
-                                maxlength="20"
-                                required
-                            >
-                            <p class="hint" id="user-status" aria-live="polite"></p>
-                            <div class="msg">
-                                Use 3–20 letters, numbers, dots or underscores.
-                            </div>
+                            <input type="text" id="su-user" autocomplete="off"
+                                   placeholder="Choose a username" maxlength="20" required
+                                   pattern="[A-Za-z0-9._]{3,20}"
+                                   title="Use 3–20 letters, numbers, dots or underscores.">
+                            <p class="hint">3–20 letters, numbers, dots or underscores.</p>
+                            <div class="msg">Use 3–20 letters, numbers, dots or underscores.</div>
                         </div>
 
-                        <!--email-->
                         <div class="field">
                             <label for="su-email">Email</label>
-                            <input
-                                type="email"
-                                id="su-email"
-                                name="email"
-                                placeholder="you@example.com"
-                                autocomplete="off"
-                                required
-                            >
-                            <div class="msg"> <!--error msg-->
-                                Enter a valid email address.
-                            </div>
+                            <input type="email" id="su-email" placeholder="you@example.com"
+                                   autocomplete="off" required
+                                   pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+                                   title="Enter a valid email address, like you@example.com.">
+                            <div class="msg">Enter a valid email address.</div>
                         </div>
 
-                        <!--phone-->
                         <div class="field">
                             <label for="su-phone">Mobile Number <span class="opt">(optional)</span></label>
-                            <input
-                                type="tel"
-                                id="su-phone"
-                                name="phone"
-                                autocomplete="off"
-                                placeholder="+63 900 000 0000"
-                            >
+                            <input type="tel" id="su-phone" autocomplete="off"
+                                   placeholder="+63 900 000 0000"
+                                   pattern="\+?[0-9 ]{7,16}"
+                                   title="Use digits and spaces, with an optional leading +.">
                             <p class="hint">For delivery updates only. No marketing texts.</p>
+                            <div class="msg">Enter a valid mobile number or leave it blank.</div>
                         </div>
 
-                        <!--pass-->
-                        <div class="field">
-                            <label for="su-pass">Password</label>
-                            <div class="inp">
-                                <input
-                                    type="password"
-                                    id="su-pass"
-                                    name="password"
-                                    autocomplete="new-password"
-                                    placeholder="Create a password"
-                                    minlength="8"
-                                    required
-                                >
-                                <button
-                                    type="button"
-                                    class="eye"
-                                    data-eye="su-pass"
-                                    aria-label="Show password"
-                                >
-                                    Show
-                                </button>
+                        <div class="pwgroup">
+                            <div class="field">
+                                <label for="su-pass">Password</label>
+                                <div class="inp">
+                                    <input type="checkbox" class="eye-toggle" id="su-eye" aria-label="Show password">
+                                    <input type="text" class="pw" id="su-pass" autocomplete="off"
+                                           autocapitalize="off" autocorrect="off" spellcheck="false"
+                                           placeholder="Create a password" minlength="8" maxlength="200" required
+                                           pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}"
+                                           title="At least 8 characters with upper and lowercase letters, a number and a special character.">
+                                    <label class="eye" for="su-eye"></label>
+                                </div>
+                                <div class="msg">Create a strong password.</div>
                             </div>
-                            <div class="msg">
-                                Create a strong password.
-                            </div>
+
+                            <div class="meter"><span></span><span></span><span></span><span></span></div>
+                            <p class="strength-label">
+                                <b class="s-empty">Enter a password</b>
+                                <b class="s-weak">Not strong enough yet</b>
+                                <b class="s-strong">Strong</b>
+                            </p>
+
+                            <ul class="rules">
+                                <li>At least 8 characters</li>
+                                <li>Uppercase and lowercase letters</li>
+                                <li>At least one number</li>
+                                <li>At least one special character</li>
+                            </ul>
                         </div>
 
-                        <!--pass strength-->
-                        <div class="meter">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <p id="strength-label">Enter a password</p>
-
-                        <!--pass requirements-->
-                        <ul class="rules">
-                            <li data-r="len">At least 8 characters</li>
-                            <li data-r="case">Uppercase and lowercase letters</li>
-                            <li data-r="num">At least one number</li>
-                            <li data-r="sym">At least one special character</li>
-                        </ul>
-
-                        <!--confirm pass-->
                         <div class="field">
                             <label for="su-confirm">Confirm Password</label>
-                            <input
-                                type="password"
-                                id="su-confirm"
-                                name="confirm-password"
-                                autocomplete="new-password"
-                                placeholder="Confirm your password"
-                                required
-                            >
-                            <div class="msg">
-                                Passwords do not match.
+                            <div class="inp">
+                                <input type="checkbox" class="eye-toggle" id="su-eye2" aria-label="Show password">
+                                <input type="text" class="pw" id="su-confirm" autocomplete="off"
+                                       autocapitalize="off" autocorrect="off" spellcheck="false"
+                                       placeholder="Confirm your password" maxlength="200" required>
+                                <label class="eye" for="su-eye2"></label>
                             </div>
+                            <div class="msg">Confirm your password.</div>
                         </div>
 
-                        <!--bdate-->
                         <div class="box">
                             <div class="field" style="margin-bottom:14px">
                                 <label for="su-bday">Birthday <span class="opt">(optional)</span></label>
-                                <input type="date" id="su-bday" name="birthday">
+                                <input type="date" id="su-bday">
                                 <p class="hint">We’ll send a gift in your birthday month. Your year is never shown.</p>
                             </div>
                             <div class="lbl" id="int-l">What are you shopping for?</div>
                             <div class="chips" role="group" aria-labelledby="int-l">
-                                <label class="chip">
-                                    <input type="checkbox" name="interest" value="lips">
-                                    <span>Lips</span>
-                                </label>
-                                <label class="chip">
-                                    <input type="checkbox" name="interest" value="eyes">
-                                    <span>Eyes</span>
-                                </label>
-                                <label class="chip">
-                                    <input type="checkbox" name="interest" value="face">
-                                    <span>Face</span>
-                                </label>
-                                <label class="chip">
-                                    <input type="checkbox" name="interest" value="skincare">
-                                    <span>Skincare</span>
-                                </label>
-                                <label class="chip">
-                                    <input type="checkbox" name="interest" value="gifts">
-                                    <span>Gifts</span>
-                                </label>
+                                <label class="chip"><input type="checkbox" value="lips"><span>Lips</span></label>
+                                <label class="chip"><input type="checkbox" value="eyes"><span>Eyes</span></label>
+                                <label class="chip"><input type="checkbox" value="face"><span>Face</span></label>
+                                <label class="chip"><input type="checkbox" value="skincare"><span>Skincare</span></label>
+                                <label class="chip"><input type="checkbox" value="gifts"><span>Gifts</span></label>
                             </div>
                         </div>
 
-                        <!--news-->
                         <div class="field">
                             <label for="su-news">
-                                <input type="checkbox" id="su-news" name="newsletter">
+                                <input type="checkbox" id="su-news" value="1">
                                 Send me new arrivals, tutorials and member-only offers. Unsubscribe anytime.
                             </label>
                         </div>
 
-                        <!--terms and conditions-->
                         <div class="field">
                             <label for="su-terms">
-                                <input
-                                    type="checkbox"
-                                    id="su-terms"
-                                    name="terms"
-                                >
+                                <input type="checkbox" id="su-terms" value="1" required>
                                 I agree to the Terms and Conditions.
                             </label>
-                            <div class="msg">
-                                You must agree to the Terms and Conditions.
-                            </div>
+                            <div class="msg">You must agree to the Terms and Conditions.</div>
                         </div>
 
-                        <button type="submit">
-                            Create Account
-                        </button>
+                        <button type="submit">Create Account</button>
 
-                        <!--remember acc-->
                         <p class="foot">
                             Already a member?
-                            <button type="button" class="create-account" data-swap="dlg-signin">
-                                Sign in
-                            </button>
+                            <a class="create-account" href="#dlg-signin">Sign in</a>
                         </p>
                     </form>
-                </div>
-
-                <!--signup confirm-->
-                <div class="view" data-view="done" hidden>
-                    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-                    <h2 tabindex="-1">Account Created</h2>
-                    <p class="subheading">
-                        Welcome to Mystique! Your account registration has been completed.
-                    </p>
-
-                    <button type="button" class="continue" data-close>
-                        Continue
-                    </button>
                 </div>
             </div>
         </div>
     </dialog>
 
-
-    <!--verification code-->
-    <dialog id="dlg-verify">
+    <dialog open id="dlg-signup-done" class="dlg">
         <div id="popup">
             <div class="first-column">
-                <button class="x" type="button" data-close aria-label="Close">
-                    <img src="/assets/images/Website icons/3.png" alt="close icon">
-                </button>
+                <div class="view" data-view="done">
+                    <div class="seal"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                    <h2>Account Created</h2>
+                    <p class="subheading">Welcome to Mystique! Your account registration has been completed.</p>
+                    <a class="continue" href="#dlg-signin">Continue</a>
+                </div>
+            </div>
+        </div>
+    </dialog>
 
+    <!-- ===================== SIGN IN (default screen, keep it LAST) ===================== -->
+    <dialog open id="dlg-signin" class="dlg">
+        <div id="popup">
+            <aside class="right">
+                <span class="logo">mystique</span>
+                <h1>Welcome back to Mystique</h1>
+                <p>Your shades, your style and your favorites are all waiting.</p>
+                <ul class="left">
+                    <li>
+                        <img src="/assets/images/Website icons/1.png" alt="heart icon">
+                        <div>
+                            <span>Save your favorite styles.</span>
+                            Just order in one tap.
+                        </div>
+                    </li>
+                    <li>
+                        <img src="/assets/images/Website icons/2.png" alt="track icon">
+                        <div>
+                            <span>Track your orders.</span>
+                            Get real-time updates on your deliveries.
+                        </div>
+                    </li>
+                </ul>
+            </aside>
+
+            <div class="first-column">
                 <div class="view" data-view="main">
-                    <h2 id="vf-title" tabindex="-1">Verify Your Email</h2>
-                    <p class="subheading">
-                        We sent a 6-digit code to <strong id="vf-email"></strong>. It expires in 10 minutes.
-                    </p>
+                    <h2 id="sign-in">Sign In</h2>
+                    <p class="subheading">Sign in to your account to continue.</p>
 
-                    <!--code-->
-                    <form novalidate autocomplete="off" data-form="verify">
-                        <div class="field">
-                            <label for="vf-code">Verification Code</label>
-                            <input
-                                type="text"
-                                id="vf-code"
-                                class="code-input"
-                                name="code"
-                                inputmode="numeric"
-                                autocomplete="one-time-code"
-                                maxlength="6"
-                                placeholder="000000"
-                                required
-                            >
-                            <div class="msg">
-                                Enter the 6-digit code from your email.
-                            </div>
+                    <form method="get" action="Main%20page.html" autocomplete="off" data-form="signin">
+                        <div class="input-email field">
+                            <label for="si-email">Email</label>
+                            <input type="email" id="si-email" autocomplete="off"
+                                   placeholder="you@example.com" required
+                                   pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+                                   title="Enter a valid email address, like you@example.com.">
+                            <div class="msg">Enter a valid email address.</div>
                         </div>
 
-                        <button type="submit">
-                            Verify Code
-                        </button>
+                        <div class="input-pass field">
+                            <label for="si-pass">Password</label>
+                            <div class="inp">
+                                <input type="checkbox" class="eye-toggle" id="si-eye" aria-label="Show password">
+                                <input type="text" class="pw" id="si-pass" autocomplete="off"
+                                       autocapitalize="off" autocorrect="off" spellcheck="false"
+                                       placeholder="Enter your password" maxlength="200" required>
+                                <label class="eye password-input" for="si-eye"></label>
+                            </div>
+                            <div class="msg">Enter your password.</div>
+                        </div>
+
+                        <div class="between">
+                            <label for="check" style="margin:0">
+                                <input type="checkbox" id="check" checked value="1">
+                                Keep me signed in
+                            </label>
+                        </div>
+
+                        <button type="submit">Sign In</button>
 
                         <p class="foot">
-                            <span id="vf-timer"></span>
-                            <button type="button" class="create-account" id="vf-resend" disabled>
-                                Resend code
-                            </button>
-                        </p>
-                        <p class="foot" style="margin-top:12px">
-                            <button type="button" class="create-account" data-swap="dlg-signin">
-                                Back to sign in
-                            </button>
+                            New to Mystique?
+                            <a class="create-account" href="#dlg-signup">Create an account</a>
                         </p>
                     </form>
-                </div>
-
-                <!--confirm verify-->
-                <div class="view" data-view="done" hidden>
-                    <div class="seal">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M5 12.5l4.5 4.5L19 7.5"/>
-                        </svg>
-                    </div>
-                    <h2 tabindex="-1">Email Verified</h2>
-                    <p class="subheading">
-                        Your email has been verified. You can now sign in to your Mystique account.
-                    </p>
-                    <button type="button" class="continue" data-close>
-                        Continue
-                    </button>
                 </div>
             </div>
         </div>
     </dialog>
 
-    <!--reset pass-->
-    <dialog id="dlg-reset">
-        <div id="popup">
-            <div class="first-column">
-                <button class="x" type="button" data-close aria-label="Close">
-                    <img src="/assets/images/Website icons/3.png" alt="close icon">
-                </button>
-
-                <div class="view" data-view="main">
-                    <h2 tabindex="-1">Create New Password</h2>
-                    <p class="subheading">
-                        Code verified. Choose a new password for <strong id="rs-email"></strong>.
-                    </p>
-
-                    <form novalidate autocomplete="off" data-form="reset">
-                        <div class="field">
-                            <label for="rs-pass">New Password</label>
-                            <div class="inp">
-                                <input
-                                    type="password"
-                                    id="rs-pass"
-                                    name="password"
-                                    autocomplete="new-password"
-                                    placeholder="Create a new password"
-                                    required
-                                >
-                                <button type="button" class="eye" data-eye="rs-pass" aria-label="Show password">
-                                    Show
-                                </button>
-                            </div>
-                            <div class="msg">
-                                Create a strong password.
-                            </div>
-                        </div>
-
-                        <div class="pw-meter">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <p id="rs-strength">Enter a password</p>
-
-                        <ul class="pw-rules">
-                            <li data-r="len">At least 8 characters</li>
-                            <li data-r="case">Uppercase and lowercase letters</li>
-                            <li data-r="num">At least one number</li>
-                            <li data-r="sym">At least one special character</li>
-                        </ul>
-
-                        <div class="field">
-                            <label for="rs-confirm">Confirm New Password</label>
-                            <input
-                                type="password"
-                                id="rs-confirm"
-                                name="confirm-password"
-                                autocomplete="new-password"
-                                placeholder="Confirm your new password"
-                                required
-                            >
-                            <div class="msg">
-                                Passwords do not match.
-                            </div>
-                        </div>
-
-                        <button type="submit">
-                            Reset Password
-                        </button>
-                    </form>
-                </div>
-
-                <!--confirm reset pass-->
-                <div class="view" data-view="done" hidden>
-                    <div class="seal">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-                    <h2 tabindex="-1">Password Changed</h2>
-                    <p class="subheading">
-                        Your password was updated successfully. Sign in with your new password.
-                    </p>
-                    <button type="button" class="continue" data-close>
-                        Continue
-                    </button>
-                </div>
-            </div>
-        </div>
-    </dialog>
-
-    <!--toasts n popup demo-->
-    <div id="toast-region" popover="manual" role="status" aria-live="polite"></div>
-
-    <div id="mail-popup" popover="manual" role="status" hidden>
-        <div class="mail-head">
-            <span class="mail-ic" aria-hidden="true">✉</span>
-            <b>Mystique Mail</b>
-            <span class="mail-demo">Demo inbox</span>
-        </div>
-        <!--if no email-->
-        <p class="mail-subject"></p>
-        <p class="mail-to"></p>
-        <div class="mail-code" aria-label="Verification code"></div>
-        <p class="mail-note">No email server is connected yet, so the code shows up here instead.</p>
-    </div>
-
-    <!--jscript-->
-    <script src="assets/js/loginandsignin.js"></script>
 </body>
 </html>

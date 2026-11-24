@@ -1,0 +1,79 @@
+/* Add after mystiquecollectionsadmin.css */
+.row {
+    width: 100%;
+    text-align: left;
+}
+
+button.row:hover {
+    background: var(--card-pink);
+}
+
+.link {
+    background: none;
+    cursor: pointer;
+}
+
+.badge[hidden] {
+    display: none;
+}
+
+.proof-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+}
+
+.proof-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 20px;
+    background: #FAEEF4;
+    box-shadow: var(--soft-shadow);
+    color: var(--ink);
+    text-align: left;
+    font-size: 13px;
+}
+
+.proof-card img {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: var(--card-pink);
+}
+
+.proof-card span {
+    color: var(--label);
+}
+
+.proof-card:hover {
+    transform: translateY(-2px);
+}
+
+#products .box,
+#inventory .box,
+#orders .box {
+    margin-top: 32px;
+}
+
+#products .welcome,
+#inventory .welcome,
+#orders .welcome,
+#proofs .welcome {
+    font-size: 44px;
+    font-weight: 400;
+}
+
+#inventory .cards-four {
+    margin-top: 40px;
+}
+
+#mods-dialog .dialog-box {
+    max-height: 80vh;
+    overflow-y: auto;
+}

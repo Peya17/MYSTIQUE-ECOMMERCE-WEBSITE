@@ -10,11 +10,75 @@
     <link rel="stylesheet" href="assets/css/general.css">
     <link rel="stylesheet" href="assets/css/home.css">
 </head>
-<body data-page="home">
+<body>
+
+    <!--css-only state: opens the search bar (must stay before the header and search panel)-->
+    <input type="checkbox" id="searchToggle" class="state">
+
+    <!--announcement bar-->
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <span>Limited-edition Mystique Collection — enjoy 10% off your first order with code WELCOME10</span>
+            <a class="goto-btn" href="shop.html" aria-label="Go to shop">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+        </div>
+    </div>
+
+    <!--header-->
+    <header class="navbar-header">
+        <nav class="navbar" aria-label="Main">
+            <div class="navbar-logo">
+                <a href="index.html">mystique</a>
+                <span class="navbar-sub">Collections</span>
+            </div>
+
+            <ul class="navbar-links">
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="shop.html#new-arrivals">New Arrivals</a></li>
+                <li><a href="shop.html#bestsellers">Bestsellers</a></li>
+                <li><a href="ourworld.html">Our World</a></li>
+            </ul>
+
+            <div class="navbar-tools">
+                <label for="searchToggle" class="tool-btn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                </label>
+                <a class="tool-btn" href="wishlist.html" aria-label="Wishlist">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>
+                </a>
+                <a class="tool-btn" href="cart.html" aria-label="Bag">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                </a>
+                <a class="tool-btn" href="profile.html" aria-label="Account">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 14.5-4 16 0"/></svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!--search bar (opens under the header)-->
+    <div class="search-panel">
+        <div class="search-inner">
+            <form class="search-form" action="shop.html" method="get" role="search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                <input type="search" name="q" placeholder="Search makeup, skincare and bags" aria-label="Search">
+                <label for="searchToggle" class="search-clear" aria-label="Close search">×</label>
+            </form>
+        </div>
+    </div>
 
     <main>
         <!--hero-->
         <section class="hero">
+
+            <!--css-only state: shade radios + quick view checkbox (must stay before .container)-->
+            <input type="radio" name="shade" id="shade1" class="state" checked>
+            <input type="radio" name="shade" id="shade2" class="state">
+            <input type="radio" name="shade" id="shade3" class="state">
+            <input type="radio" name="shade" id="shade4" class="state">
+            <input type="checkbox" id="quickview" class="state">
+
             <div class="container hero-inner">
                 <div class="hero-copy">
                     <span class="eyebrow-light">The Mystique Edit</span>
@@ -26,12 +90,54 @@
 
                 <div class="img-slot hero-visual">
                     <img src="assets/images/images/midnightmauve.jpg" alt="Perfume bottle resting on mauve silk with white blossoms" onerror="this.style.display='none'">
-                    <!--click to switch the shade shown-->
-                    <button type="button" class="glass-label" id="shadeBtn" aria-live="polite">
+
+                    <!--click the image to open the quick view-->
+                    <label for="quickview" class="hero-open" aria-label="Open quick view"></label>
+
+                    <!--click the label to switch to the next shade (each label points at the next radio)-->
+                    <label for="shade2" class="glass-label g1">
                         <span>Velvet Lip Color</span>
-                        <strong id="shadeName">Midnight Mauve</strong>
+                        <strong>Midnight Mauve</strong>
                         <small>Selected shade &nbsp;•</small>
-                    </button>
+                    </label>
+                    <label for="shade3" class="glass-label g2">
+                        <span>Velvet Lip Color</span>
+                        <strong>Rosewood</strong>
+                        <small>Selected shade &nbsp;•</small>
+                    </label>
+                    <label for="shade4" class="glass-label g3">
+                        <span>Velvet Lip Color</span>
+                        <strong>Berry Noir</strong>
+                        <small>Selected shade &nbsp;•</small>
+                    </label>
+                    <label for="shade1" class="glass-label g4">
+                        <span>Velvet Lip Color</span>
+                        <strong>Nude Petal</strong>
+                        <small>Selected shade &nbsp;•</small>
+                    </label>
+                </div>
+            </div>
+
+            <!--quick view modal-->
+            <div class="qv">
+                <label for="quickview" class="qv-backdrop" aria-label="Close quick view"></label>
+                <div class="qv-box" role="dialog" aria-label="Quick view">
+                    <label for="quickview" class="qv-close" aria-label="Close">×</label>
+                    <div class="qv-img">
+                        <img src="assets/images/images/midnightmauve.jpg" alt="Velvet Lip Color" onerror="this.style.display='none'">
+                    </div>
+                    <div class="qv-info">
+                        <span class="qv-eyebrow">Velvet Lip Color</span>
+                        <h3 class="qv-shade q1">Midnight Mauve</h3>
+                        <h3 class="qv-shade q2">Rosewood</h3>
+                        <h3 class="qv-shade q3">Berry Noir</h3>
+                        <h3 class="qv-shade q4">Nude Petal</h3>
+                        <p>Selected shade</p>
+                        <a class="btn btn-primary qv-link q1" href="product.html?id=velvet-lip-color&shade=Midnight%20Mauve">View full details &nbsp;→</a>
+                        <a class="btn btn-primary qv-link q2" href="product.html?id=velvet-lip-color&shade=Rosewood">View full details &nbsp;→</a>
+                        <a class="btn btn-primary qv-link q3" href="product.html?id=velvet-lip-color&shade=Berry%20Noir">View full details &nbsp;→</a>
+                        <a class="btn btn-primary qv-link q4" href="product.html?id=velvet-lip-color&shade=Nude%20Petal">View full details &nbsp;→</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -75,25 +181,111 @@
                 <p>A curated space for personal style, subtle glamour, and confidence.</p>
             </div>
             <div class="gallery">
-                <div class="img-slot"><img src="assets/images/images/emy-yellow-1.jpg" alt="Folds of mauve silk" onerror="this.style.display='none'"></div>
-                <div class="img-slot"><img src="assets/images/images/seffy-green-1.jpg" alt="Folds of mauve silk" onerror="this.style.display='none'"></div>
-                <div class="img-slot"><img src="assets/images/images/emy-beige-1.jpg" alt="Lip color and blush compact" onerror="this.style.display='none'"></div>
+                <div class="img-slot"><img src="assets/images/images/emy-yellow-1.jpg" alt="Yellow handbag" onerror="this.style.display='none'"></div>
+                <div class="img-slot"><img src="assets/images/images/seffy-green-1.jpg" alt="Green handbag" onerror="this.style.display='none'"></div>
+                <div class="img-slot"><img src="assets/images/images/emy-beige-1.jpg" alt="Beige handbag" onerror="this.style.display='none'"></div>
             </div>
         </section>
 
-        <!--bestsellers (cards are drawn by general.js; clicking a photo opens the quick view)-->
+        <!--bestsellers (plain html cards using the general.css card classes; hearts are css-only checkboxes)-->
         <section class="container section anchor" id="bestsellers">
             <div class="section-head">
                 <h2 class="section-title">General Bestsellers</h2>
                 <a class="text-link" href="shop.html#bestsellers">View all &nbsp;→</a>
             </div>
-            <div class="grid-4" id="homeBest"></div>
+
+            <div class="grid-4" id="homeBest">
+
+                <article class="card">
+                    <div class="card-media">
+                        <input type="checkbox" id="heart1" class="state">
+                        <label for="heart1" class="heart" aria-label="Add Emy Beige to wishlist">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>
+                        </label>
+                        <a class="img-wrap" href="product.html?id=emy-beige"><img src="assets/images/images/emy-beige-1.jpg" alt="Emy Beige handbag" onerror="this.style.display='none'"></a>
+                    </div>
+                    <h3 class="card-title">Emy Beige</h3>
+                    <div class="card-foot">
+                        <span class="card-meta">₱1,299 · Shop now</span>
+                        <a class="btn btn-ghost btn-sm" href="product.html?id=emy-beige">View →</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-media">
+                        <input type="checkbox" id="heart2" class="state">
+                        <label for="heart2" class="heart" aria-label="Add Emy Blue to wishlist">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>
+                        </label>
+                        <a class="img-wrap" href="product.html?id=emy-blue"><img src="assets/images/images/emy-blue-1.jpg" alt="Emy Blue handbag" onerror="this.style.display='none'"></a>
+                    </div>
+                    <h3 class="card-title">Emy Blue</h3>
+                    <div class="card-foot">
+                        <span class="card-meta">₱1,299 · Shop now</span>
+                        <a class="btn btn-ghost btn-sm" href="product.html?id=emy-blue">View →</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-media">
+                        <input type="checkbox" id="heart3" class="state">
+                        <label for="heart3" class="heart" aria-label="Add Seffy Black to wishlist">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>
+                        </label>
+                        <a class="img-wrap" href="product.html?id=seffy-black"><img src="assets/images/images/seffy-black-1.jpg" alt="Seffy Black handbag" onerror="this.style.display='none'"></a>
+                    </div>
+                    <h3 class="card-title">Seffy Black</h3>
+                    <div class="card-foot">
+                        <span class="card-meta">₱1,499 · Shop now</span>
+                        <a class="btn btn-ghost btn-sm" href="product.html?id=seffy-black">View →</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-media">
+                        <input type="checkbox" id="heart4" class="state">
+                        <label for="heart4" class="heart" aria-label="Add Seffy Green to wishlist">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>
+                        </label>
+                        <a class="img-wrap" href="product.html?id=seffy-green"><img src="assets/images/images/seffy-green-1.jpg" alt="Seffy Green handbag" onerror="this.style.display='none'"></a>
+                    </div>
+                    <h3 class="card-title">Seffy Green</h3>
+                    <div class="card-foot">
+                        <span class="card-meta">₱1,499 · Shop now</span>
+                        <a class="btn btn-ghost btn-sm" href="product.html?id=seffy-green">View →</a>
+                    </div>
+                </article>
+
+            </div>
+
             <p class="brand-strip">Mystique Collections · Beauty, on your own terms</p>
         </section>
     </main>
 
-    <!--scripts: general.js first, then home.js-->
-    <script src="assets/js/general.js"></script>
-    <script src="assets/js/home.js"></script>
+    <!--footer-->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column brand-col">
+            <a href="front-page.html" class="footer-logo">mystique</a>
+            <p>(^^placeholder^^)</p>
+            <p>(Should be Logo)</p>
+        </div>
+        <div class="footer-column hours-col">
+            <h3>Opening Hours</h3>
+            <p>Monday to Friday: <span>Oras mo na</span></p>
+            <p>Saturday to Sunday: <span>muehhehehe</span></p>
+        </div>
+        <div class="footer-column links-col">
+            <h3>Contact Info</h3>
+            <ul class="footer-links">
+                <li><a href="#">Address: Lot 123, Etivac St., Brgy. Etivac, Etivac City, Etivac, Philippines</a></li>
+                <li><a href="#">Email: mystiquebusinessemail.123@gmail.com</a></li>
+                <li><a href="#">Phone Number: +63 6767 6767</a></li>
+                <li><a href="#">Instagram: Da Only Mystique Official 100% Legit Pure (Verified)</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

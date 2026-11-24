@@ -82,6 +82,40 @@ a {
 }
 
 
+/*css-only search bar (no JavaScript)*/
+body[data-page="ourworld"] .state {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-page="ourworld"] .search-panel {
+  display: none;
+}
+
+body[data-page="ourworld"] #searchToggle:checked ~ .navbar-header .search-panel {
+  display: block;
+}
+
+body[data-page="ourworld"] label.tool-btn,
+body[data-page="ourworld"] label.search-clear {
+  cursor: pointer;
+}
+
+body[data-page="ourworld"] .search-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-page="ourworld"] #searchToggle:focus-visible ~ .navbar-header .tool-btn[for="searchToggle"] {
+  outline: 2px solid var(--plum);
+  outline-offset: 3px;
+}
+
+
 /*page glow*/
 .page-glow {
   position: absolute;
@@ -220,34 +254,6 @@ main {
 
 .photo.card-lift:hover {
   box-shadow: var(--shadow-photo-hover);
-}
-
-
-/*scroll animation*/
-.js-enabled [data-animate] {
-  opacity: 0;
-  transition:
-    opacity 0.9s var(--ease) var(--delay, 0ms),
-    translate 0.9s var(--ease) var(--delay, 0ms),
-    transform 0.4s var(--ease),
-    box-shadow 0.4s var(--ease);
-}
-
-.js-enabled [data-animate="left"] {
-  translate: -90px 0;
-}
-
-.js-enabled [data-animate="right"] {
-  translate: 90px 0;
-}
-
-.js-enabled [data-animate="up"] {
-  translate: 0 60px;
-}
-
-.js-enabled [data-animate].is-visible {
-  opacity: 1;
-  translate: 0 0;
 }
 
 
@@ -959,16 +965,48 @@ main {
 }
 
 
+/*scroll reveal (css-only, replaces ourworld.js)
+  Slides each [data-animate] element in as it scrolls into view.
+  Browsers without scroll-driven animations just show everything.*/
+@keyframes ow-reveal-left {
+  from { opacity: 0; translate: -90px 0; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes ow-reveal-right {
+  from { opacity: 0; translate: 90px 0; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes ow-reveal-up {
+  from { opacity: 0; translate: 0 60px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@supports (animation-timeline: view()) {
+  [data-animate] {
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.22, 0.8, 0.3, 1);
+  }
+
+  [data-animate="left"]  { animation-name: ow-reveal-left; }
+  [data-animate="right"] { animation-name: ow-reveal-right; }
+  [data-animate="up"]    { animation-name: ow-reveal-up; }
+}
+
+
 /*reduced motion*/
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .js-enabled [data-animate] {
+  [data-animate] {
+    animation: none !important;
     opacity: 1;
     translate: 0 0;
-    transition: none;
   }
 
   .card-lift,
