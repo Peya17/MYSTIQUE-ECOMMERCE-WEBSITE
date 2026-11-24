@@ -33,8 +33,6 @@
                         </div>
                     </li>
                 </ul>
-                <input type="email" id="si-email" name="email" autocomplete="off" ...>
-                <input type="password" id="si-pass" name="password" autocomplete="new-password" ...>
             </aside>
 
             <div class="first-column">
@@ -50,7 +48,7 @@
                         Sign in to your account to continue.
                     </p>
 
-                    <form novalidate data-form="signin">
+                    <form novalidate autocomplete="off" data-form="signin">
                         <!--email-->
                         <div class="input-email field">
                             <label for="si-email">Email</label>
@@ -58,7 +56,7 @@
                                 type="email"
                                 id="si-email"
                                 name="email"
-                                autocomplete="email"
+                                autocomplete="off"
                                 placeholder="you@example.com"
                                 required
                             >
@@ -75,7 +73,7 @@
                                     type="password"
                                     id="si-pass"
                                     name="password"
-                                    autocomplete="current-password"
+                                    autocomplete="new-password"
                                     placeholder="Enter your password"
                                     required
                                 >
@@ -177,7 +175,7 @@
                     <p class="subheading">
                         Enter your email address to reset your password.
                     </p>
-                    <form novalidate data-form="forgot">
+                    <form novalidate autocomplete="off" data-form="forgot">
                         <div class="input-email field">
                             <label for="fp-email">Email</label>
                             <input
@@ -185,7 +183,7 @@
                                 id="fp-email"
                                 name="email"
                                 placeholder="you@example.com"
-                                autocomplete="email"
+                                autocomplete="off"
                                 required
                             >
                             <div class="msg"> <!--error msg-->
@@ -264,7 +262,7 @@
                         Create your Mystique account and discover your style.
                     </p>
 
-                    <form novalidate data-form="signup">
+                    <form novalidate autocomplete="off" data-form="signup">
                         <div class="row">
                             <!--first name-->
                             <div class="field">
@@ -273,7 +271,7 @@
                                     type="text"
                                     id="su-first"
                                     name="first-name"
-                                    autocomplete="given-name"
+                                    autocomplete="off"
                                     placeholder="Enter your first name"
                                     required
                                 >
@@ -289,7 +287,7 @@
                                     type="text"
                                     id="su-last"
                                     name="last-name"
-                                    autocomplete="family-name"
+                                    autocomplete="off"
                                     placeholder="Enter your last name"
                                     required
                                 >
@@ -306,7 +304,7 @@
                                 type="text"
                                 id="su-user"
                                 name="username"
-                                autocomplete="username"
+                                autocomplete="off"
                                 placeholder="Choose a username"
                                 maxlength="20"
                                 required
@@ -325,7 +323,7 @@
                                 id="su-email"
                                 name="email"
                                 placeholder="you@example.com"
-                                autocomplete="email"
+                                autocomplete="off"
                                 required
                             >
                             <div class="msg"> <!--error msg-->
@@ -340,7 +338,7 @@
                                 type="tel"
                                 id="su-phone"
                                 name="phone"
-                                autocomplete="tel"
+                                autocomplete="off"
                                 placeholder="+63 900 000 0000"
                             >
                             <p class="hint">For delivery updates only. No marketing texts.</p>
@@ -507,7 +505,7 @@
                     </p>
 
                     <!--code-->
-                    <form novalidate data-form="verify">
+                    <form novalidate autocomplete="off" data-form="verify">
                         <div class="field">
                             <label for="vf-code">Verification Code</label>
                             <input
@@ -577,7 +575,7 @@
                         Code verified. Choose a new password for <strong id="rs-email"></strong>.
                     </p>
 
-                    <form novalidate data-form="reset">
+                    <form novalidate autocomplete="off" data-form="reset">
                         <div class="field">
                             <label for="rs-pass">New Password</label>
                             <div class="inp">

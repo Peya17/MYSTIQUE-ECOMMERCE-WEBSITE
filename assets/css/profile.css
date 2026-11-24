@@ -1,0 +1,811 @@
+/* =========================================================
+   MYSTIQUE — profile popup + profile settings page
+   Every class starts with pf-, and the colors are the same ones used in
+   general.css and the checkout styles, copied into --pf-* variables.
+   That way this file works on every page, including Our World and the
+   Wishlist (which do not load general.css) without touching their styles.
+   ========================================================= */
+
+.pf-overlay,
+.pf-page,
+.pf-toast {
+    --pf-ink: #351D30;
+    --pf-ink-soft: rgba(53, 29, 48, 0.65);
+    --pf-gray: #8F7482;
+    --pf-plum: #7C4561;
+    --pf-dark: #4A2638;
+    --pf-surface: #F1E1E8;
+    --pf-surface-light: #F6E9EF;
+    --pf-field: #FBEFF4;
+    --pf-line: #E2C6D2;
+    --pf-edge: rgba(255, 255, 255, 0.75);
+    --pf-err: #A8304A;
+    --pf-ok: #4F7A5E;
+    --pf-raised: 6px 8px 18px rgba(124, 69, 97, 0.2), -4px -4px 12px rgba(255, 255, 255, 0.8);
+    --pf-raised-sm: 3px 4px 9px rgba(124, 69, 97, 0.22), -2px -2px 6px rgba(255, 255, 255, 0.8);
+    --pf-inset: inset 2px 2px 5px rgba(150, 90, 120, 0.18), inset -2px -2px 5px rgba(255, 255, 255, 0.85);
+    --pf-ease: 0.2s ease;
+    --pf-serif: "Cormorant Garamond", Georgia, serif;
+    --pf-sans: "Inter", system-ui, sans-serif;
+}
+
+.pf-overlay *,
+.pf-page *,
+.pf-toast {
+    box-sizing: border-box;
+}
+/* Hide scroll bars (scrolling itself still works: wheel, touch, keyboard) */
+.pf-page,
+.pf-box,
+.pf-nav {
+    scrollbar-width: none;          /* Firefox */
+    -ms-overflow-style: none;       /* old Edge */
+}
+
+.pf-page::-webkit-scrollbar,
+.pf-box::-webkit-scrollbar,
+.pf-nav::-webkit-scrollbar {
+    display: none;                  /* Chrome, Safari, new Edge */
+}
+.pf-overlay [hidden],
+.pf-page [hidden] { display: none !important; }
+
+/* ---------- Popup shell (same pattern as the quick view modal) ---------- */
+.pf-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(53, 29, 48, 0.55);
+    font-family: var(--pf-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--pf-ink);
+}
+
+.pf-overlay.open {
+    display: flex;
+    animation: pf-fade 0.2s ease;
+}
+
+@keyframes pf-fade { from { opacity: 0; } }
+
+.pf-box {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    padding: 34px 30px 28px;
+    border-radius: 30px;
+    background: #FAEEF3;
+    box-shadow: 0 24px 50px rgba(53, 29, 48, 0.45);
+}
+
+.pf-close {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: none;
+    color: var(--pf-ink);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform var(--pf-ease), background-color var(--pf-ease);
+}
+
+.pf-close:hover { transform: scale(1.05); background: rgba(124, 69, 97, 0.12); }
+
+/* Compact popup: sized so the sign in / create account views fit on a laptop screen without scrolling */
+.pf-box { max-width: 500px; padding: 28px 28px 24px; }
+.pf-box .pf-title { font-size: 36px; }
+.pf-box .pf-title-sm { font-size: 32px; }
+.pf-box .pf-tabs { margin: 16px 0 18px; }
+.pf-box .pf-tab { padding: 10px; }
+.pf-box .pf-field { margin-bottom: 12px; }
+.pf-box .pf-input { height: 42px; }
+.pf-box .pf-grid2 { gap: 0 12px; }
+.pf-box .pf-check { margin-bottom: 12px; }
+.pf-box .pf-foot { margin-top: 14px; }
+.pf-box .pf-who { margin-bottom: 16px; }
+.pf-box .pf-stats { margin-bottom: 14px; }
+.pf-box .pf-menu { gap: 8px; margin-bottom: 16px; }
+.pf-box .pf-menu a { padding: 12px 16px; }
+.pf-hint-form { margin: -2px 0 14px; }
+
+/* ---------- Typography ---------- */
+.pf-eyebrow {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pf-plum);
+}
+
+.pf-title {
+    margin: 0 0 6px;
+    font-family: var(--pf-serif);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.05;
+    color: var(--pf-ink);
+}
+
+.pf-title:focus { outline: none; }
+.pf-title-sm { font-size: 34px; margin: 0; }
+
+.pf-sub {
+    margin: 0;
+    font-size: 14px;
+    color: var(--pf-ink-soft);
+}
+
+.pf-h2 {
+    margin: 0 0 6px;
+    font-family: var(--pf-serif);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.1;
+    color: var(--pf-ink);
+}
+
+.pf-h2:focus { outline: none; }
+
+.pf-h3 {
+    margin: 0;
+    font-family: var(--pf-serif);
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.15;
+    color: var(--pf-ink);
+}
+
+.pf-note {
+    margin: 0 0 26px;
+    font-size: 14px;
+    color: var(--pf-ink-soft);
+}
+
+/* ---------- Tabs ---------- */
+.pf-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 22px 0 24px;
+}
+
+.pf-tab {
+    flex: 1;
+    padding: 12px 10px;
+    border: 1px solid var(--pf-edge);
+    border-radius: 14px;
+    background: var(--pf-surface);
+    color: var(--pf-ink);
+    box-shadow: var(--pf-raised-sm);
+    font-family: var(--pf-sans);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform var(--pf-ease), background-color var(--pf-ease), color var(--pf-ease);
+}
+
+.pf-tab.active,
+.pf-tab:hover {
+    background: var(--pf-plum);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* ---------- Fields ---------- */
+.pf-field { margin-bottom: 16px; }
+
+.pf-field > label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pf-gray);
+}
+
+.pf-optional {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+}
+
+.pf-input {
+    display: block;
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid var(--pf-line);
+    border-radius: 8px;
+    background: var(--pf-field);
+    box-shadow: var(--pf-inset);
+    font-family: var(--pf-sans);
+    font-size: 15px;
+    color: var(--pf-ink);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+textarea.pf-input {
+    height: 84px;
+    padding: 12px 14px;
+    resize: vertical;
+}
+
+select.pf-input { cursor: pointer; }
+
+.pf-input:hover { border-color: #D3AFC0; }
+
+.pf-input:focus {
+    outline: none;
+    border-color: #7A4260;
+    box-shadow: var(--pf-inset), 0 0 0 3px rgba(122, 66, 96, 0.18);
+}
+
+.pf-input::placeholder { color: #B596A6; }
+
+.pf-field.bad .pf-input { border-color: var(--pf-err); }
+
+.pf-error {
+    display: none;
+    margin: 5px 0 0;
+    font-size: 12.5px;
+    color: var(--pf-err);
+}
+
+.pf-field.bad .pf-error { display: block; }
+
+.pf-hint {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: var(--pf-gray);
+}
+
+.pf-form-error {
+    display: none;
+    margin: 0 0 14px;
+    padding: 10px 14px;
+    border: 1px solid var(--pf-err);
+    border-radius: 8px;
+    background: #FBEFF4;
+    font-size: 13px;
+    color: var(--pf-err);
+}
+
+.pf-form-error.show { display: block; }
+
+.pf-pw { position: relative; }
+.pf-pw .pf-input { padding-right: 64px; }
+
+.pf-pw-toggle {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    padding: 6px 8px;
+    border: none;
+    border-radius: 6px;
+    background: none;
+    font-family: var(--pf-sans);
+    font-size: 12px;
+    color: var(--pf-plum);
+    cursor: pointer;
+}
+
+.pf-pw-toggle:hover { background: rgba(124, 69, 97, 0.12); }
+
+.pf-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+}
+
+.pf-check,
+.pf-radio {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 0 14px;
+    font-size: 14px;
+    color: var(--pf-ink);
+    cursor: pointer;
+}
+
+.pf-check input,
+.pf-radio input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    accent-color: var(--pf-plum);
+    cursor: pointer;
+}
+
+.pf-check small {
+    display: block;
+    font-size: 12.5px;
+    color: var(--pf-gray);
+}
+
+/* ---------- Buttons (same look as .btn) ---------- */
+.pf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-family: var(--pf-sans);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform var(--pf-ease), background-color var(--pf-ease), color var(--pf-ease), opacity var(--pf-ease);
+}
+
+.pf-btn:hover { transform: scale(1.05); }
+.pf-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.pf-btn-primary { background: var(--pf-plum); color: #fff; box-shadow: var(--pf-raised-sm); }
+.pf-btn-primary:hover:not(:disabled) { background: var(--pf-ink); }
+
+.pf-btn-dark { background: var(--pf-dark); color: #fff; }
+.pf-btn-dark:hover:not(:disabled) { background: var(--pf-ink); }
+
+.pf-btn-ghost {
+    background: var(--pf-surface-light);
+    color: var(--pf-ink);
+    border-color: var(--pf-edge);
+    box-shadow: var(--pf-raised-sm);
+}
+
+.pf-btn-ghost:hover:not(:disabled) { background: #EFD9E2; }
+
+.pf-btn-danger { color: var(--pf-err); border-color: var(--pf-err); }
+
+.pf-btn-sm { padding: 8px 16px; font-size: 12px; }
+.pf-btn-block { display: flex; width: 100%; }
+
+.pf-link {
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--pf-plum);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.pf-link:hover { color: var(--pf-ink); }
+
+.pf-foot {
+    margin: 18px 0 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--pf-ink-soft);
+}
+
+.pf-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.pf-form-actions + .pf-form-actions { margin-top: 12px; }
+
+/* ---------- Signed-in popup view ---------- */
+.pf-who {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 4px 36px 22px 0;
+}
+
+.pf-who > div { min-width: 0; }
+
+.pf-avatar {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--pf-dark);
+    color: #fff;
+    box-shadow: var(--pf-raised-sm);
+    font-family: var(--pf-serif);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.pf-email {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--pf-ink-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pf-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.pf-stat {
+    display: block;
+    padding: 12px 10px;
+    border: 1px solid var(--pf-edge);
+    border-radius: 18px;
+    background: var(--pf-surface);
+    box-shadow: var(--pf-raised-sm);
+    text-align: center;
+    color: var(--pf-ink);
+    text-decoration: none;
+    transition: transform var(--pf-ease);
+}
+
+.pf-stat:hover { transform: scale(1.05); }
+
+.pf-stat b {
+    display: block;
+    font-family: var(--pf-serif);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.pf-stat span {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pf-ink-soft);
+}
+
+.pf-default {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    border: 1px solid var(--pf-edge);
+    border-radius: 18px;
+    background: var(--pf-surface-light);
+    box-shadow: var(--pf-raised-sm);
+}
+
+.pf-default span {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pf-ink-soft);
+}
+
+.pf-default p { margin: 4px 0 0; font-size: 14px; }
+
+.pf-menu {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.pf-menu a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--pf-edge);
+    border-radius: 14px;
+    background: var(--pf-surface-light);
+    box-shadow: var(--pf-raised-sm);
+    font-size: 14px;
+    color: var(--pf-ink);
+    text-decoration: none;
+    transition: transform var(--pf-ease), background-color var(--pf-ease);
+}
+
+.pf-menu a:hover { transform: scale(1.02); background: #EFD9E2; }
+
+/* ---------- Toast (same look as .toast in general.css) ---------- */
+.pf-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 32px;
+    z-index: 400;
+    max-width: calc(100vw - 32px);
+    transform: translate(-50%, 20px);
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--pf-plum);
+    color: #fff;
+    font-family: var(--pf-sans);
+    font-size: 13px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--pf-ease), transform var(--pf-ease);
+}
+
+.pf-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Keyboard focus ---------- */
+.pf-overlay a:focus-visible,
+.pf-overlay button:focus-visible,
+.pf-page a:focus-visible,
+.pf-page button:focus-visible,
+.pf-page summary:focus-visible {
+    outline: 2px solid var(--pf-plum);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   Profile settings page (profile.html)
+   Header and footer come from general.js / general.css.
+   ========================================================= */
+.pf-page {
+    font-family: var(--pf-sans);
+    color: var(--pf-ink);
+    padding-bottom: 24px;
+}
+
+.pf-layout {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+    margin-top: 36px;
+}
+
+.pf-side,
+.pf-card {
+    border: 1px solid var(--pf-edge);
+    border-radius: 28px;
+    background: var(--pf-surface);
+    box-shadow: var(--pf-raised);
+}
+
+.pf-side {
+    position: sticky;
+    top: 110px;
+    padding: 24px;
+}
+
+.pf-card { padding: 36px; }
+
+.pf-side .pf-who { margin: 0 0 22px; }
+.pf-side .pf-who strong { display: block; font-family: var(--pf-serif); font-size: 26px; font-weight: 500; line-height: 1.1; }
+.pf-side .pf-who small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--pf-ink-soft); overflow: hidden; text-overflow: ellipsis; }
+
+.pf-nav {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.pf-nav a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--pf-ink);
+    text-decoration: none;
+    transition: background-color var(--pf-ease), color var(--pf-ease);
+}
+
+.pf-nav a:hover { background: rgba(124, 69, 97, 0.12); }
+.pf-nav a.active { background: var(--pf-plum); color: #fff; }
+
+.pf-count {
+    min-width: 22px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: rgba(124, 69, 97, 0.15);
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.pf-nav a.active .pf-count { background: rgba(255, 255, 255, 0.25); }
+
+.pf-side-links {
+    display: grid;
+    gap: 4px;
+    margin-bottom: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--pf-line);
+}
+
+.pf-side-links a {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--pf-ink-soft);
+    text-decoration: none;
+}
+
+.pf-side-links a:hover { color: var(--pf-ink); }
+
+.pf-divider {
+    height: 1px;
+    margin: 32px 0;
+    background: var(--pf-line);
+}
+
+.pf-gate { max-width: 560px; margin-top: 36px; }
+
+/* Address cards */
+.pf-addr-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.pf-addr,
+.pf-order {
+    padding: 20px;
+    border: 1px solid var(--pf-edge);
+    border-radius: 22px;
+    background: var(--pf-surface-light);
+    box-shadow: var(--pf-raised-sm);
+}
+
+.pf-addr-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.pf-badge {
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--pf-plum);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+
+.pf-addr p { margin: 0 0 4px; font-size: 14px; }
+.pf-addr .pf-muted { font-size: 13px; }
+
+.pf-muted { color: var(--pf-ink-soft); }
+
+.pf-addr-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--pf-line);
+    font-size: 13px;
+}
+
+.pf-confirm {
+    margin: 14px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--pf-line);
+    font-size: 13px;
+}
+
+.pf-confirm .pf-form-actions { margin-top: 10px; }
+
+.pf-form-card {
+    margin-top: 8px;
+    padding: 28px;
+    border: 1px solid var(--pf-edge);
+    border-radius: 22px;
+    background: var(--pf-surface-light);
+    box-shadow: var(--pf-raised-sm);
+}
+
+.pf-form-card .pf-h3 { margin-bottom: 18px; }
+
+.pf-empty {
+    margin: 0 0 24px;
+    font-size: 15px;
+    color: var(--pf-ink-soft);
+}
+
+.pf-empty a { color: var(--pf-plum); }
+
+/* Orders */
+.pf-orders { display: grid; gap: 16px; }
+
+.pf-order > summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 16px;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+}
+
+.pf-order > summary::-webkit-details-marker { display: none; }
+
+.pf-order-num { font-family: var(--pf-serif); font-size: 24px; font-weight: 500; line-height: 1.1; }
+.pf-order-total { font-size: 17px; text-align: right; }
+.pf-order-date { font-size: 13px; color: var(--pf-ink-soft); }
+
+.pf-status {
+    justify-self: end;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: #F7E3EA;
+    color: #A5602F;
+    font-size: 12px;
+}
+
+.pf-status.ok { background: #E8F0EA; color: var(--pf-ok); }
+
+.pf-order-body {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--pf-line);
+}
+
+.pf-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.pf-row span:first-child { color: var(--pf-ink-soft); }
+.pf-row span:last-child { text-align: right; }
+.pf-row.total { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--pf-line); font-size: 17px; font-weight: 600; }
+.pf-row.total span:first-child { color: var(--pf-ink); }
+
+.pf-order-body .pf-btn { margin-top: 14px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .pf-layout { grid-template-columns: 1fr; gap: 24px; }
+    .pf-side { position: static; }
+    .pf-nav { display: flex; overflow-x: auto; padding-bottom: 4px; }
+    .pf-nav a { flex: none; gap: 10px; white-space: nowrap; }
+    .pf-card { padding: 28px 22px; }
+}
+
+@media (max-width: 768px) {
+    .pf-input { font-size: 16px; }
+}
+
+@media (max-width: 560px) {
+    .pf-box { padding: 28px 20px 22px; border-radius: 26px; }
+    .pf-title { font-size: 34px; }
+    .pf-grid2,
+    .pf-addr-grid { grid-template-columns: 1fr; }
+    .pf-form-card { padding: 22px 18px; }
+    .pf-stats { gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pf-overlay.open { animation: none; }
+    .pf-overlay *,
+    .pf-page *,
+    .pf-toast { transition: none !important; }
+}

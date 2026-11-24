@@ -1013,20 +1013,21 @@
         signOut: function () { clearSession(); document.dispatchEvent(new CustomEvent('mystique:signout')); },
         open: function (id) { show(id || 'dlg-signin'); }
     };
+})();
 
-    // Keep the text fields empty when the page shows up (beats browser autofill / back-button restore)
+/* ----------keep the fields empty when the page shows up---------- */
+// Beats browser autofill and back/forward-cache restore.
 (function () {
     function clearFields() {
         document.querySelectorAll(
             'dialog input[type="text"], dialog input[type="email"], dialog input[type="password"], dialog input[type="tel"]'
         ).forEach(function (i) {
-            // don't wipe the code or password the user is typing right now
+            // don't wipe what the user is typing right now
             if (document.activeElement !== i) i.value = '';
         });
     }
     clearFields();
     setTimeout(clearFields, 100);   // Chrome often autofills a moment after load
     setTimeout(clearFields, 500);
-    window.addEventListener('pageshow', clearFields);   // back/forward cache
-})();
+    window.addEventListener('pageshow', clearFields);
 })();

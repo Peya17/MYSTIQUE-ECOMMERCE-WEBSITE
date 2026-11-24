@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mystique | Your Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/general.css">
+    <link rel="stylesheet" href="./assets/css/profile.css">
+</head>
+<body data-page="profile">
+
+    <main class="container pf-page">
+        <div class="page-head">
+            <span class="section-eyebrow">Your Account</span>
+            <h1 class="page-title">Your little corner.</h1>
+            <p class="page-sub">Everything about you, all in one place.</p>
+        </div>
+
+        <!--profile-page.js draws the sign-in prompt or the settings here-->
+        <div id="pfPage"></div>
+    </main>
+
+    <!--scripts: profile.js first (accounts + popup), then general.js (header, footer), then this page-->
+    <script src="assets/js/profile.js"></script>
+    <script src="assets/js/general.js"></script>
+    <script src="assets/js/profile-page.js"></script>
+</body>
+</html>

@@ -13,8 +13,17 @@
     'use strict';
 
     /* ---------- Config ---------- */
+    // where this file was loaded from (used to find profile.js next to it)
+    const THIS_SRC = document.currentScript && document.currentScript.src;
+
     const PROMO = { code: 'MYSTIQUE15', rate: 0.15 };
     const SHIPPING = 120;
+
+    // login / sign up page (Sign Up button points here)
+    const AUTH_PAGE = 'loginandsignin.html';
+
+    // fallback page if the account popup (profile.js) has not loaded yet
+    const PROFILE_PAGE = 'profile.html';
 
     // folder that holds every product photo (change this one line if yours moves)
     const IMG_BASE = 'assets/images/images/';
@@ -239,11 +248,12 @@
                     <span class="cart-badge" data-cart-count>0</span>
                 </a>
                 <button type="button" class="tool-btn" aria-label="Profile" data-profile>
-    <svg width="17" height="19" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.416 9.08333C9.71696 9.08333 11.5822 7.21785 11.5822 4.91667C11.5822 2.61548 9.71696 0.75 7.416 0.75C5.11504 0.75 3.24975 2.61548 3.24975 4.91667C3.24975 7.21785 5.11504 9.08333 7.416 9.08333ZM7.416 9.08333C9.18393 9.08333 10.8795 9.78571 12.1296 11.036C13.3797 12.2862 14.082 13.9819 14.082 15.75M7.416 9.08333C5.64807 9.08333 3.95254 9.78571 2.70243 11.036C1.45231 12.2862 0.75 13.9819 0.75 15.75"
-        stroke-width="1.5" stroke-linecap="round" stroke="currentColor"/>
-    </svg>
-</button>
+                    <svg width="17" height="19" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.416 9.08333C9.71696 9.08333 11.5822 7.21785 11.5822 4.91667C11.5822 2.61548 9.71696 0.75 7.416 0.75C5.11504 0.75 3.24975 2.61548 3.24975 4.91667C3.24975 7.21785 5.11504 9.08333 7.416 9.08333ZM7.416 9.08333C9.18393 9.08333 10.8795 9.78571 12.1296 11.036C13.3797 12.2862 14.082 13.9819 14.082 15.75M7.416 9.08333C5.64807 9.08333 3.95254 9.78571 2.70243 11.036C1.45231 12.2862 0.75 13.9819 0.75 15.75"
+                        stroke-width="1.5" stroke-linecap="round"
+                        stroke="currentColor"/>
+                    </svg>
+                </button>
             </div>
         </nav>
         <div class="search-panel" id="searchPanel" hidden>
@@ -284,6 +294,59 @@
             </div>
         </div>
     </footer>`;
+
+    /* ---------- Profile icon <-> Sign Up ---------- */
+    // Reads the session the login page saves ("mq_session").
+    // It understands BOTH formats, so it works no matter which one the login page uses:
+    //   new  (profile.js):  mq_session = { id }            + mq_users = [ { id, email, ... } ]
+    //   old  (login page):  mq_session = { email, exp }    + mq_users = { "email": {...} }
+    function readJSON(area, key) {
+        try { return JSON.parse(area.getItem(key)); } catch (e) { return null; }
+    }
+
+    function isSignedIn() {
+        try {
+            const s = readJSON(localStorage, 'mq_session') || readJSON(sessionStorage, 'mq_session');
+            if (!s || typeof s !== 'object') return false;
+            if (s.exp && s.exp <= Date.now()) return false;            // expired session
+
+            const users = readJSON(localStorage, 'mq_users') || [];
+            const email = s.email ? String(s.email).toLowerCase() : '';
+
+            if (Array.isArray(users)) {
+                return users.some(u => u && ((s.id && u.id === s.id) ||
+                    (email && String(u.email || '').toLowerCase() === email)));
+            }
+            // object keyed by email
+            return Object.keys(users).some(k => k.toLowerCase() === email);
+        } catch (e) { return false; }
+    }
+
+    function updateProfileBtn() {
+        const signedIn = isSignedIn();
+        $$('[data-profile]').forEach(b => {
+            if (!b.dataset.icon) b.dataset.icon = b.innerHTML;   // remember the profile icon
+            if (signedIn) {
+                b.innerHTML = b.dataset.icon;                    // the icon comes back
+                b.classList.remove('signup-btn');
+                // not exactly "Profile", so profile.js's header click catcher leaves this click alone
+                b.setAttribute('aria-label', 'My profile');
+                b.onclick = () => {
+                    if (window.MQProfile) window.MQProfile.open();   // account popup
+                    else window.location.href = PROFILE_PAGE;        // fallback if profile.js hasn't loaded yet
+                };
+            } else {
+                b.textContent = 'Sign Up';
+                b.classList.add('signup-btn');
+                b.setAttribute('aria-label', 'Sign Up');
+                b.onclick = () => { window.location.href = AUTH_PAGE + '#signup'; };
+            }
+        });
+    }
+    window.addEventListener('pageshow', updateProfileBtn);         // back button / returning from the login page
+    window.addEventListener('focus', updateProfileBtn);            // coming back to this tab
+    window.addEventListener('storage', updateProfileBtn);          // sign in/out in another tab
+    document.addEventListener('mq:authchange', updateProfileBtn);  // sign in/out through profile.js
 
     /* ---------- Reusable card pieces ---------- */
     // quick = true: clicking the photo opens the quick view instead of leaving the page
@@ -537,6 +600,7 @@
         byId: byId, peso: peso, pesoD: pesoD, imgSlot: imgSlot, lineSub: lineSub,
         cartTotals: cartTotals, saveCart: saveCart, toast: toast,
         openQuick: openQuick, PRODUCTS: PRODUCTS, card: card, searchProducts: searchProducts,
+        updateProfileBtn: updateProfileBtn, isSignedIn: isSignedIn,
         // runs fn for <body data-page="name">; if the page already booted, runs it now
         page: function (name, fn) {
             pages[name] = fn;
@@ -547,37 +611,6 @@
             actions[name] = fn;
         }
     };
-
-    /* ---------- Profile icon <-> Sign Up ---------- */
-// same session the login page saves ("mq_session")
-function isSignedIn() {
-    try {
-        const s = JSON.parse(localStorage.getItem('mq_session')) ||
-                  JSON.parse(sessionStorage.getItem('mq_session'));
-        const users = JSON.parse(localStorage.getItem('mq_users')) || {};
-        return !!(s && s.exp > Date.now() && users[s.email]);
-    } catch (e) { return false; }
-}
-
-function updateProfileBtn() {
-    const signedIn = isSignedIn();
-    $$('[data-profile]').forEach(b => {
-        if (!b.dataset.icon) b.dataset.icon = b.innerHTML;   // remember the icon
-        if (signedIn) {
-            b.innerHTML = b.dataset.icon;
-            b.classList.remove('signup-btn');
-            b.setAttribute('aria-label', 'Profile');
-            b.onclick = () => { window.location.href = 'index.html'; };
-        } else {
-            b.textContent = 'Sign Up';
-            b.classList.add('signup-btn');
-            b.setAttribute('aria-label', 'Sign Up');
-            b.onclick = () => { window.location.href = 'index.html#signup'; };
-        }
-    });
-}
-window.addEventListener('pageshow', updateProfileBtn);
-window.addEventListener('storage', updateProfileBtn);
 
     /* ---------- Boot ---------- */
     // pages with their own header and footer (our world) add data-own-chrome to <body>,
@@ -591,6 +624,18 @@ window.addEventListener('storage', updateProfileBtn);
     }
     const page = document.body.dataset.page;
     if (pages[page]) pages[page]();
+    updateProfileBtn();
     badges();
     booted = true;
+
+    // profile.js (account popup + helpers) sits in the same folder.
+    // Pages that already loaded it with their own <script> tag are skipped.
+    if (!window.MQProfile && THIS_SRC) {
+        try {
+            const ps = document.createElement('script');
+            ps.src = new URL('profile.js', THIS_SRC).href;
+            ps.onload = updateProfileBtn;   // re-check the header button once it's ready
+            document.body.appendChild(ps);
+        } catch (e) { /* profile.js is optional for the header button */ }
+    }
 })();
